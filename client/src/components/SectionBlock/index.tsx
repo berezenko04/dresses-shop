@@ -1,8 +1,18 @@
 import styles from './SectionBlock.module.scss'
 
-const SectionBlock: React.FC = () => {
+type SectionBlockProps = {
+    children: React.ReactNode
+}
+
+const SectionBlock: React.FC<SectionBlockProps> = ({ children }) => {
     return (
-        <div>SectionBlock</div>
+        <section className={styles.section}>
+            <div className="container">
+                <div className={styles.section__wrapper}>
+                    {children}
+                </div>
+            </div>
+        </section>
     )
 }
 
