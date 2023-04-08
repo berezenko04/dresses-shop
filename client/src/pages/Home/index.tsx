@@ -43,7 +43,7 @@ const Home: React.FC = () => {
             <SectionBlock>
                 <h2>The Most Popular Dresses</h2>
                 <Swiper>
-                    
+
                 </Swiper>
             </SectionBlock>
         </div>
