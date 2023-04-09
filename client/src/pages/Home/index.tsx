@@ -21,6 +21,7 @@ import { fetchProducts } from '@/redux/products/asyncActions';
 //icons
 import { ReactComponent as ArrowLeftIcon } from '@/assets/icons/arrow-left.svg'
 import { ReactComponent as ArrowRightIcon } from '@/assets/icons/arrow-right.svg'
+import Header from '@/components/Header';
 
 
 
@@ -45,6 +46,7 @@ const Home: React.FC = () => {
 
     return (
         <div className={styles.page}>
+            <Header />
             <SectionBlock className={styles.achievements}>
                 <h2>Achievement</h2>
                 <ul>

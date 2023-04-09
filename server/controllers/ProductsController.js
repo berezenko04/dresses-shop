@@ -2,7 +2,10 @@ import ProductModel from '../models/product.js'
 
 export const getProducts = async (req, res) => {
     try {
-        const products = await ProductModel.find({});
+        const { sortBy, order } = req.query;
+        const sortOrder = order === 'desc' ? -1 : 1;
+        const sortField = sortBy || '_id';
+        const products = await ProductModel.find({}).sort({ [sortField]: sortOrder });
         res.send(products);
     } catch (err) {
         console.log(err);

@@ -1,13 +1,13 @@
 import { Outlet } from 'react-router-dom'
 
-import Header from "../../components/Header"
+import Navbar from '@/components/Navbar'
 
 
 const PrimaryLayout: React.FC = () => {
     return (
         <>
-            <Header />
-            <main style={{ paddingTop: '140px', paddingBottom: '40px' }}><Outlet /></main>
+            <Navbar />
+            <main style={{ paddingTop: '60px', paddingBottom: '40px' }}><Outlet /></main>
         </>
     )
 }

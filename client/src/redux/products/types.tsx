@@ -11,6 +11,7 @@ export enum Status {
 
 export type ProductItem = {
     id: number,
+    _id: string,
     title: string,
     price: number,
     discount: number,
