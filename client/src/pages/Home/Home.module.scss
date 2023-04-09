@@ -70,8 +70,58 @@
         gap: 32px;
         align-items: center;
 
-        &__controls{
-            
+        &__controls {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            button {
+                width: 48px;
+                height: 48px;
+                border-radius: 50%;
+                background-color: $gray-100;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                &:disabled {
+                    background-color: $gray-200;
+
+                    svg {
+                        path {
+                            color: $gray-400;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.contacts {
+    &__main {
+        display: grid;
+        grid-template-columns: 2fr 8fr;
+        gap: 32px;
+
+        ul {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+
+            li {
+                h4 {
+                    color: $black;
+                    font-weight: 400;
+                }
+
+                a,
+                p {
+                    font-size: 24px;
+                    line-height: 36px;
+                    color: $black;
+                }
+            }
         }
     }
 }
