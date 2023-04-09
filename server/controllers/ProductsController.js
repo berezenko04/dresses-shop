@@ -43,7 +43,7 @@ export const getProductsCount = async (req, res) => {
         } else {
             res.json({
                 message: "Success",
-                count: count
+                count
             });
         }
     });
