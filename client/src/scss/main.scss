@@ -3,7 +3,8 @@
 
 @font-face {
     font-family: "Placid Armor";
-    src: url("PlacidArmor-Medium.woff2") format("woff2"), url("PlacidArmor-Medium.woff") format("woff");
+    src: url("@/fonts/PlacidArmor-Medium.woff2") format("woff2"),
+        url("@/fonts/PlacidArmor-Medium.woff") format("woff");
     font-weight: 500;
     font-style: normal;
     font-display: swap;

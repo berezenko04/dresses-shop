@@ -1,5 +1,11 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ]
+    },
     "target": "ESNext",
     "useDefineForClassFields": true,
     "lib": [
@@ -19,11 +25,6 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx"
-  },
-  "paths": {
-    "@/*": [
-      "./src/*"
-    ]
   },
   "include": [
     "src",
