@@ -1,0 +1,50 @@
+@import "@/scss/variables.scss";
+
+.dropdown {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+
+    &__button {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 5px;
+
+        svg {
+            transition: transform 0.35s ease-in-out;
+        }
+    }
+
+    span {
+        text-transform: uppercase;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 24px;
+        color: $grey-700;
+    }
+
+    &__content {
+        opacity: 0;
+        animation: Visible 1s forwards;
+    }
+
+    @keyframes Visible {
+        0% {
+            opacity: 0;
+        }
+
+        100% {
+            opacity: 1;
+        }
+    }
+
+    .icon {
+        &__default {
+        }
+
+        &__active {
+            transform: rotate(180deg);
+        }
+    }
+}

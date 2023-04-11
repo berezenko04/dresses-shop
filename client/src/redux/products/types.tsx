@@ -1,6 +1,7 @@
 export interface ProductSliceState {
     items: ProductItem[],
-    status: 'loading' | 'success' | 'error'
+    status: 'loading' | 'success' | 'error',
+    length: number
 }
 
 export enum Status {
@@ -9,11 +10,19 @@ export enum Status {
     SUCCESS = 'success'
 }
 
+export interface Products {
+    products: ProductItem[],
+    length: number
+}
+
 export type ProductItem = {
-    id: number,
     _id: string,
+    id: number,
     title: string,
+    stock: boolean,
     price: number,
     discount: number,
-    imageUrl: string
+    imageUrl: string,
+    sizes: string[],
+    rating: number,
 }

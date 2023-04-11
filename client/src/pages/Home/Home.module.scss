@@ -121,6 +121,14 @@
                     line-height: 36px;
                     color: $black;
                 }
+
+                a {
+                    transition: all 0.2s ease-in;
+
+                    &:hover {
+                        text-decoration: underline;
+                    }
+                }
             }
         }
     }

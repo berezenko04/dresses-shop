@@ -12,7 +12,7 @@ import 'swiper/css/navigation';
 
 //components
 import SectionBlock from '@/components/SectionBlock';
-import ProductCard from '@/components/ProductCard';
+import ProductCard from '@/components/ProductCardDefault';
 
 //redux
 import { productsSelector } from '@/redux/products/selectors';
@@ -116,7 +116,7 @@ const Home: React.FC = () => {
                     <ul>
                         <li>
                             <h4>Mail:</h4>
-                            <a href="mailto:romanberezenko8@gmail.com">romanberezenko8@gmail.com</a>
+                            <Link to="mailto:romanberezenko8@gmail.com">romanberezenko8@gmail.com</Link>
                         </li>
                         <li>
                             <h4>Office:</h4>
@@ -124,7 +124,7 @@ const Home: React.FC = () => {
                         </li>
                         <li>
                             <h4>Phone:</h4>
-                            <a href="tel:380662284162">+380662284162</a>
+                            <Link to="tel:380662284162">+380662284162</Link>
                         </li>
                     </ul>
                     <iframe

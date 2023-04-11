@@ -3,8 +3,7 @@
 
 @font-face {
     font-family: "Placid Armor";
-    src: url("@/fonts/PlacidArmor-Medium.woff2") format("woff2"),
-        url("@/fonts/PlacidArmor-Medium.woff") format("woff");
+    src: url("@/fonts/PlacidArmor-Medium.woff2") format("woff2"), url("@/fonts/PlacidArmor-Medium.woff") format("woff");
     font-weight: 500;
     font-style: normal;
     font-display: swap;
@@ -27,10 +26,26 @@ h2 {
     font-family: "Placid Armor", serif;
 }
 
+h3 {
+    font-weight: 500;
+    font-size: 36px;
+    line-height: 54px;
+    text-transform: uppercase;
+    color: $white;
+}
+
 h4 {
     font-weight: 500;
     font-size: 36px;
     line-height: 54px;
+    text-transform: uppercase;
+    color: $white;
+}
+
+h5 {
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 30px;
     text-transform: uppercase;
     color: $white;
 }

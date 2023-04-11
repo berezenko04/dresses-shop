@@ -1,7 +1,19 @@
 import mongoose from "mongoose";
 
 const ProductSchema = new mongoose.Schema({
+    id: {
+        type: Number,
+        unique: true
+    },
     title: {
+        type: String,
+        required: true
+    },
+    stock: {
+        type: Boolean,
+        required: true
+    },
+    desc: {
         type: String,
         required: true
     },
@@ -16,6 +28,17 @@ const ProductSchema = new mongoose.Schema({
     discount: {
         type: Number,
         default: 0
+    },
+    rating: {
+        type: Number,
+        required: true
+    },
+    sizes: {
+        type: Array,
+        items: {
+            type: String
+        },
+        required: true
     }
 }, {
     timestamps: true,

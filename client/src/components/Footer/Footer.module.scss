@@ -1,0 +1,57 @@
+@import "@/scss/variables.scss";
+
+.footer {
+    background-color: $black;
+
+    a,
+    p {
+        color: $grey-500;
+    }
+
+    a {
+        transition: all 0.25s ease-in-out;
+
+        &:hover {
+            color: $white;
+        }
+    }
+
+    &__wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+    }
+
+    &__main {
+        padding: 32px 0;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+
+        &__col {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+
+            ul {
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
+            }
+        }
+    }
+
+    &__copyright {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+        padding: 16px 0;
+
+        ul {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+    }
+}

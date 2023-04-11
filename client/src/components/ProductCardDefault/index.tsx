@@ -1,14 +1,15 @@
 import { Link } from 'react-router-dom'
-import styles from './ProductCard.module.scss'
+import styles from './ProductCardDefault.module.scss'
 
-interface ProductCardProps {
+interface ProductCardDefaultProps {
+    _id: string,
     title: string,
     price: number,
     imageUrl: string,
-    _id: string
+    discount: number
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({ title, price, imageUrl, _id }) => {
+const ProductCardDefault: React.FC<ProductCardDefaultProps> = ({ _id, title, price, imageUrl }) => {
     return (
         <Link to={`/Sandrela/products/${_id}`}>
             <article className={styles.card} >
@@ -24,4 +25,4 @@ const ProductCard: React.FC<ProductCardProps> = ({ title, price, imageUrl, _id }
     )
 }
 
-export default ProductCard
+export default ProductCardDefault
