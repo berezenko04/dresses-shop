@@ -15,8 +15,9 @@ interface ProductCardExtendedProps {
 }
 
 const ProductCardExtended: React.FC<ProductCardExtendedProps> = ({ _id, title, price, imageUrl, discount }) => {
+    const id: string = _id;
     return (
-        <Link to={`/Sandrela/products/${_id}`}>
+        <Link to={`/Sandrela/products/${id}`}>
             <article className={styles.card} >
                 <div className={styles.card__image}>
                     <button className={styles.favorite}><FavoriteIcon /></button>

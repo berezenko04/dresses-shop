@@ -1,0 +1,31 @@
+@import "@/scss/variables.scss";
+
+.alert {
+    background-color: $grey-800;
+    padding: 16px 0;
+
+    &__wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 24px;
+        position: relative;
+    }
+
+    p {
+        font-weight: 500;
+        line-height: 150%;
+        color: $white;
+        a {
+            color: $primary-200;
+            text-decoration: underline;
+        }
+    }
+
+    button {
+        width: 24px;
+        height: 24px;
+        position: absolute;
+        right: 0;
+    }
+}

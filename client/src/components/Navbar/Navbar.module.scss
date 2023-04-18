@@ -17,12 +17,15 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 32px;
+            gap: 24px;
         }
 
         &__phone {
             color: $primary-500 !important;
             line-height: 24px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
         }
 
         &__info {
@@ -40,6 +43,42 @@
             align-items: center;
             justify-content: space-between;
             gap: 32px;
+        }
+
+        &__logo {
+            font-family: "Placid Armor", serif;
+            font-weight: 500;
+            font-size: 24px;
+            line-height: 29px;
+            letter-spacing: -0.08em;
+            text-transform: uppercase;
+            color: $grey-500;
+        }
+
+        &__catalog,
+        &__search {
+            padding: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid $grey-100;
+            font-size: 16px;
+            line-height: 24px;
+            color: $grey-300;
+        }
+
+        &__search {
+            width: 100%;
+
+            input {
+                width: 100%;
+                font-size: 16px;
+                line-height: 24px;
+
+                &::placeholder {
+                    color: $grey-300;
+                }
+            }
         }
 
         ul {
