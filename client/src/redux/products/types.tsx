@@ -20,9 +20,11 @@ export type ProductItem = {
     id: number,
     title: string,
     stock: boolean,
+    desc: string,
     price: number,
     discount: number,
     imageUrl: string,
     sizes: string[],
+    colors: string[],
     rating: number,
 }

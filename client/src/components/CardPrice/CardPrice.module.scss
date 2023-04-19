@@ -1,0 +1,22 @@
+@import "@/scss/variables.scss";
+
+.price {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    p {
+        font-weight: 500;
+        font-size: 20px;
+        line-height: 30px;
+        color: $primary-500;
+    }
+
+    span {
+        font-weight: 500;
+        font-size: 20px;
+        line-height: 30px;
+        color: $grey-300;
+        text-decoration-line: line-through;
+    }
+}

@@ -18,9 +18,9 @@ import { productsLengthSelector, productsSelector } from '@/redux/products/selec
 import { useAppDispatch } from '@/redux/store'
 import { fetchProducts } from '@/redux/products/asyncActions'
 
+export const sizes = ["xxs", "xs", "s", "m", "l", "xl", "2xl", "3xl", "4xl"];
 
 const Products: React.FC = () => {
-    const sizes = ["xxs", "xs", "s", "m", "l", "xl", "2xl", "3xl", "4xl"];
     const [sliderValue, setSliderValue] = useState([0, 100]);
     const products = useSelector(productsSelector);
     const colors = [
@@ -95,7 +95,7 @@ const Products: React.FC = () => {
                             <ul className={styles.page__main__sidebar__colors__list}>
                                 {colors.map((color, index) => (
                                     <li key={index}>
-                                        <input type="checkbox" name={color.name} id={color.name} />
+                                        <input type="checkbox" id={color.name} />
                                         <label htmlFor={color.name}>
                                             <div
                                                 style={{ backgroundColor: `${color.hex}`, border: `${color.lighten ? '1px solid #e3e3e3' : ''}` }}

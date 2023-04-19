@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import styles from './ProductCardExtended.module.scss'
 
 import { ReactComponent as FavoriteIcon } from '@/assets/icons/favorite.svg'
+import CardPrice from '../CardPrice';
 
 
 interface ProductCardExtendedProps {
@@ -26,17 +27,10 @@ const ProductCardExtended: React.FC<ProductCardExtendedProps> = ({ _id, title, p
                 <div className={styles.card__info}>
                     <p className={styles.card__info__title}>{title}</p>
                     <div className={styles.card__info__price}>
-                        {discount ?
-                            <>
-                                <p>{Math.round(price - (price * discount))} UAH</p>
-                                <span>{price} UAH</span>
-                            </>
-                            :
-                            <p>{price} UAH</p>
-                        }
+                        <CardPrice price={price} discount={discount} />
                     </div>
                 </div>
-            </article >
+            </article>
         </Link>
     )
 }
