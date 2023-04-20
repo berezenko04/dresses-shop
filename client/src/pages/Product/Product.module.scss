@@ -188,7 +188,92 @@
         }
     }
 
-    &__rating {
-        
+    &__reviews {
+        display: flex;
+        flex-direction: column;
+        gap: 64px;
+
+        &__rating {
+            display: flex;
+            gap: 64px;
+
+            &__left {
+                span {
+                    font-weight: 500;
+                    font-size: 64px;
+                    line-height: 96px;
+                    letter-spacing: -0.025em;
+                    text-transform: uppercase;
+                    color: $black;
+                }
+
+                &__info {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 8px;
+
+                    &__stars {
+                        display: flex;
+                        align-items: center;
+                        gap: 0;
+                    }
+
+                    p {
+                        font-weight: 500;
+                        font-size: 16px;
+                        line-height: 24px;
+                        letter-spacing: -0.025em;
+                        text-transform: uppercase;
+                        color: $grey-500;
+                    }
+                }
+            }
+
+            &__right {
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+
+                &__item {
+                    display: flex;
+                    align-items: center;
+                    gap: 16px;
+
+                    &__stars {
+                        display: flex;
+                        align-items: center;
+                        gap: 8px;
+
+                        span {
+                            text-align: center;
+                            width: 16px;
+                            font-weight: 500;
+                            line-height: 24px;
+                            letter-spacing: -0.025em;
+                            text-transform: uppercase;
+                            color: $grey-500;
+                        }
+                    }
+
+                    &__fill {
+                        width: 500px;
+                        height: 8px;
+                        background-color: $grey-100;
+
+                        div {
+                            background-color: $primary-500;
+                            height: 8px;
+                        }
+                    }
+                }
+            }
+        }
+
+        &__comments {
+            h3 {
+                color: $black;
+                font-family: "Placid Armor", serif;
+            }
+        }
     }
 }

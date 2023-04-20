@@ -19,6 +19,7 @@ import { productsSelector } from '@/redux/products/selectors';
 
 //icons
 import { ReactComponent as FavoriteIcon } from '@/assets/icons/favorite.svg'
+import { ReactComponent as StarIcon } from '@/assets/icons/star.svg'
 
 
 
@@ -93,12 +94,43 @@ const Product: React.FC = () => {
                             </div>
                         </div>
                     </div>
-                    <div className={styles.page__rating}>
+                    <div className={styles.page__reviews}>
                         <h2>Rating & Reviews</h2>
+                        <div className={styles.page__reviews__rating}>
+                            <div className={styles.page__reviews__rating__left}>
+                                <span>4.5</span>
+                                <div className={styles.page__reviews__rating__left__info}>
+                                    <ul className={styles.page__reviews__rating__left__info__stars}>
+                                        {[...Array(5)].map((_, index) => (
+                                            <li key={index}>
+                                                <StarIcon />
+                                            </li>
+                                        ))}
+                                    </ul>
+                                    <p>40 Ratings</p>
+                                </div>
+                            </div>
+                            <div className={styles.page__reviews__rating__right}>
+                                {[...Array(5)].map((_, index) => (
+                                    <div className={styles.page__reviews__rating__right__item}>
+                                        <div className={styles.page__reviews__rating__right__item__stars}>
+                                            <StarIcon />
+                                            <span>{5 - index}</span>
+                                        </div>
+                                        <div className={styles.page__reviews__rating__right__item__fill}>
+                                            <div style={{ width: `${100 - (20 * index)}%` }} />
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                        <div className={styles.page__reviews__comments}>
+                            <h3>Comments (10)</h3>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
 
     )
 }

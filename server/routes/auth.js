@@ -1,7 +1,7 @@
 import express from 'express'
 
 //validation
-import { authValidation } from '../validations/auth.js'
+import { authValidation } from '../validations.js'
 
 //utils
 import { checkAuth, validationErrors } from '../utils/index.js';
