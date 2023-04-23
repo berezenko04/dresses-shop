@@ -2,10 +2,12 @@ import { configureStore } from '@reduxjs/toolkit'
 import { useDispatch } from 'react-redux'
 
 import products from './products/slice'
+import comments from './comments/slice'
 
 export const store = configureStore({
     reducer: {
-        products
+        products,
+        comments
     }
 })
 

@@ -1,5 +1,5 @@
 import { useParams, Link } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 //styles
@@ -8,6 +8,7 @@ import styles from './Product.module.scss'
 //components
 import CardPrice from '@/components/CardPrice';
 import Colors from '@/components/Colors';
+import Comment from '@/components/Comment';
 
 //Array
 import { sizes } from '../Products';
@@ -16,6 +17,8 @@ import { sizes } from '../Products';
 import { useAppDispatch } from '@/redux/store';
 import { fetchProduct } from '@/redux/products/asyncActions';
 import { productsSelector } from '@/redux/products/selectors';
+import { fetchComments } from '@/redux/comments/asyncActions';
+import { commentsItemsSelector } from '@/redux/comments/selectors';
 
 //icons
 import { ReactComponent as FavoriteIcon } from '@/assets/icons/favorite.svg'
@@ -23,17 +26,23 @@ import { ReactComponent as StarIcon } from '@/assets/icons/star.svg'
 
 
 
+
+
 const Product: React.FC = () => {
+
+    const [comment, setComment] = useState("");
 
     const { id } = useParams();
     const dispatch = useAppDispatch();
     const product = useSelector(productsSelector);
+    const comments = useSelector(commentsItemsSelector);
 
     const isAvailable = product[0]?.stock;
 
     useEffect(() => {
         if (id) {
             dispatch(fetchProduct(id));
+            dispatch(fetchComments(id));
         }
     }, [])
 
@@ -71,10 +80,10 @@ const Product: React.FC = () => {
                                     }
                                 </div>
                                 <Colors colors={product[0]?.colors} />
-                                <p className={styles.page__product__right__desc}>{product[0]?.desc}</p>
+                                <p className='regular'>{product[0]?.desc}</p>
                                 <div className={styles.page__product__right__sizes}>
                                     <div className={styles.page__product__right__sizes__head}>
-                                        <h6>Select Size</h6>
+                                        <p className='regular-uppercase'>Select Size</p>
                                         <Link to="">Size Guide</Link>
                                     </div>
                                     <ul className={styles.page__product__right__sizes__list}>
@@ -125,12 +134,30 @@ const Product: React.FC = () => {
                             </div>
                         </div>
                         <div className={styles.page__reviews__comments}>
-                            <h3>Comments (10)</h3>
+                            <h3>Comments ({comments.length})</h3>
+                            <p>Review this product?</p>
+                            <form className={styles.page__reviews__comments__send} method='POST'>
+                                <textarea
+                                    name="comment"
+                                    id="comment"
+                                    placeholder='Enter your comment...'
+                                    onChange={(e) => setComment(e.target.value)}
+                                    value={comment}
+                                />
+                                <div className={styles.page__reviews__comments__send__bottom}>
+                                    <button type='submit' disabled={comment.length < 10}>Send</button>
+                                </div>
+                            </form>
+                            <div className={styles.page__reviews__comments__list}>
+                                {comments.map((comment, index) => (
+                                    <Comment {...comment} key={index} />
+                                ))}
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div >
+        </div>
 
     )
 }

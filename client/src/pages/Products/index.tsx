@@ -40,7 +40,7 @@ const Products: React.FC = () => {
         <div className="container">
             <div className={styles.page}>
                 <div className={styles.page__head}>
-                    <h4>Dresses ({productsLength})</h4>
+                    <h3>Dresses ({productsLength})</h3>
                     <div className={styles.page__head__sort}>
                         <button>
                             Hide Filters

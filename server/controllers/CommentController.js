@@ -39,19 +39,18 @@ export const getComments = async (req, res) => {
 
         const product = await ProductModel.findById(id);
 
-        if (product) {
-            const comments = await CommentModel.find({ product: id });
-            const commentsLength = comments.length;
-            res.status(200).json({
-                comments,
-                length: commentsLength
-            });
-
-        } else {
+        if (!product) {
             return res.status(404).json({
                 message: 'Product not found'
             });
         }
+
+        const comments = await CommentModel.find({ product: id });
+        const commentsLength = comments.length;
+        res.status(200).json({
+            comments,
+            length: commentsLength
+        });
     } catch (err) {
         console.log(err);
         res.status(500).json({
