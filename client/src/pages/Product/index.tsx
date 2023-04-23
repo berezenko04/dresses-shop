@@ -9,6 +9,7 @@ import styles from './Product.module.scss'
 import CardPrice from '@/components/CardPrice';
 import Colors from '@/components/Colors';
 import Comment from '@/components/Comment';
+import Button from '@/components/Button';
 
 //Array
 import { sizes } from '../Products';
@@ -23,8 +24,6 @@ import { commentsItemsSelector } from '@/redux/comments/selectors';
 //icons
 import { ReactComponent as FavoriteIcon } from '@/assets/icons/favorite.svg'
 import { ReactComponent as StarIcon } from '@/assets/icons/star.svg'
-
-
 
 
 
@@ -96,8 +95,8 @@ const Product: React.FC = () => {
                                     </ul>
                                 </div>
                                 <div className={styles.page__product__right__checkout}>
-                                    <Link to=''>Buy Now</Link>
-                                    <button>Add To Bag</button>
+                                    <Link to=''><Button size='lg' theme='primary'>Buy Now</Button></Link>
+                                    <Button size='lg' theme='secondary'>Add to bag</Button>
                                     <button><FavoriteIcon /></button>
                                 </div>
                             </div>

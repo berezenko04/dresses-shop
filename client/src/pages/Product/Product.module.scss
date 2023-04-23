@@ -153,32 +153,8 @@
                 align-items: center;
                 gap: 16px;
 
-                a,
-                button {
-                    padding: 16px;
-                    font-weight: 500;
-                    font-size: 16px;
-                    line-height: 24px;
-                    text-transform: uppercase;
-                    width: 100%;
-                    display: flex;
-                    justify-content: center;
-                }
-
                 a {
-                    background-color: $primary-500;
-                    color: $white;
-                }
-
-                button {
-                    border: 1px solid $primary-500;
-                    color: $primary-500;
-                }
-
-                button:last-child {
-                    border: 1px solid $grey-200;
-                    width: 56px;
-                    height: 56px;
+                    width: 100%;
                 }
             }
         }

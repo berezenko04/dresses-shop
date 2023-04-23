@@ -7,6 +7,12 @@ import UserModel from '../models/user.js'
 
 export const register = async (req, res) => {
     try {
+        const existingUser = await UserModel.findOne({ email: req.body.email });
+
+        if (existingUser) {
+            return res.status(409).json({ message: 'User with this email already exists' });
+        }
+
         const password = req.body.password;
         const salt = await bcrypt.genSalt(10);
         const hash = await bcrypt.hash(password, salt);

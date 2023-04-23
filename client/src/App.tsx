@@ -8,6 +8,7 @@ import Home from "./pages/Home"
 import Products from "./pages/Products";
 import Product from "./pages/Product";
 import Register from "./pages/Register";
+import Login from "./pages/Login";
 
 function App() {
 
@@ -20,6 +21,7 @@ function App() {
           <Route path={'products/:id'} element={<Product />} />
         </Route>
         <Route path={'Sandrela/register'} element={<Register />} />
+        <Route path={'Sandrela/login'} element={<Login />} />
       </Routes>
     </div>
   )

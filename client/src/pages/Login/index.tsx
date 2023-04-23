@@ -1,4 +1,4 @@
-import styles from './Register.module.scss'
+import styles from './Login.module.scss'
 
 //images
 import WeddingImage from '@/assets/img/register.jpg'
@@ -7,9 +7,9 @@ import WeddingImage from '@/assets/img/register.jpg'
 import { ReactComponent as LogoIcon } from '@/assets/icons/frorex-logo.svg'
 
 //components
-import RegistrationForm from '@/components/RegistrationForm'
+import LoginForm from '@/components/LoginForm'
 
-const Register: React.FC = () => {
+const Login: React.FC = () => {
     return (
         <div className={styles.page}>
             <div className={styles.page__left}>
@@ -28,13 +28,13 @@ const Register: React.FC = () => {
                     <LogoIcon />
                 </div>
                 <div className={styles.page__right__head}>
-                    <h2>Create an account</h2>
+                    <h2>Login an account</h2>
                     <p>Let’s get started with your 30day free trial.</p>
                 </div>
-                <RegistrationForm />
+                <LoginForm />
             </div>
         </div>
     )
 }
 
-export default Register
+export default Login

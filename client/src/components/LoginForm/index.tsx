@@ -1,10 +1,9 @@
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import axios from '@/axios'
 
 //styles
-import styles from './RegistrationForm.module.scss'
+import styles from './LoginForm.module.scss'
 
 //components
 import AuthField from '../AuthField'
@@ -19,46 +18,24 @@ type FormValues = {
 }
 
 
-const RegistrationForm: React.FC = () => {
-    const { register, handleSubmit, formState: { errors }, watch } = useForm<FormValues>();
+const LoginForm: React.FC = () => {
+    const { register, handleSubmit, formState: { errors } } = useForm<FormValues>();
 
     const [error, setError] = useState('');
 
     const navigate = useNavigate();
 
-
-
     const onSubmit: SubmitHandler<FormValues> = async (data) => {
         try {
-            await axios.post('/auth/register', data);
-            navigate('/Sandrela/login');
+            navigate('/Sandrela/');
         } catch (err: any) {
             setError(err?.response.data.message);
         }
     };
 
-
     return (
         <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
             <div className={styles.form__wrapper}>
-                <div className={styles.form__block}>
-                    <AuthField
-                        type='text'
-                        title='Full Name'
-                        {...register("fullName", {
-                            required: true,
-                            minLength: 8,
-                            maxLength: 50
-                        })}
-                        placeholder='Enter full name'
-                        className={errors.fullName ? styles.error : ''}
-                        error={!!errors.fullName}
-                    />
-                    {errors.fullName?.type === 'required' && <span>Full name is required.</span>}
-                    {errors.fullName?.type === 'minLength' && <span>Full name must be at least 8 characters.</span>}
-                    {errors.fullName?.type === 'maxLength' && <span>Full name must be less than 50 characters.</span>}
-                </div>
-
                 <div className={styles.form__block}>
                     <AuthField
                         type='text'
@@ -86,24 +63,11 @@ const RegistrationForm: React.FC = () => {
                     {errors.password?.type === 'minLength' && <span>Password must be at least 8 characters.</span>}
                     {errors.password?.type === 'maxLength' && <span>Password must be less than 32 characters.</span>}
                 </div>
-
-                <div className={styles.form__block}>
-                    <AuthField
-                        type='password'
-                        title='Repeat Password'
-                        {...register("repeatPassword", { required: true, validate: value => value === watch('password') })}
-                        placeholder='Repeat your password'
-                        className={errors.repeatPassword ? styles.error : ''}
-                        error={!!errors.repeatPassword}
-                    />
-                    {errors.repeatPassword?.type === 'required' && <span>Repeat password is required.</span>}
-                    {errors.repeatPassword?.type === 'validate' && <span>Passwords do not match.</span>}
-                </div>
             </div>
-            <Button size='sm' theme='primary' type="submit">Create Account</Button>
-            <p>Already have account? <Link to="/Sandrela/login">Log in</Link></p>
+            <Button size='sm' theme='primary' type="submit">Login</Button>
+            <p>Don`t have an account? <Link to="/Sandrela/register">Register</Link></p>
         </form>
     );
 }
 
-export default RegistrationForm
+export default LoginForm
