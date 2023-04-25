@@ -67,6 +67,7 @@ const RegistrationForm: React.FC = () => {
                         placeholder='Enter email'
                         className={errors.email ? styles.error : ''}
                         error={!!errors.email}
+                        onInput={() => setError('')}
                     />
                     {errors.email?.type === 'required' && <span>Email is required.</span>}
                     {errors.email?.type === 'pattern' && <span>Invalid email address.</span>}

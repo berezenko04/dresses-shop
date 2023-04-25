@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 //styles
 import styles from './Navbar.module.scss'
@@ -10,8 +11,19 @@ import { ReactComponent as FavoriteIcon } from '@/assets/icons/favorite.svg'
 import { ReactComponent as CartIcon } from '@/assets/icons/cart.svg'
 import { ReactComponent as PlatesIcon } from '@/assets/icons/grid-plates.svg'
 
+//redyx
+import { isAuthSelector } from '@/redux/auth/selectors'
+
 const Navbar: React.FC = () => {
-    const links = ['Find a Store', 'Help', 'Join us', 'Sign in'];
+    const links = [
+        { name: 'Find a Store', href: '' },
+        { name: 'Help', href: '' },
+        { name: 'Join us', href: '' },
+        { name: 'Sign in', href: '/Sandrela/login' }
+    ];
+
+    const isAuth = useSelector(isAuthSelector);
+
     return (
         <nav className={styles.navbar}>
             <div className={styles.navbar__top}>
@@ -26,7 +38,8 @@ const Navbar: React.FC = () => {
                         </Link>
                         <ul className={styles.navbar__top__info}>
                             {links.map((link, index) => (
-                                <li key={index}><Link to="/">{link}</Link></li>
+                                (index === 3 && isAuth) ? '' :
+                                    <li key={index}><Link to={link.href}>{link.name}</Link></li>
                             ))}
                         </ul>
                     </div>

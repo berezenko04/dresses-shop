@@ -1,6 +1,8 @@
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { Link, Navigate } from 'react-router-dom'
+import axios from '@/axios'
 
 //styles
 import styles from './LoginForm.module.scss'
@@ -9,29 +11,43 @@ import styles from './LoginForm.module.scss'
 import AuthField from '../AuthField'
 import Button from '../Button'
 
+//redux
+import { fetchUserData } from '@/redux/auth/asyncActions'
+import { useAppDispatch } from '@/redux/store'
+import { isAuthSelector } from '@/redux/auth/selectors'
 
-type FormValues = {
-    fullName: string,
+
+export type LoginFormValues = {
     email: string,
-    password: string,
-    repeatPassword: string
+    password: string
 }
 
 
 const LoginForm: React.FC = () => {
-    const { register, handleSubmit, formState: { errors } } = useForm<FormValues>();
+    const { register, handleSubmit, formState: { errors } } = useForm<LoginFormValues>();
 
     const [error, setError] = useState('');
+    const [status, setStatus] = useState(0);
 
-    const navigate = useNavigate();
-
-    const onSubmit: SubmitHandler<FormValues> = async (data) => {
+    const isAuth = useSelector(isAuthSelector);
+    const dispatch = useAppDispatch();
+    const onSubmit: SubmitHandler<LoginFormValues> = async (data) => {
         try {
-            navigate('/Sandrela/');
+            const response = await dispatch(fetchUserData(data));
+
+            if ('token' in response.payload) {
+                window.localStorage.setItem('token', response.payload.token);
+            }
         } catch (err: any) {
-            setError(err?.response.data.message);
+            console.error(err);
+            // setError(err.response?.data?.message || '');
+            // setStatus(err.response?.status || '');
         }
     };
+
+    if (isAuth) {
+        <Navigate to='/Sandrela/' />
+    }
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
@@ -44,10 +60,11 @@ const LoginForm: React.FC = () => {
                         placeholder='Enter email'
                         className={errors.email ? styles.error : ''}
                         error={!!errors.email}
+                        onInput={() => setError('')}
                     />
                     {errors.email?.type === 'required' && <span>Email is required.</span>}
                     {errors.email?.type === 'pattern' && <span>Invalid email address.</span>}
-                    {error && <span>{error}</span>}
+                    {status === 400 && (error && <span>{error}</span>)}
                 </div>
 
                 <div className={styles.form__block}>
@@ -58,10 +75,12 @@ const LoginForm: React.FC = () => {
                         placeholder='Enter password'
                         className={errors.password ? styles.error : ''}
                         error={!!errors.password}
+                        onInput={() => setError('')}
                     />
                     {errors.password?.type === 'required' && <span>Password is required.</span>}
                     {errors.password?.type === 'minLength' && <span>Password must be at least 8 characters.</span>}
                     {errors.password?.type === 'maxLength' && <span>Password must be less than 32 characters.</span>}
+                    {status == 401 && (error && <span>{error}</span>)}
                 </div>
             </div>
             <Button size='sm' theme='primary' type="submit">Login</Button>

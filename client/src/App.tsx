@@ -1,16 +1,31 @@
 import { Routes, Route } from "react-router-dom"
+import { useEffect } from "react";
+import { useAppDispatch } from "./redux/store";
+import { useSelector } from "react-redux";
 
+//styles
 import "./scss/main.scss";
 
+//layout
 import PrimaryLayout from "./layout/PrimaryLayout";
 
+//pages
 import Home from "./pages/Home"
 import Products from "./pages/Products";
 import Product from "./pages/Product";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 
+//redux
+import { fetchAuthMe } from "./redux/auth/asyncActions";
+
+
 function App() {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(fetchAuthMe());
+  }, [])
 
   return (
     <div className="App">
