@@ -1,0 +1,11 @@
+.page {
+    &__wrapper {
+        display: grid;
+        gap: 32px;
+        grid-template-columns: 2fr 10fr;
+    }
+
+    &__main {
+        
+    }
+}

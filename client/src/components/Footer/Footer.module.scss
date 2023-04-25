@@ -25,13 +25,43 @@
     &__main {
         padding: 32px 0;
         display: grid;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 3fr 3fr 3fr 3fr;
         gap: 24px;
+
+        &__info {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+
+            h2 {
+                font-weight: 500;
+                font-size: 24px;
+                font-family: "Placid Armor", serif;
+                line-height: 29px;
+                letter-spacing: -0.08em;
+                text-transform: uppercase;
+                color: $white;
+            }
+
+            &__socials {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+            }
+        }
 
         &__col {
             display: flex;
             flex-direction: column;
             gap: 16px;
+
+            h4 {
+                font-weight: 500;
+                font-size: 20px;
+                line-height: 30px;
+                text-transform: uppercase;
+                color: $white;
+            }
 
             ul {
                 display: flex;

@@ -1,0 +1,28 @@
+@import "@/scss/variables.scss";
+
+.tab {
+    width: 100%;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.1s ease-in-out;
+
+    span {
+        font-size: 16px;
+        font-weight: 500;
+        color: $grey-500;
+        text-transform: uppercase;
+    }
+
+    &__active {
+        svg {
+            path {
+                fill: $primary-500;
+            }
+        }
+        span {
+            color: $primary-500 !important;
+        }
+    }
+}

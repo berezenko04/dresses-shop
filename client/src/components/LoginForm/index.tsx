@@ -35,13 +35,14 @@ const LoginForm: React.FC = () => {
         try {
             const response = await dispatch(fetchUserData(data));
 
-            if ('token' in response.payload) {
+            if (response.payload.token) {
                 window.localStorage.setItem('token', response.payload.token);
             }
-        } catch (err: any) {
-            console.error(err);
-            // setError(err.response?.data?.message || '');
-            // setStatus(err.response?.status || '');
+
+        } catch (err: unknown) {
+            console.log(err)
+            setError(err.response.data.message);
+            setStatus(err.response.status);
         }
     };
 

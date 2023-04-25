@@ -6,7 +6,7 @@ export const fetchUserData = createAsyncThunk(
     '/auth/fetchUserData',
     async (params: LoginFormValues) => {
         const data = await getUserData(params);
-        console.log(data);
+        console.log('data', data);
         return data;
     }
 )

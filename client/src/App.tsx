@@ -18,6 +18,7 @@ import Login from "./pages/Login";
 
 //redux
 import { fetchAuthMe } from "./redux/auth/asyncActions";
+import Profile from "./pages/Profile";
 
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
           <Route path={''} element={<Home />} />
           <Route path={'products'} element={<Products />} />
           <Route path={'products/:id'} element={<Product />} />
+          <Route path={'profile'} element={<Profile />} />
         </Route>
         <Route path={'Sandrela/register'} element={<Register />} />
         <Route path={'Sandrela/login'} element={<Login />} />
