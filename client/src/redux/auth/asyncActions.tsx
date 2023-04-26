@@ -5,9 +5,13 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 export const fetchUserData = createAsyncThunk(
     '/auth/fetchUserData',
     async (params: LoginFormValues) => {
-        const data = await getUserData(params);
-        console.log(data);
-        return data;
+        try {
+            const data = await getUserData(params);
+            return data;
+        } catch (error: any) {
+            return error.response.data
+        }
+
     }
 )
 

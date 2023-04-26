@@ -27,6 +27,7 @@ const LoginForm: React.FC = () => {
     const { register, handleSubmit, formState: { errors } } = useForm<LoginFormValues>();
 
     const [error, setError] = useState('');
+    const [message, setMessage] = useState('')
     const [status, setStatus] = useState(0);
 
     const isAuth = useSelector(isAuthSelector);
@@ -36,13 +37,18 @@ const LoginForm: React.FC = () => {
             const response = await dispatch(fetchUserData(data));
 
             if ('token' in response.payload) {
+                setMessage("Login success")
                 window.localStorage.setItem('token', response.payload.token);
+            } else {
+                setError(response.payload.message);
+                // setStatus(err.response?.status || '');
             }
-        } catch (err: any) {
-            console.error(err);
-            // setError(err.response?.data?.message || '');
-            // setStatus(err.response?.status || '');
+
+        } catch (error) {
+            console.error(error)
         }
+
+
     };
 
     if (isAuth) {
@@ -52,6 +58,12 @@ const LoginForm: React.FC = () => {
     return (
         <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
             <div className={styles.form__wrapper}>
+                {error && (
+                    <p style={{ color: "red" }}>{error}</p>
+                )}
+                {message && (
+                    <p style={{ color: "green" }}>{message}</p>
+                )}
                 <div className={styles.form__block}>
                     <AuthField
                         type='text'
