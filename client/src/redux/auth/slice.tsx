@@ -5,7 +5,8 @@ import { AuthSliceState, UserData } from "./types";
 
 const initialState: AuthSliceState = {
     data: null,
-    status: 'loading'
+    status: 'loading',
+    message: null
 }
 
 export const AuthSlice = createSlice({
@@ -23,9 +24,10 @@ export const AuthSlice = createSlice({
             state.status = Status.SUCCESS;
         })
 
-        builder.addCase(fetchUserData.rejected, (state) => {
+        builder.addCase(fetchUserData.rejected, (state, action) => {
             state.data = null;
             state.status = Status.ERROR;
+            state.message = action.payload.error.message;
         })
 
         builder.addCase(fetchAuthMe.pending, (state) => {

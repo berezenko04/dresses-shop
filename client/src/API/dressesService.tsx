@@ -4,8 +4,8 @@ import axios from '@/axios'
 import { ProductItem, Products } from '@/redux/products/types';
 import { Comments } from '@/redux/comments/types';
 
-export const getProducts = async () => {
-    const { data } = await axios.get<Products>('/api/products');
+export const getProducts = async (order?: string, sortBy?: string, page?: number, limit?: number) => {
+    const { data } = await axios.get<Products>(`/api/products?sortBy=${sortBy}&order=${order}&page=${page}&limit=${limit}`);
     return data;
 }
 

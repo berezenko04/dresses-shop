@@ -4,15 +4,12 @@ import axios from "@/axios"
 import { LoginFormValues } from "@/components/LoginForm";
 
 export const getUserData = async (params: LoginFormValues) => {
-    try {
-        const { data } = await axios.post('/auth/login', params);
-        return data;
-    } catch (err) {
-        throw err;
-    }
+    const { data } = await axios.post('/auth/login', params);
+    return data;
 }
 
 export const getAuthMe = async () => {
     const { data } = await axios.get('/auth/me');
     return data;
 }
+getAuthMe();

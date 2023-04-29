@@ -15,6 +15,13 @@ export interface Products {
     length: number
 }
 
+export type FetchProducts = {
+    sortBy?: string,
+    order?: string,
+    page?: number,
+    limit?: number
+}
+
 export type ProductItem = {
     _id: string,
     id: number,

@@ -1,16 +1,17 @@
-import jwt from 'jsonwebtoken'
-import bcrypt from 'bcrypt'
+import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
 
 //models
-import UserModel from '../models/user.js'
-
+import UserModel from "../models/user.js";
 
 export const register = async (req, res) => {
     try {
         const existingUser = await UserModel.findOne({ email: req.body.email });
 
         if (existingUser) {
-            return res.status(409).json({ message: 'User with this email already exists' });
+            return res
+                .status(409)
+                .json({ message: "User with this email already exists" });
         }
 
         const password = req.body.password;
@@ -20,7 +21,7 @@ export const register = async (req, res) => {
         const doc = new UserModel({
             fullName: req.body.fullName,
             email: req.body.email,
-            passwordHash: hash
+            passwordHash: hash,
         });
 
         const user = await doc.save();
@@ -29,9 +30,9 @@ export const register = async (req, res) => {
             {
                 _id: user._id,
             },
-            'secret123',
+            "secret123",
             {
-                expiresIn: '30d'
+                expiresIn: "30d",
             }
         );
 
@@ -39,39 +40,42 @@ export const register = async (req, res) => {
 
         res.json({
             ...userData,
-            token
+            token,
         });
     } catch (err) {
         console.log(err);
         res.status(500).json({
-            message: 'Failed to register'
+            message: "Failed to register",
         });
     }
-}
+};
 
 export const login = async (req, res) => {
     try {
         const user = await UserModel.findOne({ email: req.body.email });
         if (!user) {
             return res.status(400).json({
-                message: 'User is not found'
-            })
+                message: "User is not found",
+            });
         }
 
-        const isValidPass = await bcrypt.compare(req.body.password, user._doc.passwordHash);
+        const isValidPass = await bcrypt.compare(
+            req.body.password,
+            user._doc.passwordHash
+        );
         if (!isValidPass) {
             return res.status(401).json({
-                message: 'Password is incorrect'
-            })
+                message: "Password is incorrect",
+            });
         }
 
         const token = jwt.sign(
             {
                 _id: user._id,
             },
-            'secret123',
+            "secret123",
             {
-                expiresIn: '30d'
+                expiresIn: "30d",
             }
         );
 
@@ -79,24 +83,23 @@ export const login = async (req, res) => {
 
         res.json({
             ...userData,
-            token
+            token,
         });
-
     } catch (err) {
         console.log(err);
         res.status(500).json({
-            message: 'Failed to auth'
+            message: "Failed to auth",
         });
     }
-}
+};
 
 export const getMe = async (req, res) => {
     try {
         const user = await UserModel.findById(req.userId);
         if (!user) {
             return res.status(404).json({
-                message: 'User is not found'
-            })
+                message: "User is not found",
+            });
         }
 
         const { passwordHash, ...userData } = user._doc;
@@ -104,7 +107,7 @@ export const getMe = async (req, res) => {
     } catch (err) {
         console.log(err);
         res.status(500).json({
-            message: 'Access denied'
+            message: "Access denied",
         });
     }
-}
+};

@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
+import { useEffect } from 'react'
 
 //styles
 import styles from './Navbar.module.scss'
@@ -12,7 +13,10 @@ import { ReactComponent as CartIcon } from '@/assets/icons/cart.svg'
 import { ReactComponent as PlatesIcon } from '@/assets/icons/grid-plates.svg'
 
 //redyx
-import { isAuthSelector } from '@/redux/auth/selectors'
+import { authDataSelector, isAuthSelector } from '@/redux/auth/selectors'
+import { useAppDispatch } from '@/redux/store'
+import { fetchAuthMe } from '@/redux/auth/asyncActions'
+
 
 const Navbar: React.FC = () => {
     const links = [
@@ -22,7 +26,14 @@ const Navbar: React.FC = () => {
         { name: 'Sign in', href: '/Sandrela/login' }
     ];
 
+    const dispatch = useAppDispatch();
+
     const isAuth = useSelector(isAuthSelector);
+    const data = useSelector(authDataSelector);
+
+    useEffect(() => {
+        dispatch(fetchAuthMe());
+    }, [])
 
     return (
         <nav className={styles.navbar}>
@@ -57,14 +68,19 @@ const Navbar: React.FC = () => {
                             <SearchIcon />
                             <input type="text" placeholder='Search something...' />
                         </div>
-                        <ul>
-                            <li><Link to="/"><FavoriteIcon /></Link></li>
-                            <li><Link to="/"><CartIcon /></Link></li>
-                        </ul>
+                        <div className={styles.navbar__bottom__user}>
+                            <Link to="/"><FavoriteIcon /></Link>
+                            <Link to="/"><CartIcon /></Link>
+                            {isAuth &&
+                                <Link to={`/Sandrela/profile/${data?._id}`}>
+                                    <img src={data?.avatarUrl} alt="avatar" />
+                                </Link>
+                            }
+                        </div>
                     </div>
                 </div>
             </div>
-        </nav >
+        </nav>
     )
 }
 

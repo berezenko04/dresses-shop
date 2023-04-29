@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import RangeSlider from 'react-range-slider-input';
+
 //styles
 import styles from './Products.module.scss'
 import 'react-range-slider-input/dist/style.css';
@@ -8,6 +9,7 @@ import 'react-range-slider-input/dist/style.css';
 //components
 import Dropdown from '@/components/Dropdown'
 import ProductCardExtended from '@/components/ProductCardExtended';
+import Pagination from '@/components/Pagination';
 
 //icons
 import { ReactComponent as FilterIcon } from '@/assets/icons/filter.svg'
@@ -18,23 +20,33 @@ import { productsLengthSelector, productsSelector } from '@/redux/products/selec
 import { useAppDispatch } from '@/redux/store'
 import { fetchProducts } from '@/redux/products/asyncActions'
 
+
 export const sizes = ["xxs", "xs", "s", "m", "l", "xl", "2xl", "3xl", "4xl"];
 
 const Products: React.FC = () => {
     const [sliderValue, setSliderValue] = useState([0, 100]);
-    const products = useSelector(productsSelector);
+    const [page, setPage] = useState(1);
+    const [limit, setLimit] = useState(12);
+
     const colors = [
         { name: 'blue', hex: '#82DBF8', lighten: false },
         { name: 'lactic', hex: '#FFF6EE', lighten: false },
         { name: 'white', hex: '#ffffff', lighten: true },
         { name: 'golden', hex: '#FFD66C', lighten: false }
     ];
+
     const dispatch = useAppDispatch();
     const productsLength = useSelector(productsLengthSelector);
+    const products = useSelector(productsSelector);
+
+    const handlePageChange = (newPage: number) => {
+        setPage(newPage);
+    }
 
     useEffect(() => {
-        dispatch(fetchProducts());
-    }, [])
+        dispatch(fetchProducts({ page, limit }));
+    }, [page])
+
 
     return (
         <div className="container">
@@ -115,6 +127,7 @@ const Products: React.FC = () => {
                         ))}
                     </div>
                 </div>
+                <Pagination pageCount={Math.ceil(products.length / limit)} limit={limit} onPageChange={handlePageChange} />
             </div>
         </div>
     )

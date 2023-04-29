@@ -2,11 +2,19 @@ import ProductModel from '../models/product.js'
 
 export const getProducts = async (req, res) => {
     try {
-        const { sortBy, order } = req.query;
+        const { sortBy, order, page = 1, limit = 12 } = req.query;
+
         const sortOrder = order === 'desc' ? -1 : 1;
         const sortField = sortBy || '_id';
-        const products = await ProductModel.find({}).sort({ [sortField]: sortOrder });
-        const productsLength = products.length;
+        const skip = (page - 1) * limit;
+
+        const products = await ProductModel.find({})
+            .sort({ [sortField]: sortOrder })
+            .skip(skip)
+            .limit(parseInt(limit));
+
+        const productsLength = await ProductModel.find({}).sort({ [sortField]: sortOrder }).countDocuments();
+
         res.status(200).json({
             products,
             length: productsLength

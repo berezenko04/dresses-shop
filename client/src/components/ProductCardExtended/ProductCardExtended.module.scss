@@ -8,8 +8,9 @@
     &__image {
         height: 535px;
         position: relative;
+        overflow: hidden;
 
-        .favorite {
+        &__favorite {
             position: absolute;
             top: 16px;
             right: 16px;
@@ -20,6 +21,23 @@
             justify-content: center;
             background-color: $white;
             border-radius: 50%;
+        }
+
+        &__discount {
+            position: absolute;
+            right: -80px;
+            bottom: 40px;
+            z-index: 2;
+            width: 70%;
+            background-color: $green;
+            padding: 12px 8px;
+            display: flex;
+            justify-content: center;
+            font-weight: 500;
+            font-size: 20px;
+            line-height: 30px;
+            color: $white;
+            transform: rotate(-45deg);
         }
 
         img {
@@ -35,11 +53,18 @@
         flex-direction: column;
         gap: 8px;
 
-        &__title {
-            font-weight: 500;
-            font-size: 20px;
-            line-height: 30px;
-            color: $grey-700;
+        &__head {
+            &__title {
+                font-weight: 500;
+                font-size: 20px;
+                line-height: 30px;
+                color: $grey-700;
+            }
+
+            &__colors {
+                line-height: 24px;
+                color: $grey-300;
+            }
         }
 
         &__price {
