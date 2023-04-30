@@ -1,3 +1,5 @@
+import { ProductItem } from "../products/types"
+
 export interface AuthSliceState {
     data: null | UserData,
     status: 'loading' | 'success' | 'error',
@@ -9,7 +11,8 @@ export interface UserData {
     email: string,
     fullName: string,
     avatarUrl: string,
-    token: string
+    token: string,
+    wishList: ProductItem[]
 }
 
 

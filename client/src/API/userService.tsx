@@ -12,4 +12,7 @@ export const getAuthMe = async () => {
     const { data } = await axios.get('/auth/me');
     return data;
 }
-getAuthMe();
+
+export const addToWishList = async (userId: string, itemId: string) => {
+    await axios.post(`/wishlist/add?userId=${userId}&itemId=${itemId}`);
+}

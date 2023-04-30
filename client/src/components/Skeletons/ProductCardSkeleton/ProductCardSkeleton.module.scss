@@ -1,0 +1,67 @@
+@import "@/scss/variables.scss";
+@import "@/scss/mixins.scss";
+
+.skeleton {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    &__image {
+        height: 535px;
+        width: 100%;
+        background-color: lightgray;
+        position: relative;
+        overflow: hidden;
+
+        @include Skeleton;
+        @include LoadAnimation;
+    }
+
+    &__info {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+
+        &__head {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+
+            &__title {
+                background-color: lightgray;
+                height: 30px;
+                width: 60%;
+                border-radius: 12px;
+                position: relative;
+                overflow: hidden;
+
+                @include Skeleton;
+                @include LoadAnimation;
+            }
+
+            &__colors {
+                background-color: lightgray;
+                height: 24px;
+                width: 30%;
+                border-radius: 12px;
+                position: relative;
+                overflow: hidden;
+
+                @include Skeleton;
+                @include LoadAnimation;
+            }
+        }
+
+        &__price {
+            background-color: lightgray;
+            width: 35%;
+            height: 30px;
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+
+            @include Skeleton;
+            @include LoadAnimation;
+        }
+    }
+}

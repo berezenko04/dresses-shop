@@ -8,7 +8,7 @@ import styles from './Navbar.module.scss'
 //icons
 import { ReactComponent as PhoneIcon } from '@/assets/icons/phone.svg'
 import { ReactComponent as SearchIcon } from '@/assets/icons/search.svg'
-import { ReactComponent as FavoriteIcon } from '@/assets/icons/favorite.svg'
+import { ReactComponent as FavoriteIcon } from '@/assets/icons/heart.svg'
 import { ReactComponent as CartIcon } from '@/assets/icons/cart.svg'
 import { ReactComponent as PlatesIcon } from '@/assets/icons/grid-plates.svg'
 
@@ -72,7 +72,10 @@ const Navbar: React.FC = () => {
                             <Link to="/"><FavoriteIcon /></Link>
                             <Link to="/"><CartIcon /></Link>
                             {isAuth &&
-                                <Link to={`/Sandrela/profile/${data?._id}`}>
+                                <Link
+                                    className={styles.navbar__bottom__user__avatar}
+                                    to={`/Sandrela/profile/${data?._id}`}
+                                >
                                     <img src={data?.avatarUrl} alt="avatar" />
                                 </Link>
                             }

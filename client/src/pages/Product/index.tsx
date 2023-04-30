@@ -22,7 +22,7 @@ import { fetchComments } from '@/redux/comments/asyncActions';
 import { commentsItemsSelector } from '@/redux/comments/selectors';
 
 //icons
-import { ReactComponent as FavoriteIcon } from '@/assets/icons/favorite.svg'
+import { ReactComponent as FavoriteIcon } from '@/assets/icons/heart.svg'
 import { ReactComponent as StarIcon } from '@/assets/icons/star.svg'
 
 

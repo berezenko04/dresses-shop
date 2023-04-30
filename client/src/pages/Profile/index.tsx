@@ -10,7 +10,7 @@ import Account from '@/components/ProfileComponents/Account';
 
 //icons
 import { ReactComponent as UserIcon } from '@/assets/icons/user.svg'
-import { ReactComponent as FavoriteIcon } from '@/assets/icons/favorite.svg'
+import { ReactComponent as FavoriteIcon } from '@/assets/icons/heart.svg'
 import { ReactComponent as SettingsIcon } from '@/assets/icons/settings.svg'
 import { ReactComponent as ReviewsIcon } from '@/assets/icons/reviews.svg'
 import { ReactComponent as StarIcon } from '@/assets/icons/star-empty.svg'
@@ -22,6 +22,7 @@ import { ReactComponent as LogoutIcon } from '@/assets/icons/logout.svg'
 import { useAppDispatch } from '@/redux/store';
 import { fetchAuthMe } from '@/redux/auth/asyncActions';
 import { authDataSelector } from '@/redux/auth/selectors';
+import WishList from '@/components/ProfileComponents/WishList';
 
 
 const Profile: React.FC = () => {
@@ -29,9 +30,10 @@ const Profile: React.FC = () => {
     const dispatch = useAppDispatch();
     const data = useSelector(authDataSelector);
 
+
     const tabs = [
         { title: 'Account', icon: <UserIcon />, content: <Account {...data} /> },
-        { title: 'Wish List', icon: <FavoriteIcon /> },
+        { title: 'Wish List', icon: <FavoriteIcon />, content: <WishList wishList={data?.wishList} /> },
         { title: 'Settings', icon: <SettingsIcon /> },
         { title: 'My reviews', icon: <ReviewsIcon /> },
         { title: 'My orders', icon: <StarIcon /> },

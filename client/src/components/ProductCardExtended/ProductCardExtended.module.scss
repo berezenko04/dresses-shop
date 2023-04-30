@@ -21,6 +21,13 @@
             justify-content: center;
             background-color: $white;
             border-radius: 50%;
+            z-index: 8;
+
+            &__active {
+                path {
+                    fill: $primary-500;
+                }
+            }
         }
 
         &__discount {
