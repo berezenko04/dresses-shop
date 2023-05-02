@@ -14,5 +14,10 @@ export const getAuthMe = async () => {
 }
 
 export const addToWishList = async (userId: string, itemId: string) => {
-    await axios.post(`/wishlist/add?userId=${userId}&itemId=${itemId}`);
+    const data = await axios.post(`/wishlist/add?userId=${userId}&itemId=${itemId}`);
+    return data;
+}
+
+export const removeFromWishList = async (userId: string, itemId: string) => {
+    await axios.delete(`/wishlist/delete?userId=${userId}&itemId=${itemId}`);
 }

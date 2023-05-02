@@ -1,12 +1,13 @@
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
 
 //styles
 import styles from './ProductCardExtended.module.scss'
 
 //API
-import { addToWishList } from '@/API/userService';
+import { addToWishList, removeFromWishList } from '@/API/userService';
 
 //icons
 import { ReactComponent as FavoriteIcon } from '@/assets/icons/heart.svg'
@@ -17,6 +18,7 @@ import CardPrice from '../CardPrice';
 
 //redux
 import { authDataSelector, isAuthSelector } from '@/redux/auth/selectors';
+import { getProduct } from '@/API/dressesService';
 
 
 
@@ -32,48 +34,74 @@ interface ProductCardExtendedProps {
 const ProductCardExtended: React.FC<ProductCardExtendedProps> = ({ _id, title, price, imageUrl, discount, colors }) => {
     const isAuth = useSelector(isAuthSelector);
     const data = useSelector(authDataSelector);
-    const navigate = useNavigate();
 
-    const [favorite, setFavorite] = useState(false);
+    const [isFavorite, setIsFavorite] = useState(false);
 
-    const handleFavoriteClick = () => {
-        if (!isAuth) {
-            navigate('/Sandrela/login');
-        }
+    useEffect(() => {
+        const getProductItem = async () => {
+            const product = await getProduct(_id);
+            return product;
+        };
+
+        const checkIsFavorite = async () => {
+            const productItem = await getProductItem();
+            setIsFavorite(
+                data && data.wishList ? data.wishList.some((item) => item._id === productItem._id) : false
+            );
+        };
+
+        checkIsFavorite();
+    }, [data, _id]);
+
+
+    const toggleFavorite = () => {
 
         if (!data) {
-            alert('Failed to get user data');
-            return null;
+            toast.error('Failed to receive user data');
+            return;
         }
 
-        setFavorite(!favorite);
-
-        console.log(favorite);
-        if (favorite) {
-            console.log('qqqqq');
-            addToWish(_id, data._id);
-        } else {
-
+        if (!isAuth) {
+            toast.error('Please login!');
+            return;
         }
-    }
 
-    const addToWish = async (itemId: string, userId: string) => {
+        setIsFavorite(!isFavorite);
+
+        isFavorite ? removeWish(data._id, _id) : addToWish(data?._id, _id);
+    };
+
+
+
+    const addToWish = async (userId: string, itemId: string) => {
         try {
-            await addToWishList(itemId, userId);
+            await addToWishList(userId, itemId);
         } catch (err) {
             console.log(err);
-            alert('Failed to add product to favorites');
+            toast.error('Failed to add product to favorites');
         }
     }
+
+
+
+    const removeWish = async (itemId: string, userId: string) => {
+        try {
+            await removeFromWishList(itemId, userId);
+        } catch (err) {
+            console.log(err);
+            toast.error('Failed to remove product from favorites');
+        }
+    }
+
 
     return (
         <article className={styles.card} >
             <div className={styles.card__image}>
                 <button
                     className={styles.card__image__favorite}
-                    onClick={handleFavoriteClick}
+                    onClick={toggleFavorite}
                 >
-                    {favorite ? <FavoriteActiveIcon /> : <FavoriteIcon />}
+                    {isFavorite ? <FavoriteActiveIcon /> : <FavoriteIcon />}
                 </button>
                 <Link to={`/Sandrela/products/${_id}`}>
                     <img src={imageUrl} alt="dress" />
@@ -93,8 +121,17 @@ const ProductCardExtended: React.FC<ProductCardExtendedProps> = ({ _id, title, p
                     <CardPrice price={price} discount={discount} />
                 </div>
             </div>
+            <ToastContainer
+                position="bottom-center"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                theme="light"
+            />
         </article>
-
     )
 }
 

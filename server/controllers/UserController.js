@@ -116,6 +116,8 @@ export const getMe = async (req, res) => {
 export const addToWishList = async (req, res) => {
     try {
         const { userId, itemId } = req.query;
+        console.log('userId', userId);
+        console.log('itemId', itemId);
 
         const user = await UserModel.findById(userId);
         const product = await ProductModel.findById(itemId);

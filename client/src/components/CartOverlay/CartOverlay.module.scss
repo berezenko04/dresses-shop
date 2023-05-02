@@ -1,0 +1,12 @@
+@import "@/scss/variables.scss";
+
+.overlay {
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 10;
+    height: 100vh;
+    background-color: $white;
+    width: 580px;
+    padding: 24px;
+}

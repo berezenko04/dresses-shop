@@ -1,9 +1,12 @@
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 //styles
 import styles from './Navbar.module.scss'
+
+//components
+import CartOverlay from '../CartOverlay'
 
 //icons
 import { ReactComponent as PhoneIcon } from '@/assets/icons/phone.svg'
@@ -18,6 +21,7 @@ import { useAppDispatch } from '@/redux/store'
 import { fetchAuthMe } from '@/redux/auth/asyncActions'
 
 
+
 const Navbar: React.FC = () => {
     const links = [
         { name: 'Find a Store', href: '' },
@@ -30,6 +34,8 @@ const Navbar: React.FC = () => {
 
     const isAuth = useSelector(isAuthSelector);
     const data = useSelector(authDataSelector);
+
+    const [isOverlayOpened, setIsOverlayOpened] = useState(false);
 
     useEffect(() => {
         dispatch(fetchAuthMe());
@@ -70,7 +76,9 @@ const Navbar: React.FC = () => {
                         </div>
                         <div className={styles.navbar__bottom__user}>
                             <Link to="/"><FavoriteIcon /></Link>
-                            <Link to="/"><CartIcon /></Link>
+                            <button onClick={() => setIsOverlayOpened(true)}>
+                                <CartIcon />
+                            </button>
                             {isAuth &&
                                 <Link
                                     className={styles.navbar__bottom__user__avatar}
@@ -83,6 +91,7 @@ const Navbar: React.FC = () => {
                     </div>
                 </div>
             </div>
+            {isOverlayOpened && <CartOverlay />}
         </nav>
     )
 }
