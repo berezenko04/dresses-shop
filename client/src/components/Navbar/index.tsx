@@ -41,6 +41,11 @@ const Navbar: React.FC = () => {
         dispatch(fetchAuthMe());
     }, [])
 
+    const handleOverlayClick = () => {
+        setIsOverlayOpened((prev) => !prev);
+        document.body.classList.toggle('overlay-opened');
+    }
+
     return (
         <nav className={styles.navbar}>
             <div className={styles.navbar__top}>
@@ -76,8 +81,9 @@ const Navbar: React.FC = () => {
                         </div>
                         <div className={styles.navbar__bottom__user}>
                             <Link to="/"><FavoriteIcon /></Link>
-                            <button onClick={() => setIsOverlayOpened(true)}>
+                            <button onClick={handleOverlayClick}>
                                 <CartIcon />
+                                {data && data.cart.length > 0 && <span>{data.cart.length}</span>}
                             </button>
                             {isAuth &&
                                 <Link
@@ -91,7 +97,7 @@ const Navbar: React.FC = () => {
                     </div>
                 </div>
             </div>
-            {isOverlayOpened && <CartOverlay />}
+            {isOverlayOpened && <CartOverlay handleOverlayClick={handleOverlayClick} />}
         </nav>
     )
 }

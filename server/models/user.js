@@ -29,11 +29,28 @@ const UserSchema = new mongoose.Schema({
                 type: String,
                 required: true
             },
-            stock: {
-                type: Boolean,
+            price: {
+                type: Number,
                 required: true
             },
-            desc: {
+            imageUrl: {
+                type: String,
+                required: true
+            },
+            discount: {
+                type: Number,
+                default: 0
+            },
+        }
+    },
+    cart: {
+        type: Array,
+        items: {
+            id: {
+                type: Number,
+                unique: true
+            },
+            title: {
                 type: String,
                 required: true
             },

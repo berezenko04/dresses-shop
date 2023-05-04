@@ -129,7 +129,7 @@ const Products: React.FC = () => {
                     }
                     <div className={styles.page__main__content}>
                         {status === 'loading' ?
-                            [...Array(12)].map((_, index) => (
+                            [...Array(limit)].map((_, index) => (
                                 <ProductCardSkeleton key={index} />
                             ))
                             :

@@ -12,7 +12,8 @@ export interface UserData {
     fullName: string,
     avatarUrl: string,
     token: string,
-    wishList: ProductItem[]
+    wishList: ProductItem[],
+    cart: ProductItem[]
 }
 
 

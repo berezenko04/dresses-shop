@@ -1,8 +1,9 @@
+import { getPriceWithDiscount } from '@/utils/getPriceWithDiscount'
 import styles from './CardPrice.module.scss'
 
 type CardPriceProps = {
     price: number,
-    discount?: number
+    discount: number
 }
 
 const CardPrice: React.FC<CardPriceProps> = ({ price, discount }) => {
@@ -10,7 +11,7 @@ const CardPrice: React.FC<CardPriceProps> = ({ price, discount }) => {
         <div className={styles.price}>
             {discount ?
                 <>
-                    <p>{Math.round(price - (price * discount))} UAH</p>
+                    <p>{getPriceWithDiscount(price, discount)} UAH</p>
                     <span>{price} UAH</span>
                 </>
                 :

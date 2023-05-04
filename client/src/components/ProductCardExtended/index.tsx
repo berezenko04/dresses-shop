@@ -1,13 +1,9 @@
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux';
-import { useEffect, useState } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 
 //styles
 import styles from './ProductCardExtended.module.scss'
-
-//API
-import { addToWishList, removeFromWishList } from '@/API/userService';
 
 //icons
 import { ReactComponent as FavoriteIcon } from '@/assets/icons/heart.svg'
@@ -17,9 +13,10 @@ import { ReactComponent as FavoriteActiveIcon } from '@/assets/icons/heart-fille
 import CardPrice from '../CardPrice';
 
 //redux
-import { authDataSelector, isAuthSelector } from '@/redux/auth/selectors';
-import { getProduct } from '@/API/dressesService';
+import { isAuthSelector } from '@/redux/auth/selectors';
 
+//hooks
+import useWishList from '@/hooks/useWishList';
 
 
 interface ProductCardExtendedProps {
@@ -33,66 +30,7 @@ interface ProductCardExtendedProps {
 
 const ProductCardExtended: React.FC<ProductCardExtendedProps> = ({ _id, title, price, imageUrl, discount, colors }) => {
     const isAuth = useSelector(isAuthSelector);
-    const data = useSelector(authDataSelector);
-
-    const [isFavorite, setIsFavorite] = useState(false);
-
-    useEffect(() => {
-        const getProductItem = async () => {
-            const product = await getProduct(_id);
-            return product;
-        };
-
-        const checkIsFavorite = async () => {
-            const productItem = await getProductItem();
-            setIsFavorite(
-                data && data.wishList ? data.wishList.some((item) => item._id === productItem._id) : false
-            );
-        };
-
-        checkIsFavorite();
-    }, [data, _id]);
-
-
-    const toggleFavorite = () => {
-
-        if (!data) {
-            toast.error('Failed to receive user data');
-            return;
-        }
-
-        if (!isAuth) {
-            toast.error('Please login!');
-            return;
-        }
-
-        setIsFavorite(!isFavorite);
-
-        isFavorite ? removeWish(data._id, _id) : addToWish(data?._id, _id);
-    };
-
-
-
-    const addToWish = async (userId: string, itemId: string) => {
-        try {
-            await addToWishList(userId, itemId);
-        } catch (err) {
-            console.log(err);
-            toast.error('Failed to add product to favorites');
-        }
-    }
-
-
-
-    const removeWish = async (itemId: string, userId: string) => {
-        try {
-            await removeFromWishList(itemId, userId);
-        } catch (err) {
-            console.log(err);
-            toast.error('Failed to remove product from favorites');
-        }
-    }
-
+    const { isFavorite, toggleFavorite } = useWishList(_id, isAuth);
 
     return (
         <article className={styles.card} >

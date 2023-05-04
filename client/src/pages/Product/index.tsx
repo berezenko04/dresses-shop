@@ -20,11 +20,15 @@ import { fetchProduct } from '@/redux/products/asyncActions';
 import { productsSelector } from '@/redux/products/selectors';
 import { fetchComments } from '@/redux/comments/asyncActions';
 import { commentsItemsSelector } from '@/redux/comments/selectors';
+import { authDataSelector, isAuthSelector } from '@/redux/auth/selectors';
 
 //icons
 import { ReactComponent as FavoriteIcon } from '@/assets/icons/heart.svg'
+import { ReactComponent as FavoriteActiveIcon } from '@/assets/icons/heart-filled.svg'
 import { ReactComponent as StarIcon } from '@/assets/icons/star.svg'
 
+//hooks
+import useWishList from '@/hooks/useWishList';
 
 
 const Product: React.FC = () => {
@@ -34,7 +38,11 @@ const Product: React.FC = () => {
     const { id } = useParams();
     const dispatch = useAppDispatch();
     const product = useSelector(productsSelector);
+    const isAuth = useSelector(isAuthSelector);
+    const data = useSelector(authDataSelector);
     const comments = useSelector(commentsItemsSelector);
+
+    const { isFavorite, toggleFavorite } = useWishList(id, isAuth);
 
     const isAvailable = product[0]?.stock;
 
@@ -44,6 +52,7 @@ const Product: React.FC = () => {
             dispatch(fetchComments(id));
         }
     }, [])
+
 
     return (
         <div className={styles.page}>
@@ -95,9 +104,15 @@ const Product: React.FC = () => {
                                     </ul>
                                 </div>
                                 <div className={styles.page__product__right__checkout}>
-                                    <Link to=''><Button size='lg' theme='primary'>Buy Now</Button></Link>
+                                    <Link to=''>
+                                        <Button size='lg' theme='primary'>
+                                            Buy Now
+                                        </Button>
+                                    </Link>
                                     <Button size='lg' theme='secondary'>Add to bag</Button>
-                                    <button><FavoriteIcon /></button>
+                                    <Button theme='iconary' size='lg' onClick={toggleFavorite}>
+                                        {isFavorite ? <FavoriteActiveIcon /> : <FavoriteIcon />}
+                                    </Button>
                                 </div>
                             </div>
                         </div>
@@ -120,7 +135,7 @@ const Product: React.FC = () => {
                             </div>
                             <div className={styles.page__reviews__rating__right}>
                                 {[...Array(5)].map((_, index) => (
-                                    <div className={styles.page__reviews__rating__right__item}>
+                                    <div className={styles.page__reviews__rating__right__item} key={index}>
                                         <div className={styles.page__reviews__rating__right__item__stars}>
                                             <StarIcon />
                                             <span>{5 - index}</span>

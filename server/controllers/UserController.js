@@ -116,8 +116,6 @@ export const getMe = async (req, res) => {
 export const addToWishList = async (req, res) => {
     try {
         const { userId, itemId } = req.query;
-        console.log('userId', userId);
-        console.log('itemId', itemId);
 
         const user = await UserModel.findById(userId);
         const product = await ProductModel.findById(itemId);
@@ -165,3 +163,33 @@ export const removeFromWishlist = async (req, res) => {
         res.status(500).json({ message: 'Server error' });
     }
 };
+
+export const addToCart = async (req, res) => {
+    try {
+        const { userId, itemId } = req.query;
+
+        const user = await UserModel.findById(userId);
+        const product = await ProductModel.findById(itemId);
+
+        if (!user) {
+            res.status(400).json({
+                message: 'User is not found'
+            })
+        }
+        if (!product) {
+            res.status(400).json({
+                message: 'Product is not found'
+            })
+        }
+
+        user.cart.push(product);
+        await user.save();
+
+        res.status(200).json({
+            message: 'Item added to cart'
+        })
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Server error' });
+    }
+}

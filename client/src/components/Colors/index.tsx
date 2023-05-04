@@ -20,10 +20,10 @@ const Colors: React.FC<ColorsProps> = ({ colors }) => {
     return (
         <div className={styles.colors}>
             {colors && colors.map((color, index) => (
-                <div className={styles.colors__item}>
+                <div className={styles.colors__item} key={index}>
                     <input type="radio" name='color' id={color} defaultChecked={index === 0} />
                     <label htmlFor={color}>
-                        <div className={styles.colors__item__circle} key={index}>
+                        <div className={styles.colors__item__circle}>
                             <div className={getColor(color)} />
                         </div>
                         <span>{color}</span>

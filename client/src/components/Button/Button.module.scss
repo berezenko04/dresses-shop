@@ -4,6 +4,7 @@
     cursor: pointer;
     display: flex;
     justify-content: center;
+    align-items: center;
     width: 100%;
     gap: 8px;
     font-weight: 500;
@@ -92,5 +93,11 @@
             color: $grey-200;
             border: transparent;
         }
+    }
+
+    &__iconary {
+        padding: 16px !important;
+        border: 1px solid $grey-200;
+        width: auto;
     }
 }
