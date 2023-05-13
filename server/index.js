@@ -7,6 +7,7 @@ import bodyParser from 'body-parser'
 import AuthRoutes from './routes/auth.js'
 import APIProductsRoutes from './routes/product.js'
 import WishListRoutes from './routes/wishlist.js'
+import CartRoutes from './routes/cart.js'
 
 
 const PORT = process.env.PORT || 3001;
@@ -25,6 +26,7 @@ app.use(cors());
 app.use('/auth', AuthRoutes);
 app.use('/api', APIProductsRoutes);
 app.use('/wishlist', WishListRoutes);
+app.use('/cart', CartRoutes);
 
 
 app.listen(PORT, (err) => {

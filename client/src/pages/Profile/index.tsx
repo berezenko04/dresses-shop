@@ -29,10 +29,11 @@ const Profile: React.FC = () => {
     const [activeIndex, setActiveIndex] = useState(0);
     const dispatch = useAppDispatch();
     const data = useSelector(authDataSelector);
+    const { fullName, avatarUrl, email } = data;
 
 
     const tabs = [
-        { title: 'Account', icon: <UserIcon />, content: <Account {...data} /> },
+        { title: 'Account', icon: <UserIcon />, content: <Account fullName={fullName} avatarUrl={avatarUrl} email={email} /> },
         { title: 'Wish List', icon: <FavoriteIcon />, content: <WishList wishList={data?.wishList} /> },
         { title: 'Settings', icon: <SettingsIcon /> },
         { title: 'My reviews', icon: <ReviewsIcon /> },

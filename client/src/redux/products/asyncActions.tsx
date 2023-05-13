@@ -5,7 +5,7 @@ import { FetchProducts } from "./types";
 
 export const fetchProducts = createAsyncThunk(
     'products/fetchProducts',
-    async (params: FetchProducts) => {
+    async (params: FetchProducts) => { 
         const { order = 'desc', sortBy = '_id', page = 1, limit = 12 } = params;
         const products = await getProducts(order, sortBy, page, limit);
         return products;

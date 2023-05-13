@@ -1,6 +1,7 @@
 import { useParams, Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { toast, ToastContainer } from 'react-toastify';
 
 //styles
 import styles from './Product.module.scss'
@@ -30,10 +31,14 @@ import { ReactComponent as StarIcon } from '@/assets/icons/star.svg'
 //hooks
 import useWishList from '@/hooks/useWishList';
 
+//API
+import { addToCart } from '@/API/userService';
+
 
 const Product: React.FC = () => {
 
     const [comment, setComment] = useState("");
+    const [selectedSize, setSelectedSize] = useState('xxs');
 
     const { id } = useParams();
     const dispatch = useAppDispatch();
@@ -41,8 +46,6 @@ const Product: React.FC = () => {
     const isAuth = useSelector(isAuthSelector);
     const data = useSelector(authDataSelector);
     const comments = useSelector(commentsItemsSelector);
-
-    const { isFavorite, toggleFavorite } = useWishList(id, isAuth);
 
     const isAvailable = product[0]?.stock;
 
@@ -53,6 +56,33 @@ const Product: React.FC = () => {
         }
     }, [])
 
+    const { isFavorite, toggleFavorite } = useWishList(id || '', isAuth);
+
+
+    const handleAddClick = async () => {
+        try {
+            if (data?._id) {
+                await addToCart({
+                    item: {
+                        _id: product[0]?._id,
+                        title: product[0]?.title,
+                        price: product[0]?.price,
+                        discount: product[0]?.discount,
+                        size: selectedSize,
+                        quantity: 1,
+                        imageUrl: product[0]?.imageUrl
+                    },
+                    userId: data._id
+                });
+                toast.success('Item added to cart');
+            } else {
+                toast.error('Please login!');
+            }
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
 
     return (
         <div className={styles.page}>
@@ -61,8 +91,8 @@ const Product: React.FC = () => {
                     <div className={styles.page__product}>
                         <div className={styles.page__product__left}>
                             <div className={styles.page__product__left__images}>
-                                {[...Array(4)].map(() => (
-                                    <div className={styles.page__product__left__images__item}>
+                                {[...Array(4)].map((_, index) => (
+                                    <div className={styles.page__product__left__images__item} key={index}>
                                         <img src={product[0]?.imageUrl} alt={product[0]?.title} />
                                     </div>
                                 ))}
@@ -97,7 +127,14 @@ const Product: React.FC = () => {
                                     <ul className={styles.page__product__right__sizes__list}>
                                         {sizes.map((size, index) => (
                                             <li key={index}>
-                                                <input type="radio" name='size' id={size} disabled={product[0]?.sizes && !product[0]?.sizes.includes(size)} />
+                                                <input
+                                                    type="radio"
+                                                    name='size'
+                                                    id={size}
+                                                    defaultChecked={index === 0}
+                                                    disabled={product[0]?.sizes && !product[0]?.sizes.includes(size)}
+                                                    onClick={() => setSelectedSize(size)}
+                                                />
                                                 <label htmlFor={size}>{size}</label>
                                             </li>
                                         ))}
@@ -109,7 +146,7 @@ const Product: React.FC = () => {
                                             Buy Now
                                         </Button>
                                     </Link>
-                                    <Button size='lg' theme='secondary'>Add to bag</Button>
+                                    <Button size='lg' theme='secondary' onClick={handleAddClick}>Add to bag</Button>
                                     <Button theme='iconary' size='lg' onClick={toggleFavorite}>
                                         {isFavorite ? <FavoriteActiveIcon /> : <FavoriteIcon />}
                                     </Button>
@@ -171,8 +208,17 @@ const Product: React.FC = () => {
                     </div>
                 </div>
             </div>
+            <ToastContainer
+                position="bottom-center"
+                autoClose={3000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                theme="light"
+            />
         </div>
-
     )
 }
 

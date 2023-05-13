@@ -15,6 +15,6 @@ router.post('/login', authValidation, validationErrors, UserController.login);
 
 router.post('/register', registerValidation, validationErrors, UserController.register);
 
-router.get('/me', checkAuth, UserController.getMe);
+router.get('/me', checkAuth, UserController.getMe); 
 
 export default router;

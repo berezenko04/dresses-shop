@@ -13,9 +13,18 @@ export interface UserData {
     avatarUrl: string,
     token: string,
     wishList: ProductItem[],
-    cart: ProductItem[]
+    cart: TCartItem[]
 }
 
+export type TCartItem = {
+    _id: string,
+    title: string,
+    price: number,
+    discount: number,
+    size: string,
+    quantity: number,
+    imageUrl: string
+}
 
 export interface IFetchUserResponse {
     error?: {

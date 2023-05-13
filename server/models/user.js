@@ -66,6 +66,14 @@ const UserSchema = new mongoose.Schema({
                 type: Number,
                 default: 0
             },
+            size: {
+                type: String,
+                required: true
+            },
+            quantity: {
+                type: Number,
+                default: 1
+            }
         }
     }
 }, {

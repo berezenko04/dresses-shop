@@ -15,18 +15,23 @@ import Products from "./pages/Products";
 import Product from "./pages/Product";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
+import Checkout from "./pages/Checkout";
+import Profile from "./pages/Profile";
 
 //redux
 import { fetchAuthMe } from "./redux/auth/asyncActions";
-import Profile from "./pages/Profile";
+import { authDataSelector } from "./redux/auth/selectors";
 
 
 function App() {
   const dispatch = useAppDispatch();
+  const data = useSelector(authDataSelector);
 
   useEffect(() => {
     dispatch(fetchAuthMe());
   }, [])
+
+  console.log(data?.cart);
 
   return (
     <div className="App">
@@ -36,6 +41,7 @@ function App() {
           <Route path={'products'} element={<Products />} />
           <Route path={'products/:id'} element={<Product />} />
           <Route path={'profile/:id'} element={<Profile />} />
+          <Route path={'checkout/:id'} element={<Checkout />} />
         </Route>
         <Route path={'Sandrela/register'} element={<Register />} />
         <Route path={'Sandrela/login'} element={<Login />} />

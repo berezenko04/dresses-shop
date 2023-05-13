@@ -40,7 +40,7 @@ const Home: React.FC = () => {
     const swiperRef = useRef<SwiperType>();
 
     useEffect(() => {
-        dispatch(fetchProducts());
+        dispatch(fetchProducts({}));
     }, [])
 
 

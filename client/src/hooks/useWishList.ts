@@ -11,8 +11,6 @@ import { ProductItem } from "@/redux/products/types"
 import { getProduct } from "@/API/dressesService"
 import { addToWishList, removeFromWishList } from "@/API/userService"
 
-
-
 type UseWishListResult = {
     isFavorite: boolean,
     toggleFavorite: () => void
@@ -32,7 +30,7 @@ const useWishList = (itemId: string, isAuth: boolean): UseWishListResult => {
         getProductItem();
     }, [itemId]);
 
-    useEffect(() => {
+    useEffect(() => { 
         const checkIsFavorite = async () => {
             if (data && product) {
                 setIsFavorite(

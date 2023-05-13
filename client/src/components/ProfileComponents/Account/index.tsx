@@ -11,7 +11,7 @@ type AccountProps = {
 }
 
 
-const Account: React.FC<AccountProps> = ({ fullName, avatarUrl, email }) => {
+const Account: React.FC<AccountProps> = ({ fullName, avatarUrl, email }) => { 
 
     return (
         <div className={styles.account}>

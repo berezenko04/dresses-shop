@@ -1,5 +1,5 @@
-@import "./reset.scss";
 @import "./variables.scss";
+@import "./reset.scss";
 
 @font-face {
     font-family: "Placid Armor";
@@ -82,5 +82,5 @@ h3 {
     line-height: 38px;
     letter-spacing: -0.025em;
     text-transform: uppercase;
-    color: $black;
+    color: $grey-700;
 }

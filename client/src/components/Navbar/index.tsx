@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 
 //styles
 import styles from './Navbar.module.scss'
@@ -35,10 +35,25 @@ const Navbar: React.FC = () => {
     const isAuth = useSelector(isAuthSelector);
     const data = useSelector(authDataSelector);
 
+    const overlayRef = useRef<HTMLDivElement>(null);
     const [isOverlayOpened, setIsOverlayOpened] = useState(false);
 
     useEffect(() => {
         dispatch(fetchAuthMe());
+    }, [])
+
+    useEffect(() => {
+        const handleClickOutside = (e: MouseEvent) => {
+            if (overlayRef.current && !overlayRef.current.contains(e.target as HTMLElement)) {
+                setIsOverlayOpened(false);
+                document.body.classList.toggle('overlay-opened');
+            }
+        }
+
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        }
     }, [])
 
     const handleOverlayClick = () => {
@@ -97,7 +112,7 @@ const Navbar: React.FC = () => {
                     </div>
                 </div>
             </div>
-            {isOverlayOpened && <CartOverlay handleOverlayClick={handleOverlayClick} />}
+            {isOverlayOpened && <CartOverlay isOpened={isOverlayOpened} ref={overlayRef} handleOverlayClick={handleOverlayClick} />}
         </nav>
     )
 }
