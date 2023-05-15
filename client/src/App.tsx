@@ -31,8 +31,6 @@ function App() {
     dispatch(fetchAuthMe());
   }, [])
 
-  console.log(data?.cart);
-
   return (
     <div className="App">
       <Routes>

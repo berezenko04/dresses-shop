@@ -35,6 +35,11 @@ export const removeFromWishList = async (userId: string, itemId: string) => {
     await axios.delete(`/wishlist/delete?userId=${userId}&itemId=${itemId}`);
 }
 
+export const getCart = async () => {
+    const { data } = await axios.get('/cart/get');
+    return data;
+}
+
 export const addToCart = async (item: AddToCartProps) => {
     const data = await axios.post('/cart/add', item);
     return data;

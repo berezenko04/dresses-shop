@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
+import { useAppDispatch } from '@/redux/store'
 
 //styles
 import styles from './CartItem.module.scss'
@@ -12,12 +13,14 @@ import { ReactComponent as MinusIcon } from '@/assets/icons/minus.svg'
 import { ReactComponent as PlusIcon } from '@/assets/icons/plus.svg'
 import { ReactComponent as TrashIcon } from '@/assets/icons/trash.svg'
 
-//types
-import { TCartItem } from '@/redux/auth/types'
-import { removeFromCart } from '@/API/userService'
-
 //redux
+import { TCartItem } from '@/redux/auth/types'
 import { authDataSelector } from '@/redux/auth/selectors'
+
+//API
+import { removeFromCart } from '@/API/userService'
+import { deleteFromCart } from '@/redux/auth/slice'
+
 
 
 type CartItemProps = {
@@ -27,15 +30,14 @@ type CartItemProps = {
 
 
 const CartItem: React.FC<CartItemProps> = ({ cart, readable = false }) => {
-    const data = useSelector(authDataSelector);
+    const dispatch = useAppDispatch();
     const { imageUrl, title, discount, price, size, _id } = cart;
-
 
     const [quantity, setQuantity] = useState(1);
 
     const handleRemove = async () => {
         try {
-            await removeFromCart(data?._id || "", _id);
+            dispatch(deleteFromCart(_id));
         } catch (err) {
             console.error(err);
         }

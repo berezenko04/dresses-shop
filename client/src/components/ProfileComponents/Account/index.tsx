@@ -26,7 +26,6 @@ const Account: React.FC<AccountProps> = ({ fullName, avatarUrl, email }) => {
                 <h3>Profile information</h3>
                 <div className={styles.account__info__list}>
                     <p>E-mail: {email}</p>
-                    <p>Telephone number: +380663880963 </p>
                     <p>Sex: male</p>
                 </div>
             </div>

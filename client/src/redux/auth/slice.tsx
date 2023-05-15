@@ -1,7 +1,9 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit"
 import { fetchAuthMe, fetchUserData } from "./asyncActions";
 import { Status } from "../products/types";
-import { AuthSliceState, UserData } from "./types";
+import { AuthSliceState, UserData, TCartItem } from "./types";
+import { addToCart, removeFromCart } from "@/API/userService";
+import { toast } from "react-toastify";
 
 const initialState: AuthSliceState = {
     data: null,
@@ -12,7 +14,29 @@ const initialState: AuthSliceState = {
 export const AuthSlice = createSlice({
     name: 'auth',
     initialState,
-    reducers: {},
+    reducers: {
+        addInCart(state, action: PayloadAction<TCartItem>) {
+            const findItem = state.data?.cart.find((obj) => (obj._id === action.payload._id) && (obj.size === action.payload.size));
+
+            if (!findItem) {
+                toast.success('Item added to cart');
+                state.data?.cart.push(action.payload);
+                (async () => {
+                    await addToCart({ item: action.payload, userId: state.data?._id || '' });
+                })();
+            } else {
+                toast.error('Item already in cart');
+            }
+        },
+        deleteFromCart(state, action: PayloadAction<string>) {
+            if (state.data) {
+                state.data.cart = state.data.cart?.filter((obj) => (obj._id !== action.payload));
+                (async () => {
+                    await removeFromCart(state.data?._id || '', action.payload);
+                })();
+            }
+        }
+    },
     extraReducers: (builder) => {
         builder.addCase(fetchUserData.pending, (state) => {
             state.data = null;
@@ -37,7 +61,6 @@ export const AuthSlice = createSlice({
 
         builder.addCase(fetchAuthMe.fulfilled, (state, action: PayloadAction<UserData>) => {
             state.data = action.payload;
-            console.log(state.data);
             state.status = Status.SUCCESS;
         })
 
@@ -48,5 +71,7 @@ export const AuthSlice = createSlice({
     },
 
 });
+
+export const { addInCart, deleteFromCart } = AuthSlice.actions;
 
 export default AuthSlice.reducer;

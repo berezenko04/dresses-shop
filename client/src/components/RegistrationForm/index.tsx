@@ -37,7 +37,6 @@ const RegistrationForm: React.FC = () => {
     } catch (err: any) {
       setError(err?.response.data.message);
     }
-    console.log(data);
   };
 
   return (

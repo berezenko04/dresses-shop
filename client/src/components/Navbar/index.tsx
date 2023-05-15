@@ -36,28 +36,28 @@ const Navbar: React.FC = () => {
     const data = useSelector(authDataSelector);
 
     const overlayRef = useRef<HTMLDivElement>(null);
-    const [isOverlayOpened, setIsOverlayOpened] = useState(false);
+    const [isOpened, setIsOpened] = useState(false);
 
     useEffect(() => {
         dispatch(fetchAuthMe());
     }, [])
 
-    useEffect(() => {
-        const handleClickOutside = (e: MouseEvent) => {
-            if (overlayRef.current && !overlayRef.current.contains(e.target as HTMLElement)) {
-                setIsOverlayOpened(false);
-                document.body.classList.toggle('overlay-opened');
-            }
-        }
+    // useEffect(() => {
+    //     const handleClickOutside = (e: MouseEvent) => {
+    //         if (overlayRef.current && !overlayRef.current.contains(e.target as HTMLElement)) {
+    //             setIsOpened(false);
+    //             document.body.classList.toggle('overlay-opened');
+    //         }
+    //     }
 
-        document.addEventListener("mousedown", handleClickOutside);
-        return () => {
-            document.removeEventListener("mousedown", handleClickOutside);
-        }
-    }, [])
+    //     document.addEventListener("mousedown", handleClickOutside);
+    //     return () => {
+    //         document.removeEventListener("mousedown", handleClickOutside);
+    //     }
+    // }, [])
 
     const handleOverlayClick = () => {
-        setIsOverlayOpened((prev) => !prev);
+        setIsOpened(!isOpened)
         document.body.classList.toggle('overlay-opened');
     }
 
@@ -112,7 +112,7 @@ const Navbar: React.FC = () => {
                     </div>
                 </div>
             </div>
-            {isOverlayOpened && <CartOverlay isOpened={isOverlayOpened} ref={overlayRef} handleOverlayClick={handleOverlayClick} />}
+            <CartOverlay isOpened={isOpened} ref={overlayRef} handleOverlayClick={handleOverlayClick} />
         </nav>
     )
 }

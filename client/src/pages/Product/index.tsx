@@ -33,6 +33,7 @@ import useWishList from '@/hooks/useWishList';
 
 //API
 import { addToCart } from '@/API/userService';
+import { addInCart } from '@/redux/auth/slice';
 
 
 const Product: React.FC = () => {
@@ -61,20 +62,19 @@ const Product: React.FC = () => {
 
     const handleAddClick = async () => {
         try {
-            if (data?._id) {
-                await addToCart({
-                    item: {
-                        _id: product[0]?._id,
-                        title: product[0]?.title,
-                        price: product[0]?.price,
-                        discount: product[0]?.discount,
-                        size: selectedSize,
-                        quantity: 1,
-                        imageUrl: product[0]?.imageUrl
-                    },
-                    userId: data._id
-                });
-                toast.success('Item added to cart');
+            const user = data?._id;
+            if (user) {
+                const item = {
+                    _id: product[0]?._id,
+                    title: product[0]?.title,
+                    price: product[0]?.price,
+                    discount: product[0]?.discount,
+                    size: selectedSize,
+                    quantity: 1,
+                    imageUrl: product[0]?.imageUrl
+                };
+
+                dispatch(addInCart(item));
             } else {
                 toast.error('Please login!');
             }
@@ -141,12 +141,19 @@ const Product: React.FC = () => {
                                     </ul>
                                 </div>
                                 <div className={styles.page__product__right__checkout}>
-                                    <Link to=''>
+                                    {/* <Link to=''>
                                         <Button size='lg' theme='primary'>
                                             Buy Now
                                         </Button>
-                                    </Link>
-                                    <Button size='lg' theme='secondary' onClick={handleAddClick}>Add to bag</Button>
+                                    </Link> */}
+                                    <Button
+                                        size='lg'
+                                        theme='primary'
+                                        onClick={handleAddClick}
+                                        disabled={!isAvailable}
+                                    >
+                                        {isAvailable ? 'Add to bag' : 'Out of stock'}
+                                    </Button>
                                     <Button theme='iconary' size='lg' onClick={toggleFavorite}>
                                         {isFavorite ? <FavoriteActiveIcon /> : <FavoriteIcon />}
                                     </Button>

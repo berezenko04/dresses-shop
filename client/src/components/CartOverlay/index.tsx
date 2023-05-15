@@ -19,7 +19,6 @@ import { TCartItem } from "@/redux/auth/types";
 import { getTotalPrice } from "@/utils/getTotalPrice";
 
 
-
 interface CartOverlayProps {
   handleOverlayClick: () => void;
   isOpened: boolean;
@@ -33,7 +32,7 @@ const CartOverlay = forwardRef<HTMLDivElement, CartOverlayProps>(({ handleOverla
   const totalPrice = getTotalPrice(cartItems);
 
   return (
-    <div className={`${styles.overlay} ${isOpened ? styles.overlay__opened : ''}`} ref={ref}>
+    <div className={`${styles.overlay} ${isOpened ? styles.overlay__opened : styles.overlay__closed}`} ref={ref}>
       <div className={styles.overlay__head}>
         <h3>Cart ({data?.cart.length})</h3>
         <button onClick={handleOverlayClick}>

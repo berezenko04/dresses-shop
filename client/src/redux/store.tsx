@@ -9,7 +9,7 @@ export const store = configureStore({
     reducer: {
         products,
         comments,
-        auth
+        auth,
     }
 })
 
