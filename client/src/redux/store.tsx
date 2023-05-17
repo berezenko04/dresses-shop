@@ -3,13 +3,13 @@ import { useDispatch } from 'react-redux'
 
 import products from './products/slice'
 import comments from './comments/slice'
-import auth from './auth/slice'
+import user from './user/slice'
 
 export const store = configureStore({
     reducer: {
         products,
         comments,
-        auth,
+        user,
     }
 })
 

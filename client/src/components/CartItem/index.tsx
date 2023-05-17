@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { useSelector } from 'react-redux'
 import { useAppDispatch } from '@/redux/store'
 
 //styles
@@ -14,13 +13,10 @@ import { ReactComponent as PlusIcon } from '@/assets/icons/plus.svg'
 import { ReactComponent as TrashIcon } from '@/assets/icons/trash.svg'
 
 //redux
-import { TCartItem } from '@/redux/auth/types'
-import { authDataSelector } from '@/redux/auth/selectors'
+import { TCartItem } from '@/redux/user/types'
 
 //API
-import { removeFromCart } from '@/API/userService'
-import { deleteFromCart } from '@/redux/auth/slice'
-
+import { deleteFromCart } from '@/redux/user/slice'
 
 
 type CartItemProps = {
@@ -37,7 +33,7 @@ const CartItem: React.FC<CartItemProps> = ({ cart, readable = false }) => {
 
     const handleRemove = async () => {
         try {
-            dispatch(deleteFromCart(_id));
+            dispatch(deleteFromCart({ _id, size }));
         } catch (err) {
             console.error(err);
         }

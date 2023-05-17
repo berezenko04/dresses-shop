@@ -13,7 +13,7 @@ import { ReactComponent as FavoriteActiveIcon } from '@/assets/icons/heart-fille
 import CardPrice from '../CardPrice';
 
 //redux
-import { isAuthSelector } from '@/redux/auth/selectors';
+import { isAuthSelector } from '@/redux/user/selectors';
 
 //hooks
 import useWishList from '@/hooks/useWishList';

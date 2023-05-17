@@ -3,7 +3,13 @@ export type Comment = {
     likes: number,
     dislikes: number,
     rating: number,
-    date: Date
+    user: string,
+    date: string
+}
+
+export interface PostComment {
+    comment: Comment,
+    itemId: string
 }
 
 export interface Comments {

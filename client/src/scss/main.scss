@@ -9,24 +9,25 @@
     font-display: swap;
 }
 
-html {
-    scroll-behavior: smooth;
-}
+body {
+    overflow-x: hidden;
 
-body.overlay-opened {
-    height: 100vh;
-    overflow: hidden;
-    position: relative;
+    &.overlay-opened {
+        overflow: hidden;
+        position: relative;
 
-    &::after {
-        content: "";
-        background: rgba(0, 0, 0, 0.4);
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        left: 0;
-        top: 0;
-        z-index: 5;
+        &::after {
+            content: "";
+            background-color: rgba(0, 0, 0, 0.4);
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            top: 0;
+            z-index: 5;
+        }
     }
 }
 

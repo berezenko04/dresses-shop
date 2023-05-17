@@ -16,9 +16,9 @@ import { ReactComponent as CartIcon } from '@/assets/icons/cart.svg'
 import { ReactComponent as PlatesIcon } from '@/assets/icons/grid-plates.svg'
 
 //redyx
-import { authDataSelector, isAuthSelector } from '@/redux/auth/selectors'
+import { userDataSelector, isAuthSelector } from '@/redux/user/selectors'
 import { useAppDispatch } from '@/redux/store'
-import { fetchAuthMe } from '@/redux/auth/asyncActions'
+import { fetchAuthMe } from '@/redux/user/asyncActions'
 
 
 
@@ -33,7 +33,7 @@ const Navbar: React.FC = () => {
     const dispatch = useAppDispatch();
 
     const isAuth = useSelector(isAuthSelector);
-    const data = useSelector(authDataSelector);
+    const data = useSelector(userDataSelector);
 
     const overlayRef = useRef<HTMLDivElement>(null);
     const [isOpened, setIsOpened] = useState(false);
@@ -42,22 +42,23 @@ const Navbar: React.FC = () => {
         dispatch(fetchAuthMe());
     }, [])
 
-    // useEffect(() => {
-    //     const handleClickOutside = (e: MouseEvent) => {
-    //         if (overlayRef.current && !overlayRef.current.contains(e.target as HTMLElement)) {
-    //             setIsOpened(false);
-    //             document.body.classList.toggle('overlay-opened');
-    //         }
-    //     }
 
-    //     document.addEventListener("mousedown", handleClickOutside);
-    //     return () => {
-    //         document.removeEventListener("mousedown", handleClickOutside);
-    //     }
-    // }, [])
+    useEffect(() => {
+        const handleClickOutside = (e: MouseEvent) => {
+            if (overlayRef.current && !overlayRef.current.contains(e.target as HTMLElement) && isOpened) {
+                setIsOpened(false);
+                document.body.classList.toggle('overlay-opened');
+            }
+        }
+
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        }
+    }, [isOpened])
 
     const handleOverlayClick = () => {
-        setIsOpened(!isOpened)
+        setIsOpened(!isOpened);
         document.body.classList.toggle('overlay-opened');
     }
 

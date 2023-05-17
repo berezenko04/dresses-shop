@@ -3,8 +3,8 @@ import { useEffect, useState } from "react"
 import { toast } from 'react-toastify'
 
 //redux
-import { authDataSelector } from "@/redux/auth/selectors"
-import { UserData } from "@/redux/auth/types"
+import { userDataSelector } from "@/redux/user/selectors"
+import { UserData } from "@/redux/user/types"
 import { ProductItem } from "@/redux/products/types"
 
 //API
@@ -18,7 +18,7 @@ type UseWishListResult = {
 
 
 const useWishList = (itemId: string, isAuth: boolean): UseWishListResult => {
-    const data = useSelector(authDataSelector);
+    const data = useSelector(userDataSelector);
     const [isFavorite, setIsFavorite] = useState(false);
     const [product, setProduct] = useState<ProductItem>();
 

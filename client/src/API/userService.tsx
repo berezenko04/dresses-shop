@@ -21,6 +21,11 @@ export const getUserData = async (params: LoginFormValues) => {
     return data;
 }
 
+export const getUser = async (userId: string) => {
+    const { data } = await axios.get(`/auth/get?userId=${userId}`);
+    return data;
+}
+
 export const getAuthMe = async () => {
     const { data } = await axios.get('/auth/me');
     return data;
@@ -41,7 +46,7 @@ export const getCart = async () => {
 }
 
 export const addToCart = async (item: AddToCartProps) => {
-    const data = await axios.post('/cart/add', item);
+    const { data } = await axios.post('/cart/add', item);
     return data;
 }
 

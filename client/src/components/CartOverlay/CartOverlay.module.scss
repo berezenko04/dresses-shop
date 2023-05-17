@@ -4,6 +4,7 @@
     position: absolute;
     right: 0;
     top: 0;
+    bottom: 0;
     z-index: 9999;
     height: 100vh;
     background-color: $white;
@@ -12,15 +13,14 @@
     display: flex;
     flex-direction: column;
     gap: 32px;
-    transition: all 0.3s ease-in-out;
+    transition: transform 0.5s ease-in-out;
 
     &__opened {
-        
+        transform: translateX(0);
     }
 
     &__closed {
-        transform: translateX(-100%);
-        display: none;
+        transform: translateX(100%);
     }
 
     &__head {

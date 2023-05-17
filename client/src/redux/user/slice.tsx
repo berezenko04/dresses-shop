@@ -1,17 +1,17 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit"
 import { fetchAuthMe, fetchUserData } from "./asyncActions";
 import { Status } from "../products/types";
-import { AuthSliceState, UserData, TCartItem } from "./types";
+import { UserSliceState, UserData, TCartItem, RemoveFromCart } from "./types";
 import { addToCart, removeFromCart } from "@/API/userService";
 import { toast } from "react-toastify";
 
-const initialState: AuthSliceState = {
+const initialState: UserSliceState = {
     data: null,
     status: 'loading',
     message: null
 }
 
-export const AuthSlice = createSlice({
+export const UserSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
@@ -28,11 +28,11 @@ export const AuthSlice = createSlice({
                 toast.error('Item already in cart');
             }
         },
-        deleteFromCart(state, action: PayloadAction<string>) {
+        deleteFromCart(state, action: PayloadAction<RemoveFromCart>) {
             if (state.data) {
-                state.data.cart = state.data.cart?.filter((obj) => (obj._id !== action.payload));
+                state.data.cart = state.data.cart?.filter((obj) => (obj._id !== action.payload._id) && (obj.size !== action.payload.size));
                 (async () => {
-                    await removeFromCart(state.data?._id || '', action.payload);
+                    await removeFromCart(state.data?._id || '', action.payload._id);
                 })();
             }
         }
@@ -72,6 +72,6 @@ export const AuthSlice = createSlice({
 
 });
 
-export const { addInCart, deleteFromCart } = AuthSlice.actions;
+export const { addInCart, deleteFromCart } = UserSlice.actions;
 
-export default AuthSlice.reducer;
+export default UserSlice.reducer;

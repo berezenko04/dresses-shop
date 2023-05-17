@@ -1,7 +1,6 @@
 import { Routes, Route } from "react-router-dom"
-import { useEffect } from "react";
+import { useEffect, lazy, Suspense } from "react";
 import { useAppDispatch } from "./redux/store";
-import { useSelector } from "react-redux";
 
 //styles
 import "./scss/main.scss";
@@ -9,23 +8,25 @@ import "./scss/main.scss";
 //layout
 import PrimaryLayout from "./layout/PrimaryLayout";
 
+//components
+import Loader from "./components/Loader";
+
 //pages
-import Home from "./pages/Home"
-import Products from "./pages/Products";
-import Product from "./pages/Product";
-import Register from "./pages/Register";
-import Login from "./pages/Login";
-import Checkout from "./pages/Checkout";
-import Profile from "./pages/Profile";
+const Home = lazy(() => import("./pages/Home"))
+const Products = lazy(() => import("./pages/Products"));
+const Product = lazy(() => import("./pages/Product"));
+const Register = lazy(() => import("./pages/Register"));
+const Login = lazy(() => import("./pages/Login"));
+const Checkout = lazy(() => import("./pages/Checkout"));
+const Profile = lazy(() => import("./pages/Profile"));
+const Error404 = lazy(() => import("./pages/Error404"));
 
 //redux
-import { fetchAuthMe } from "./redux/auth/asyncActions";
-import { authDataSelector } from "./redux/auth/selectors";
+import { fetchAuthMe } from "./redux/user/asyncActions";
 
 
 function App() {
   const dispatch = useAppDispatch();
-  const data = useSelector(authDataSelector);
 
   useEffect(() => {
     dispatch(fetchAuthMe());
@@ -33,17 +34,20 @@ function App() {
 
   return (
     <div className="App">
-      <Routes>
-        <Route path={'Sandrela/'} element={<PrimaryLayout />}>
-          <Route path={''} element={<Home />} />
-          <Route path={'products'} element={<Products />} />
-          <Route path={'products/:id'} element={<Product />} />
-          <Route path={'profile/:id'} element={<Profile />} />
-          <Route path={'checkout/:id'} element={<Checkout />} />
-        </Route>
-        <Route path={'Sandrela/register'} element={<Register />} />
-        <Route path={'Sandrela/login'} element={<Login />} />
-      </Routes>
+      <Suspense fallback={<Loader />}>
+        <Routes>
+          <Route path={'Sandrela/'} element={<PrimaryLayout />}>
+            <Route path={''} element={<Home />} />
+            <Route path={'*'} element={<Error404 />} />
+            <Route path={'products'} element={<Products />} />
+            <Route path={'products/:id'} element={<Product />} />
+            <Route path={'profile/:id'} element={<Profile />} />
+            <Route path={'checkout/:id'} element={<Checkout />} />
+          </Route>
+          <Route path={'Sandrela/register'} element={<Register />} />
+          <Route path={'Sandrela/login'} element={<Login />} />
+        </Routes>
+      </Suspense>
     </div>
   )
 }

@@ -1,5 +1,5 @@
 //types
-import { TCartItem } from "@/redux/auth/types";
+import { TCartItem } from "@/redux/user/types";
 
 //utils
 import { getPriceWithDiscount } from "./getPriceWithDiscount";

@@ -20,20 +20,19 @@ import { ReactComponent as LogoutIcon } from '@/assets/icons/logout.svg'
 
 //redux
 import { useAppDispatch } from '@/redux/store';
-import { fetchAuthMe } from '@/redux/auth/asyncActions';
-import { authDataSelector } from '@/redux/auth/selectors';
+import { fetchAuthMe } from '@/redux/user/asyncActions';
+import { userDataSelector } from '@/redux/user/selectors';
 import WishList from '@/components/ProfileComponents/WishList';
 
 
 const Profile: React.FC = () => {
     const [activeIndex, setActiveIndex] = useState(0);
     const dispatch = useAppDispatch();
-    const data = useSelector(authDataSelector);
-    const { fullName, avatarUrl, email } = data;
+    const data = useSelector(userDataSelector);
 
 
     const tabs = [
-        { title: 'Account', icon: <UserIcon />, content: <Account fullName={fullName} avatarUrl={avatarUrl} email={email} /> },
+        { title: 'Account', icon: <UserIcon />, content: <Account {...data} /> },
         { title: 'Wish List', icon: <FavoriteIcon />, content: <WishList wishList={data?.wishList} /> },
         { title: 'Settings', icon: <SettingsIcon /> },
         { title: 'My reviews', icon: <ReviewsIcon /> },

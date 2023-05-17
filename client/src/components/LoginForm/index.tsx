@@ -13,10 +13,10 @@ import AuthField from '../AuthField'
 import Button from '../Button'
 
 //redux
-import { fetchUserData } from '@/redux/auth/asyncActions'
+import { fetchUserData } from '@/redux/user/asyncActions'
 import { useAppDispatch } from '@/redux/store'
-import { authErrorSelector, isAuthSelector } from '@/redux/auth/selectors'
-import { IFetchUserResponse } from '@/redux/auth/types'
+import { authErrorSelector, isAuthSelector } from '@/redux/user/selectors'
+import { IFetchUserResponse } from '@/redux/user/types'
 
 
 

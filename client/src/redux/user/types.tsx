@@ -1,6 +1,6 @@
 import { ProductItem } from "../products/types"
 
-export interface AuthSliceState {
+export interface UserSliceState {
     data: null | UserData,
     status: 'loading' | 'success' | 'error',
     message: null | string
@@ -32,6 +32,11 @@ export interface IFetchUserResponse {
     }
     data?: UserData,
     status: 'error'
+}
+
+export type RemoveFromCart = {
+    _id: string,
+    size: string
 }
 
 

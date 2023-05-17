@@ -12,8 +12,8 @@ import Button from "../Button";
 import { ReactComponent as CloseIcon } from "@/assets/icons/close.svg";
 
 //redux
-import { authDataSelector } from "@/redux/auth/selectors";
-import { TCartItem } from "@/redux/auth/types";
+import { userDataSelector } from "@/redux/user/selectors";
+import { TCartItem } from "@/redux/user/types";
 
 //utils
 import { getTotalPrice } from "@/utils/getTotalPrice";
@@ -27,7 +27,7 @@ interface CartOverlayProps {
 
 
 const CartOverlay = forwardRef<HTMLDivElement, CartOverlayProps>(({ handleOverlayClick, isOpened }, ref) => {
-  const data = useSelector(authDataSelector);
+  const data = useSelector(userDataSelector);
   const cartItems: TCartItem[] = data?.cart || [];
   const totalPrice = getTotalPrice(cartItems);
 

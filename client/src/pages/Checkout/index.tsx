@@ -9,8 +9,8 @@ import CartItem from '@/components/CartItem';
 import Button from '@/components/Button';
 
 //redux
-import { authDataSelector } from '@/redux/auth/selectors'
-import { TCartItem } from '@/redux/auth/types';
+import { userDataSelector } from '@/redux/user/selectors'
+import { TCartItem } from '@/redux/user/types';
 
 //utils
 import { getTotalPrice } from '@/utils/getTotalPrice';
@@ -22,7 +22,7 @@ import { ReactComponent as InfoIcon } from '@/assets/icons/info.svg'
 
 
 const Checkout: React.FC = () => {
-    const data = useSelector(authDataSelector);
+    const data = useSelector(userDataSelector);
     const cartItems: TCartItem[] = data?.cart || [];
     const totalPrice = getTotalPrice(cartItems);
     const [billing, setBilling] = useState('');
