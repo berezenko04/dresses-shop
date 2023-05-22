@@ -59,3 +59,87 @@
         }
     }
 }
+
+.edit {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+
+    &__head {
+        display: flex;
+        gap: 16px;
+        align-items: center;
+
+        &__avatar {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            overflow: hidden;
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                object-position: center;
+            }
+        }
+
+        &__info {
+            button {
+                font-size: 16px;
+                line-height: 24px;
+                color: $primary-500;
+                text-decoration: underline;
+            }
+
+            p {
+                color: $grey-300;
+            }
+        }
+    }
+
+    &__profile {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+
+        h4 {
+            font-weight: 500;
+            font-size: 24px;
+            line-height: 36px;
+            color: $grey-500;
+            text-transform: uppercase;
+        }
+
+        &__form {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+
+            &__sex {
+                display: flex;
+                flex-direction: column;
+                gap: 4px;
+
+                &__radio {
+                    display: flex;
+                    align-items: center;
+                    gap: 16px;
+                }
+            }
+
+            button {
+                width: max-content;
+            }
+        }
+    }
+}
+
+.upload {
+    position: absolute;
+    display: flex;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+}

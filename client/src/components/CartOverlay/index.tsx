@@ -34,7 +34,7 @@ const CartOverlay = forwardRef<HTMLDivElement, CartOverlayProps>(({ handleOverla
   return (
     <div className={`${styles.overlay} ${isOpened ? styles.overlay__opened : styles.overlay__closed}`} ref={ref}>
       <div className={styles.overlay__head}>
-        <h3>Cart ({data?.cart.length})</h3>
+        <h3>Cart ({data ? data?.cart.length : 0})</h3>
         <button onClick={handleOverlayClick}>
           <CloseIcon />
         </button>

@@ -32,7 +32,15 @@ const RegistrationForm: React.FC = () => {
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     try {
-      await axios.post("/auth/register", data);
+      const { fullName, ...restData } = data;
+      const [name, lastName] = fullName.split(" ");
+      const newData = {
+        name,
+        lastName,
+        ...restData
+      }
+
+      await axios.post("/auth/register", newData);
       navigate("/Sandrela/login");
     } catch (err: any) {
       setError(err?.response.data.message);
@@ -50,10 +58,14 @@ const RegistrationForm: React.FC = () => {
               required: true,
               minLength: 8,
               maxLength: 50,
+              pattern: {
+                value: /[a-zA-Zа-яА-Я]+ [a-zA-Zа-яА-Я]+/,
+                message: "Invalid full name."
+              }
             })}
             placeholder="Enter full name"
             className={errors.fullName ? styles.error : ""}
-            error={!!errors.fullName}
+            error={Boolean(errors.fullName)}
           />
           {errors.fullName?.type === "required" && (
             <span>Full name is required.</span>
@@ -64,6 +76,9 @@ const RegistrationForm: React.FC = () => {
           {errors.fullName?.type === "maxLength" && (
             <span>Full name must be less than 50 characters.</span>
           )}
+          {errors.fullName?.type === "pattern" && (
+            <span>Invalid full name.</span>
+          )}
         </div>
 
         <div className={styles.form__block}>
@@ -73,7 +88,7 @@ const RegistrationForm: React.FC = () => {
             {...register("email", { required: true, pattern: /^\S+@\S+$/i })}
             placeholder="Enter email"
             className={errors.email ? styles.error : ""}
-            error={!!errors.email}
+            error={Boolean(errors.email)}
             onInput={() => setError("")}
           />
           {errors.email?.type === "required" && <span>Email is required.</span>}
@@ -94,7 +109,7 @@ const RegistrationForm: React.FC = () => {
             })}
             placeholder="Enter password"
             className={errors.password ? styles.error : ""}
-            error={!!errors.password}
+            error={Boolean(errors.password)}
           />
           {errors.password?.type === "required" && (
             <span>Password is required.</span>
@@ -117,7 +132,7 @@ const RegistrationForm: React.FC = () => {
             })}
             placeholder="Repeat your password"
             className={errors.repeatPassword ? styles.error : ""}
-            error={!!errors.repeatPassword}
+            error={Boolean(errors.repeatPassword)}
           />
           {errors.repeatPassword?.type === "required" && (
             <span>Repeat password is required.</span>

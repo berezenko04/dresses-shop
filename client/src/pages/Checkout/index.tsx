@@ -40,7 +40,7 @@ const Checkout: React.FC = () => {
                                     <button className={styles.edit}>Edit</button>
                                 </div>
                                 <ul className={styles.page__main__left__shipping__body}>
-                                    <li>{data?.fullName}</li>
+                                    <li>{`${data?.name} ${data?.lastName}`}</li>
                                     <li>510 Kampong Bahru Rd Singapore 099446</li>
                                     <li>{data?.email}</li>
                                 </ul>

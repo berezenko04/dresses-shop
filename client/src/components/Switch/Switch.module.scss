@@ -1,0 +1,58 @@
+@import "@/scss/variables.scss";
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 36px;
+    height: 20px;
+
+    input {
+        display: none;
+    }
+
+    &__slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        -webkit-transition: 0.4s;
+        transition: 0.4s;
+        background-color: $grey-300;
+
+        &::before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 2px;
+            bottom: 2px;
+            background-color: $white;
+            -webkit-transition: 0.4s;
+            transition: 0.4s;
+        }
+    }
+
+    input:checked + &__slider {
+        background-color: $primary-500;
+    }
+
+    input:focus + &__slider {
+        box-shadow: 0 0 1px #2196f3;
+    }
+
+    input:checked + &__slider:before {
+        -webkit-transform: translateX(16px);
+        -ms-transform: translateX(16px);
+        transform: translateX(16px);
+    }
+
+    &__slider.round {
+        border-radius: 16px;
+    }
+
+    &__slider.round:before {
+        border-radius: 50%;
+    }
+}

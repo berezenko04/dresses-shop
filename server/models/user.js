@@ -1,83 +1,94 @@
 import mongoose from "mongoose";
 
-const UserSchema = new mongoose.Schema({
+const UserSchema = new mongoose.Schema(
+  {
     avatarUrl: {
-        type: String,
-        default: '/default-avatar.png'
+      type: String,
+      default: "/default-avatar.png",
     },
-    fullName: {
-        type: String,
-        required: true
+    name: {
+      type: String,
+      required: true,
+    },
+    lastName: {
+      type: String,
+      required: true,
     },
     email: {
-        type: String,
-        required: true,
-        unique: true
+      type: String,
+      required: true,
+      unique: true,
     },
     passwordHash: {
-        type: String,
-        required: true
+      type: String,
+      required: true,
+    },
+    sex: {
+      type: String,
+      default: "",
     },
     wishList: {
-        type: Array,
-        items: {
-            id: {
-                type: Number,
-                unique: true
-            },
-            title: {
-                type: String,
-                required: true
-            },
-            price: {
-                type: Number,
-                required: true
-            },
-            imageUrl: {
-                type: String,
-                required: true
-            },
-            discount: {
-                type: Number,
-                default: 0
-            },
-        }
+      type: Array,
+      items: {
+        id: {
+          type: Number,
+          unique: true,
+        },
+        title: {
+          type: String,
+          required: true,
+        },
+        price: {
+          type: Number,
+          required: true,
+        },
+        imageUrl: {
+          type: String,
+          required: true,
+        },
+        discount: {
+          type: Number,
+          default: 0,
+        },
+      },
     },
     cart: {
-        type: Array,
-        items: {
-            id: {
-                type: Number,
-                unique: true
-            },
-            title: {
-                type: String,
-                required: true
-            },
-            price: {
-                type: Number,
-                required: true
-            },
-            imageUrl: {
-                type: String,
-                required: true
-            },
-            discount: {
-                type: Number,
-                default: 0
-            },
-            size: {
-                type: String,
-                required: true
-            },
-            quantity: {
-                type: Number,
-                default: 1
-            }
-        }
-    }
-}, {
+      type: Array,
+      items: {
+        id: {
+          type: Number,
+          unique: true,
+        },
+        title: {
+          type: String,
+          required: true,
+        },
+        price: {
+          type: Number,
+          required: true,
+        },
+        imageUrl: {
+          type: String,
+          required: true,
+        },
+        discount: {
+          type: Number,
+          default: 0,
+        },
+        size: {
+          type: String,
+          required: true,
+        },
+        quantity: {
+          type: Number,
+          default: 1,
+        },
+      },
+    },
+  },
+  {
     timestamps: true,
-});
+  }
+);
 
-export default mongoose.model('User', UserSchema);
+export default mongoose.model("User", UserSchema);

@@ -1,8 +1,8 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit"
-import { fetchAuthMe, fetchUserData } from "./asyncActions";
+import { fetchAuthMe, fetchUserData, uploadAvatar } from "./asyncActions";
 import { Status } from "../products/types";
-import { UserSliceState, UserData, TCartItem, RemoveFromCart } from "./types";
-import { addToCart, removeFromCart } from "@/API/userService";
+import { UserSliceState, UserData, TCartItem, RemoveFromCart, UpdatedUser, Avatar } from "./types";
+import { addToCart, removeFromCart, updateUserData, uploadFile } from "@/API/userService";
 import { toast } from "react-toastify";
 
 const initialState: UserSliceState = {
@@ -30,12 +30,62 @@ export const UserSlice = createSlice({
         },
         deleteFromCart(state, action: PayloadAction<RemoveFromCart>) {
             if (state.data) {
-                state.data.cart = state.data.cart?.filter((obj) => (obj._id !== action.payload._id) && (obj.size !== action.payload.size));
-                (async () => {
-                    await removeFromCart(state.data?._id || '', action.payload._id);
-                })();
+                try {
+                    if (state.data?._id) {
+                        (async () => {
+                            await removeFromCart(state.data?._id || '', action.payload._id);
+                        })();
+                        state.data.cart = state.data.cart?.filter((obj) => (obj._id !== action.payload._id) && (obj.size !== action.payload.size));
+                    } else {
+                        toast.error('Failed to receive user');
+                    }
+                } catch (err) {
+                    console.log(err);
+                    toast.error('An error occured while removing item');
+                }
+            } else {
+                toast.error('An error occured while removing item');
             }
-        }
+        },
+        updateUser(state, action: PayloadAction<UpdatedUser>) {
+            if (state.data) {
+                const newData = { ...state.data };
+                for (let key in action.payload) {
+                    if (action.payload.hasOwnProperty(key)) {
+                        if (newData[key] !== action.payload[key]) {
+                            newData[key] = action.payload[key];
+                        }
+                    }
+                }
+                try {
+                    (async () => {
+                        if (state.data?._id) {
+                            await updateUserData(state.data?._id, newData);
+                            toast.success('Data updated successfully');
+                        } else {
+                            toast.error('Failed to receive user');
+                        }
+                    })();
+                    state.data = newData;
+                }
+                catch (err) {
+                    console.log(err);
+                    toast.error('An error occured while updating user');
+                }
+            }
+        },
+        setAvatarPath: (state, action: PayloadAction<string>) => {
+            if (state.data?.avatarUrl) {
+                state.data.avatarUrl = action.payload;
+                const newData = { ...state.data };
+                newData.avatarUrl = action.payload;
+                (async () => {
+                    await updateUserData(newData._id, newData);
+                })();
+            } else {
+                toast.error('Failed to receive avatar');
+            }
+        },
     },
     extraReducers: (builder) => {
         builder.addCase(fetchUserData.pending, (state) => {
@@ -72,6 +122,6 @@ export const UserSlice = createSlice({
 
 });
 
-export const { addInCart, deleteFromCart } = UserSlice.actions;
+export const { addInCart, deleteFromCart, updateUser, setAvatarPath } = UserSlice.actions;
 
 export default UserSlice.reducer;

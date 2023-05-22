@@ -7,6 +7,9 @@ import styles from './Profile.module.scss'
 //components
 import ProfileTab from '@/components/ProfileTab';
 import Account from '@/components/ProfileComponents/Account';
+import WishList from '@/components/ProfileComponents/WishList';
+import MyReviews from '@/components/ProfileComponents/MyReviews';
+import Notifications from '@/components/ProfileComponents/Notifications';
 
 //icons
 import { ReactComponent as UserIcon } from '@/assets/icons/user.svg'
@@ -22,7 +25,8 @@ import { ReactComponent as LogoutIcon } from '@/assets/icons/logout.svg'
 import { useAppDispatch } from '@/redux/store';
 import { fetchAuthMe } from '@/redux/user/asyncActions';
 import { userDataSelector } from '@/redux/user/selectors';
-import WishList from '@/components/ProfileComponents/WishList';
+
+
 
 
 const Profile: React.FC = () => {
@@ -30,23 +34,20 @@ const Profile: React.FC = () => {
     const dispatch = useAppDispatch();
     const data = useSelector(userDataSelector);
 
-
     const tabs = [
         { title: 'Account', icon: <UserIcon />, content: <Account {...data} /> },
         { title: 'Wish List', icon: <FavoriteIcon />, content: <WishList wishList={data?.wishList} /> },
         { title: 'Settings', icon: <SettingsIcon /> },
-        { title: 'My reviews', icon: <ReviewsIcon /> },
+        { title: 'My reviews', icon: <ReviewsIcon />, content: <MyReviews /> },
         { title: 'My orders', icon: <StarIcon /> },
         { title: 'Shipping Address', icon: <HouseIcon /> },
         { title: 'Payment', icon: <CardIcon /> },
         { title: 'Logout', icon: <LogoutIcon /> },
     ];
 
-
     useEffect(() => {
         dispatch(fetchAuthMe());
-    }, [])
-
+    }, []);
 
     return (
         <div className={styles.page}>

@@ -4,6 +4,7 @@ import bcrypt from "bcrypt";
 //models
 import UserModel from "../models/user.js";
 import ProductModel from "../models/product.js";
+import CommentsModel from "../models/comment.js";
 
 export const register = async (req, res) => {
   try {
@@ -18,7 +19,8 @@ export const register = async (req, res) => {
     const hash = await bcrypt.hash(password, salt);
 
     const doc = new UserModel({
-      fullName: req.body.fullName,
+      name: req.body.name,
+      lastName: req.body.lastName,
       email: req.body.email,
       passwordHash: hash,
     });
@@ -100,6 +102,26 @@ export const getMe = async (req, res) => {
 
     const { passwordHash, ...userData } = user._doc;
     res.json(userData);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      message: "Access denied",
+    });
+  }
+};
+
+export const getReviews = async (req, res) => {
+  try {
+    const user = await UserModel.findById(req.userId);
+
+    if (!user) {
+      return res.status(404).json({
+        message: "User is not found",
+      });
+    }
+
+    const comments = await CommentsModel.find({ user: user });
+    res.json(comments);
   } catch (err) {
     console.log(err);
     res.status(500).json({
@@ -238,6 +260,40 @@ export const removeFromCart = async (req, res) => {
     res.status(200).json({ message: "Item removed from cart" });
   } catch (err) {
     console.error(err);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+export const uploadAvatar = async (req, res) => {
+  res.json({
+    url: `http://localhost:3001/uploads/${req.file.originalname}`,
+  });
+};
+
+export const updateUser = async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const updatedData = req.body;
+
+    const user = await UserModel.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    for (let key in updatedData) {
+      if (updatedData.hasOwnProperty(key)) {
+        if (user[key] !== updatedData[key]) {
+          user[key] = updatedData[key];
+        }
+      }
+    }
+
+    const updatedUser = await user.save();
+
+    res.json(updatedUser);
+  } catch (err) {
+    console.log(err);
     res.status(500).json({ message: "Server error" });
   }
 };

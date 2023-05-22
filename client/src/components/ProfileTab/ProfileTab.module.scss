@@ -15,11 +15,13 @@
         text-transform: uppercase;
     }
 
+    svg path {
+        fill: $grey-500;
+    }
+
     &__active {
-        svg {
-            path {
-                fill: $primary-500;
-            }
+        svg path {
+            fill: $primary-500;
         }
         span {
             color: $primary-500 !important;

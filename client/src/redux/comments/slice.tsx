@@ -17,7 +17,6 @@ export const CommentsSlice = createSlice({
     reducers: {
         createComment(state, action: PayloadAction<PostComment>) {
             const { itemId, comment } = action.payload;
-            console.log(itemId, comment);
             state.items.push(comment);
             (async () => {
                 await addToComments(itemId, comment);

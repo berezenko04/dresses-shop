@@ -6,12 +6,18 @@ export interface UserSliceState {
     message: null | string
 }
 
+type MakePartial<T> = {
+    [K in keyof T]?: T[K];
+};
+
 export interface UserData {
     _id: string,
     email: string,
-    fullName: string,
+    name: string,
+    lastName: string,
     avatarUrl: string,
     token: string,
+    sex: string,
     wishList: ProductItem[],
     cart: TCartItem[]
 }
@@ -37,6 +43,12 @@ export interface IFetchUserResponse {
 export type RemoveFromCart = {
     _id: string,
     size: string
+}
+
+export type UpdatedUser = MakePartial<UserData>
+
+export type Avatar = {
+    image: File 
 }
 
 

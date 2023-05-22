@@ -17,6 +17,4 @@ router.post("/register", registerValidation, validationErrors, UserController.re
 
 router.get("/me", checkAuth, UserController.getMe);
 
-router.get("/get", UserController.getUser);
-
 export default router;

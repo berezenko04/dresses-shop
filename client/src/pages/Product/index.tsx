@@ -196,7 +196,7 @@ const Product: React.FC = () => {
                         <h2>Rating & Reviews</h2>
                         <div className={styles.page__reviews__rating}>
                             <div className={styles.page__reviews__rating__left}>
-                                <span>{(allRating / ratingsCount).toFixed(1)}</span>
+                                <span>{ratingsCount ? (allRating / ratingsCount).toFixed(1) : ratingsCount.toFixed(1)}</span>
                                 <div className={styles.page__reviews__rating__left__info}>
                                     <ul className={styles.page__reviews__rating__left__info__stars}>
                                         {[...Array(5)].map((_, index) => (

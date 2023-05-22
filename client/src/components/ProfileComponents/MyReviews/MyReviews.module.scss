@@ -1,0 +1,17 @@
+@import "@/scss/variables.scss";
+
+.reviews {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+
+    &__main {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+
+        &__item:not(:last-child) {
+            border-bottom: 1px solid $grey-200;
+        }
+    }
+}

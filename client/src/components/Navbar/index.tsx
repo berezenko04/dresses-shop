@@ -81,7 +81,7 @@ const Navbar: React.FC = () => {
                             ))}
                         </ul>
                     </div>
-                </div>
+                </div> 
             </div>
             <div className={styles.navbar__bottom}>
                 <div className="container">

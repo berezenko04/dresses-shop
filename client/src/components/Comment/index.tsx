@@ -16,7 +16,7 @@ import { UserData } from '@/redux/user/types'
 
 const Comment: React.FC<CommentProps> = ({ text, date, rating, likes, dislikes, user }) => {
 
-    const [userData, setUserData] = useState<UserData>();
+    const [userData, setUserData] = useState<UserData>();;
 
     useEffect(() => {
         (async () => {
@@ -40,7 +40,7 @@ const Comment: React.FC<CommentProps> = ({ text, date, rating, likes, dislikes, 
                             ))}
                         </ul>
                     }
-                    <p>{userData?.fullName}</p>
+                    <p>{`${userData?.name} ${userData?.lastName}`}</p>
                 </div>
             </div>
             <p className={styles.comment__text}>{text}</p>

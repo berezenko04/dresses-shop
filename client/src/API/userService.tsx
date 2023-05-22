@@ -2,6 +2,7 @@ import axios from "@/axios"
 
 //types
 import { LoginFormValues } from "@/components/LoginForm";
+import { UpdatedUser } from "@/redux/user/types";
 
 type AddToCartProps = {
     item: {
@@ -22,7 +23,7 @@ export const getUserData = async (params: LoginFormValues) => {
 }
 
 export const getUser = async (userId: string) => {
-    const { data } = await axios.get(`/auth/get?userId=${userId}`);
+    const { data } = await axios.get(`/user/get?userId=${userId}`);
     return data;
 }
 
@@ -52,4 +53,23 @@ export const addToCart = async (item: AddToCartProps) => {
 
 export const removeFromCart = async (userId: string, itemId: string) => {
     await axios.delete(`/cart/delete?userId=${userId}&itemId=${itemId}`);
+}
+
+export const getUserReviews = async () => {
+    const { data } = await axios.get('/user/comments');
+    return data;
+}
+
+export const updateUserData = async (userId: string, newData: UpdatedUser) => {
+    const { data } = await axios.put(`/user/${userId}`, newData);
+    return data;
+}
+
+export const uploadFile = async (formData: FormData) => {
+    const { data } = await axios.post('/user/upload', formData, {
+        headers: {
+            'Content-Type': 'multipart/form-data',
+        }
+    });
+    return data;
 }
