@@ -1,14 +1,14 @@
 import express from "express";
 
 //controllers
-import * as UserController from "../controllers/UserController.js";
+import * as CartController from "../controllers/CartController.js";
 
 //validations
 import checkAuth from "../utils/checkAuth.js";
 
 const router = express.Router();
 
-router.post("/add", checkAuth, UserController.addToCart);
-router.delete("/delete", checkAuth, UserController.removeFromCart);
+router.post("/add", checkAuth, CartController.addToCart);
+router.delete("/delete", checkAuth, CartController.removeFromCart);
 
 export default router;

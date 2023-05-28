@@ -9,6 +9,7 @@ import APIProductsRoutes from "./routes/product.js";
 import WishListRoutes from "./routes/wishlist.js";
 import CartRoutes from "./routes/cart.js";
 import UserRoutes from "./routes/user.js";
+import ForgotPasswordRoutes from "./routes/forgotPassword.js";
 
 const PORT = process.env.PORT || 3001;
 const db =
@@ -24,6 +25,7 @@ const app = express();
 app.use(express.json());
 app.use(bodyParser.json());
 app.use(cors());
+app.set("view engine", "ejs");
 app.use("/uploads", express.static("uploads"));
 
 app.use("/auth", AuthRoutes);
@@ -31,6 +33,7 @@ app.use("/user", UserRoutes);
 app.use("/api", APIProductsRoutes);
 app.use("/wishlist", WishListRoutes);
 app.use("/cart", CartRoutes);
+app.use("", ForgotPasswordRoutes);
 
 app.listen(PORT, (err) => {
   if (err) {

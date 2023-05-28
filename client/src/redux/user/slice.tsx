@@ -74,7 +74,7 @@ export const UserSlice = createSlice({
                 }
             }
         },
-        setAvatarPath: (state, action: PayloadAction<string>) => {
+        setAvatarPath(state, action: PayloadAction<string>) {
             if (state.data?.avatarUrl) {
                 state.data.avatarUrl = action.payload;
                 const newData = { ...state.data };
@@ -86,6 +86,19 @@ export const UserSlice = createSlice({
                 toast.error('Failed to receive avatar');
             }
         },
+        removeAvatar(state, action) {
+            if (state.data?.avatarUrl) {
+                const defaultAvatar = '/default-avatar.png'
+                state.data.avatarUrl = defaultAvatar;
+
+                const newData = { ...state.data };
+                newData.avatarUrl = defaultAvatar;
+
+                (async () => {
+                    await updateUserData(newData._id, newData);
+                })();
+            }
+        }
     },
     extraReducers: (builder) => {
         builder.addCase(fetchUserData.pending, (state) => {
@@ -122,6 +135,6 @@ export const UserSlice = createSlice({
 
 });
 
-export const { addInCart, deleteFromCart, updateUser, setAvatarPath } = UserSlice.actions;
+export const { addInCart, deleteFromCart, updateUser, setAvatarPath, removeAvatar } = UserSlice.actions;
 
 export default UserSlice.reducer;

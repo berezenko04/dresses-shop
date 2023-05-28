@@ -1,0 +1,64 @@
+@import "@/scss/variables.scss";
+
+.settings {
+    &__wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 56px;
+    }
+
+    &__block {
+        display: flex;
+        flex-direction: column;
+        gap: 32px;
+    }
+
+    &__security {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+
+        h4 {
+            font-weight: 500;
+            font-size: 20px;
+            line-height: 30px;
+            text-transform: uppercase;
+            color: $grey-700;
+        }
+
+        &__current {
+            padding: 16px;
+            border: 1px solid $grey-100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 24px;
+
+            button svg path {
+                fill: $error-500;
+            }
+        }
+    }
+
+    &__passwordForm {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+
+        &__fields {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        &__buttons {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+
+            button {
+                width: max-content;
+            }
+        }
+    }
+}

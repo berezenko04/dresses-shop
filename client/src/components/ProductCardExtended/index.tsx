@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux';
-import { ToastContainer } from 'react-toastify';
 
 //styles
 import styles from './ProductCardExtended.module.scss'
@@ -59,16 +58,6 @@ const ProductCardExtended: React.FC<ProductCardExtendedProps> = ({ _id, title, p
                     <CardPrice price={price} discount={discount} />
                 </div>
             </div>
-            <ToastContainer
-                position="bottom-center"
-                autoClose={5000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                theme="light"
-            />
         </article>
     )
 }

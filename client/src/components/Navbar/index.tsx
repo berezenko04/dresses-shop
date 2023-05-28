@@ -19,6 +19,7 @@ import { ReactComponent as PlatesIcon } from '@/assets/icons/grid-plates.svg'
 import { userDataSelector, isAuthSelector } from '@/redux/user/selectors'
 import { useAppDispatch } from '@/redux/store'
 import { fetchAuthMe } from '@/redux/user/asyncActions'
+import Button from '../Button'
 
 
 
@@ -27,7 +28,6 @@ const Navbar: React.FC = () => {
         { name: 'Find a Store', href: '' },
         { name: 'Help', href: '' },
         { name: 'Join us', href: '' },
-        { name: 'Sign in', href: '/Sandrela/login' }
     ];
 
     const dispatch = useAppDispatch();
@@ -81,7 +81,7 @@ const Navbar: React.FC = () => {
                             ))}
                         </ul>
                     </div>
-                </div> 
+                </div>
             </div>
             <div className={styles.navbar__bottom}>
                 <div className="container">
@@ -95,26 +95,42 @@ const Navbar: React.FC = () => {
                             <SearchIcon />
                             <input type="text" placeholder='Search something...' />
                         </div>
-                        <div className={styles.navbar__bottom__user}>
-                            <Link to="/"><FavoriteIcon /></Link>
-                            <button onClick={handleOverlayClick}>
-                                <CartIcon />
-                                {data && data.cart.length > 0 && <span>{data.cart.length}</span>}
-                            </button>
-                            {isAuth &&
+                        {isAuth ?
+                            <div className={styles.navbar__bottom__user}>
+                                <Link to="/Sandrela/profile/wishlist">
+                                    <FavoriteIcon />
+                                    {data && data.wishList.length > 0 && <span>{data.wishList.length}</span>}
+                                </Link>
+                                <button onClick={handleOverlayClick}>
+                                    <CartIcon />
+                                    {data && data.cart.length > 0 && <span>{data.cart.length}</span>}
+                                </button>
                                 <Link
                                     className={styles.navbar__bottom__user__avatar}
-                                    to={`/Sandrela/profile/${data?._id}`}
+                                    to={`/Sandrela/profile/account`}
                                 >
                                     <img src={data?.avatarUrl} alt="avatar" />
                                 </Link>
-                            }
-                        </div>
+                            </div>
+                            :
+                            <div className={styles.navbar__bottom__auth}>
+                                <Link to={'/Sandrela/register'}>
+                                    <Button theme='secondary' size='sm'>
+                                        Sign Up
+                                    </Button>
+                                </Link>
+                                <Link to={'/Sandrela/login'}>
+                                    <Button theme='primary' size='sm'>
+                                        Log in
+                                    </Button>
+                                </Link>
+                            </div>
+                        }
                     </div>
                 </div>
             </div>
             <CartOverlay isOpened={isOpened} ref={overlayRef} handleOverlayClick={handleOverlayClick} />
-        </nav>
+        </nav >
     )
 }
 

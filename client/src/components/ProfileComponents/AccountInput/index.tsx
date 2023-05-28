@@ -8,7 +8,7 @@ import { ReactComponent as ErrorIcon } from '@/assets/icons/alert-circle.svg'
 
 interface AссountInputProps extends InputHTMLAttributes<HTMLInputElement> {
     title: string,
-    error: boolean
+    error?: boolean
 }
 
 const AccountInput = forwardRef<HTMLInputElement, AссountInputProps>(({ title, error, ...props }, ref) => {

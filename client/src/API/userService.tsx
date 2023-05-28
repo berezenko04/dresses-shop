@@ -4,6 +4,8 @@ import axios from "@/axios"
 import { LoginFormValues } from "@/components/LoginForm";
 import { UpdatedUser } from "@/redux/user/types";
 
+const API_KEY = 'a29807b5b18547d2966ec2e2d9e2325d';
+
 type AddToCartProps = {
     item: {
         _id: string,
@@ -71,5 +73,10 @@ export const uploadFile = async (formData: FormData) => {
             'Content-Type': 'multipart/form-data',
         }
     });
+    return data;
+}
+
+export const getGeo = async () => {
+    const { data } = await axios.get(`https://api.ipgeolocation.io/ipgeo?apiKey=${API_KEY}`);
     return data;
 }

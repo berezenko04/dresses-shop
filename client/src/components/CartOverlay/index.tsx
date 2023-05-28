@@ -1,5 +1,6 @@
 import React, { forwardRef } from "react";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 //styles
 import styles from "./CartOverlay.module.scss";
@@ -50,9 +51,11 @@ const CartOverlay = forwardRef<HTMLDivElement, CartOverlayProps>(({ handleOverla
             <h4>Total</h4>
             <p>{totalPrice + " UAH"}</p>
           </div>
-          <Button theme="primary" size="sm">
-            Checkout
-          </Button>
+          <Link to="/Sandrela/profile/checkout">
+            <Button theme="primary" size="sm" onClick={handleOverlayClick}>
+              Checkout
+            </Button>
+          </Link>
         </div>
       )}
     </div>

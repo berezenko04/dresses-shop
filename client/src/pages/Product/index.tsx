@@ -1,7 +1,7 @@
 import { useParams, Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 //styles
 import styles from './Product.module.scss'
@@ -253,16 +253,6 @@ const Product: React.FC = () => {
                     </div>
                 </div>
             </div>
-            <ToastContainer
-                position="bottom-center"
-                autoClose={3000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                theme="light"
-            />
         </div>
     )
 }

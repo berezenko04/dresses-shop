@@ -36,7 +36,7 @@ const RegistrationForm: React.FC = () => {
       const [name, lastName] = fullName.split(" ");
       const newData = {
         name,
-        lastName,
+        lastName, 
         ...restData
       }
 

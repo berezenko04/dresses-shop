@@ -1,15 +1,15 @@
-import express from 'express'
+import express from "express";
 
 //controllers
-import * as UserController from '../controllers/UserController.js';
+import * as WishListController from "../controllers/WishListController.js";
 
 //validations
-import checkAuth from '../utils/checkAuth.js';
+import checkAuth from "../utils/checkAuth.js";
 
 const router = express.Router();
 
-router.post('/add', checkAuth, UserController.addToWishList);
+router.post("/add", checkAuth, WishListController.addToWishList);
 
-router.delete('/delete', checkAuth, UserController.removeFromWishlist);
+router.delete("/delete", checkAuth, WishListController.removeFromWishlist);
 
 export default router;

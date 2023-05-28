@@ -6,7 +6,7 @@ import styles from './Button.module.scss'
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     children: React.ReactNode,
-    theme: 'primary' | 'secondary' | 'tertiary' | 'iconary',
+    theme: 'primary' | 'secondary' | 'tertiary' | 'iconary' | 'tertiary-link',
     size: 'sm' | 'lg'
 }
 
@@ -16,6 +16,7 @@ const Button: React.FC<ButtonProps> = ({ children, theme, size, ...props }) => {
         [styles.button__primary]: theme === 'primary',
         [styles.button__secondary]: theme === 'secondary',
         [styles.button__tertiary]: theme === 'tertiary',
+        [styles.button__tertiaryLink]: theme === 'tertiary-link',
         [styles.button__iconary]: theme === 'iconary'
     })
 

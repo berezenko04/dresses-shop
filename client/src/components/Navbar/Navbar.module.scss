@@ -81,6 +81,16 @@
             }
         }
 
+        &__auth {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+
+            button {
+                width: max-content;
+            }
+        }
+
         &__user {
             display: flex;
             align-items: center;
@@ -93,6 +103,27 @@
                 display: flex;
                 align-items: center;
                 justify-content: center;
+            }
+
+            a:first-child {
+                position: relative;
+
+                span {
+                    width: 16px;
+                    height: 16px;
+                    background-color: $primary-500;
+                    border-radius: 50%;
+                    position: absolute;
+                    top: 2px;
+                    right: 2px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-weight: 500;
+                    font-size: 10px;
+                    line-height: 15px;
+                    color: $white;
+                }
             }
 
             button {

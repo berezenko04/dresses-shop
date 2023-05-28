@@ -9,8 +9,9 @@ import { Comment as TComment } from '@/redux/comments/types'
 //API
 import { getUserReviews } from '@/API/userService';
 
-//Components
+//components
 import Comment from '@/components/Comment';
+import ProfileLayout from '@/layout/ProfileLayout';
 
 
 const MyReviews: React.FC = () => {
@@ -29,14 +30,18 @@ const MyReviews: React.FC = () => {
 
     return (
         <div className={styles.reviews}>
-            <h3>My reviews ({reviews && reviews.length})</h3>
-            <div className={styles.reviews__main}>
-                {reviews && reviews.map((review, index) => (
-                    <div className={styles.reviews__main__item} key={index} >
-                        <Comment {...review} />
+            <ProfileLayout>
+                <div className={styles.reviews__wrapper}>
+                    <h3>My reviews ({reviews && reviews.length})</h3>
+                    <div className={styles.reviews__main}>
+                        {reviews && reviews.map((review, index) => (
+                            <div className={styles.reviews__main__item} key={index} >
+                                <Comment {...review} />
+                            </div>
+                        ))}
                     </div>
-                ))}
-            </div>
+                </div>
+            </ProfileLayout>
         </div>
     )
 }

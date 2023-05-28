@@ -1,9 +1,9 @@
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
+import nodemailer from "nodemailer";
 
 //models
 import UserModel from "../models/user.js";
-import ProductModel from "../models/product.js";
 import CommentsModel from "../models/comment.js";
 
 export const register = async (req, res) => {
@@ -150,120 +150,6 @@ export const getUser = async (req, res) => {
   }
 };
 
-export const addToWishList = async (req, res) => {
-  try {
-    const { userId, itemId } = req.query;
-
-    const user = await UserModel.findById(userId);
-    const product = await ProductModel.findById(itemId);
-
-    if (!user) {
-      res.status(400).json({
-        message: "User is not found",
-      });
-    }
-    if (!product) {
-      res.status(400).json({
-        message: "Product is not found",
-      });
-    }
-
-    user.wishList.push(product);
-    await user.save();
-
-    res.status(200).json({
-      message: "Item added to wishlist",
-    });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: "Server error" });
-  }
-};
-
-export const removeFromWishlist = async (req, res) => {
-  try {
-    const { userId, itemId } = req.query;
-
-    const user = await UserModel.findById(userId);
-
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
-    }
-
-    user.wishList = user.wishList.filter((item) => item._id.toString() !== itemId);
-
-    await user.save();
-
-    res.status(200).json({ message: "Item removed from wishlist" });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: "Server error" });
-  }
-};
-
-export const addToCart = async (req, res) => {
-  try {
-    const { userId, item } = req.body;
-
-    if (!userId) {
-      res.status(400).json({
-        message: "User ID not found",
-      });
-    }
-
-    if (!item) {
-      return res.status(400).json({
-        message: "Product not found",
-      });
-    }
-
-    const user = await UserModel.findById(userId);
-    const product = await ProductModel.findById(item._id);
-
-    if (!user) {
-      res.status(400).json({
-        message: "User is not found",
-      });
-    }
-    if (!product) {
-      res.status(400).json({
-        message: "Product is not found",
-      });
-    }
-
-    user.cart.push(item);
-    await user.save();
-
-    res.status(200).json({
-      message: "Item added to cart",
-    });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: "Server error" });
-  }
-};
-
-export const removeFromCart = async (req, res) => {
-  try {
-    const { userId, itemId } = req.query;
-
-    const user = await UserModel.findById(userId);
-
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
-    }
-
-    user.cart = user.cart.filter((item) => item._id.toString() !== itemId);
-
-    await user.save();
-
-    res.status(200).json({ message: "Item removed from cart" });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ message: "Server error" });
-  }
-};
-
 export const uploadAvatar = async (req, res) => {
   res.json({
     url: `http://localhost:3001/uploads/${req.file.originalname}`,
@@ -295,5 +181,80 @@ export const updateUser = async (req, res) => {
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: "Server error" });
+  }
+};
+
+export const forgotPassword = async (req, res) => {
+  const { email } = req.body;
+  try {
+    const oldUser = await UserModel.findOne({ email });
+    if (!oldUser) {
+      return res.status(400).json({
+        message: "User is not found",
+      });
+    }
+    const secret = "secret123" + oldUser.passwordHash;
+    const token = jwt.sign({ email: oldUser.email, id: oldUser._id }, secret, { expiresIn: "5m" });
+    const link = `http://localhost:5173/Sandrela/reset-password/${oldUser._id}/${token}/`;
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: "sandrelashop@gmail.com",
+        pass: "djzidcxlsfhaliia",
+      },
+    });
+
+    const mailOptions = {
+      from: "sandrelashop@gmail.com",
+      to: email,
+      subject: "Reset Password",
+      text: link,
+    };
+
+    transporter.sendMail(mailOptions, function (error, info) {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log("Email sent: " + info.response);
+      }
+    });
+  } catch (err) {
+    console.log(err);
+  }
+
+  res.status(200).json({ message: "Email sent" });
+};
+
+export const resetPassword = async (req, res) => {
+  const { id, token } = req.params;
+  const { password } = req.body;
+  const oldUser = await UserModel.findOne({ _id: id });
+  if (!oldUser) {
+    return res.status(400).json({
+      message: "User is not found",
+    });
+  }
+  if (!password) {
+    return res.status(404).json({
+      message: "Password is required",
+    });
+  }
+  const secret = "secret123" + oldUser.passwordHash;
+  try {
+    const verify = jwt.verify(token, secret);
+    const encryptedPassword = await bcrypt.hash(password, 10);
+    await UserModel.updateOne(
+      {
+        _id: id,
+      },
+      {
+        $set: {
+          passwordHash: encryptedPassword,
+        },
+      }
+    );
+    res.status(200).json({ message: "Password updated" });
+  } catch (err) {
+    res.status(404).json({ message: "Invalid token or id" });
   }
 };

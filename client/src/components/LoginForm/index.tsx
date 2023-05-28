@@ -2,7 +2,7 @@ import { useForm, SubmitHandler } from 'react-hook-form'
 import { useSelector } from 'react-redux'
 import { PayloadAction } from '@reduxjs/toolkit'
 import { Link, Navigate } from 'react-router-dom'
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 //styles
 import styles from './LoginForm.module.scss'
@@ -18,8 +18,6 @@ import { useAppDispatch } from '@/redux/store'
 import { authErrorSelector, isAuthSelector } from '@/redux/user/selectors'
 import { IFetchUserResponse } from '@/redux/user/types'
 
-
-
 export type LoginFormValues = {
     email: string,
     password: string
@@ -27,9 +25,8 @@ export type LoginFormValues = {
 
 const LoginForm: React.FC = () => {
     const { register, handleSubmit, formState: { errors } } = useForm<LoginFormValues>();
-
-    const isAuth = useSelector(isAuthSelector);
     const message = useSelector(authErrorSelector);
+    const isAuth = useSelector(isAuthSelector);
     const dispatch = useAppDispatch();
 
     const onSubmit: SubmitHandler<LoginFormValues> = async (data) => {
@@ -39,7 +36,7 @@ const LoginForm: React.FC = () => {
                 window.localStorage.setItem('token', response.payload.token as string);
             } else {
                 toast.error(message);
-            }
+            } 
         } catch (error) {
             console.error(error);
         }
@@ -64,7 +61,6 @@ const LoginForm: React.FC = () => {
                     {errors.email?.type === 'required' && <span>Email is required.</span>}
                     {errors.email?.type === 'pattern' && <span>Invalid email address.</span>}
                 </div>
-
                 <div className={styles.form__block}>
                     <AuthField
                         type='password'
@@ -78,19 +74,12 @@ const LoginForm: React.FC = () => {
                     {errors.password?.type === 'minLength' && <span>Password must be at least 8 characters.</span>}
                     {errors.password?.type === 'maxLength' && <span>Password must be less than 32 characters.</span>}
                 </div>
+                <Link className={styles.form__forgot} to={'/Sandrela/forgot-password'}>
+                    Forgot Password?
+                </Link>
             </div>
             <Button size='sm' theme='primary' type="submit">Login</Button>
             <p>Don`t have an account? <Link to="/Sandrela/register">Register</Link></p>
-            <ToastContainer
-                position="bottom-center"
-                autoClose={5000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                theme="light"
-            />
         </form>
     );
 }

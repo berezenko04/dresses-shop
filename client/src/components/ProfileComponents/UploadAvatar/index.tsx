@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 import styles from './UploadAvatar.module.scss'
 
 //redux
-import { setAvatarPath } from '@/redux/user/slice';
+import { removeAvatar, setAvatarPath } from '@/redux/user/slice';
 
 //API
 import { uploadFile } from '@/API/userService';
@@ -59,6 +59,12 @@ const UploadAvatar = forwardRef<HTMLDivElement, UploadAvatarProps>(({ handleVisi
         }
     };
 
+    const handleDeletePhoto = async () => {
+        dispatch(removeAvatar({}));
+        handleVisible();
+        toast.success('Avatar removed succesfully');
+    }
+
 
     return (
         <div className={styles.upload} ref={ref}>
@@ -85,7 +91,7 @@ const UploadAvatar = forwardRef<HTMLDivElement, UploadAvatarProps>(({ handleVisi
                     {selectedFile ?
                         <button type='submit'>Save</button>
                         :
-                        <button type='button'>Delete Photo</button>
+                        <button type='button' onClick={handleDeletePhoto}>Delete Photo</button>
                     }
                     <button onClick={handleVisible} type='button'>Cancel</button>
                 </div>
