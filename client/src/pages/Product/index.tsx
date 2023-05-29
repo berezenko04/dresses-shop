@@ -11,6 +11,7 @@ import CardPrice from '@/components/CardPrice';
 import Colors from '@/components/Colors';
 import Comment from '@/components/Comment';
 import Button from '@/components/Button';
+import CommentSkeleton from '@/components/Skeletons/CommentSkeleton';
 
 //Array
 import { sizes } from '../Products';
@@ -20,7 +21,7 @@ import { useAppDispatch } from '@/redux/store';
 import { fetchProduct } from '@/redux/products/asyncActions';
 import { productsSelector } from '@/redux/products/selectors';
 import { fetchComments } from '@/redux/comments/asyncActions';
-import { commentsItemsSelector } from '@/redux/comments/selectors';
+import { commentsItemsSelector, commentsStatusSelector } from '@/redux/comments/selectors';
 import { userDataSelector, isAuthSelector } from '@/redux/user/selectors';
 
 //icons
@@ -33,11 +34,12 @@ import { ReactComponent as StarIcon } from '@/assets/icons/star-empty.svg'
 import useWishList from '@/hooks/useWishList';
 
 //API
-import { addInCart } from '@/redux/user/slice';
+import { addInCart } from '@/redux/cart/slice';
 import { createComment } from '@/redux/comments/slice';
 
 //utils
 import { formatDate } from '@/utils/formatDate';
+
 
 
 const Product: React.FC = () => {
@@ -50,6 +52,7 @@ const Product: React.FC = () => {
     const dispatch = useAppDispatch();
     const product = useSelector(productsSelector);
     const isAuth = useSelector(isAuthSelector);
+    const status = useSelector(commentsStatusSelector);
     const user = useSelector(userDataSelector);
     const comments = useSelector(commentsItemsSelector);
 
@@ -81,7 +84,7 @@ const Product: React.FC = () => {
                     imageUrl: product[0]?.imageUrl
                 };
 
-                dispatch(addInCart(item));
+                dispatch(addInCart({ item, userId: user._id }));
             } else {
                 toast.error('Please login!');
             }
@@ -245,9 +248,15 @@ const Product: React.FC = () => {
                                 </div>
                             </form>
                             <div className={styles.page__reviews__comments__list}>
-                                {comments.map((comment, index) => (
-                                    comment.text && <Comment {...comment} key={index} />
-                                ))}
+                                {status === 'success' ?
+                                    comments.map((comment, index) => (
+                                        comment.text && <Comment {...comment} key={index} />
+                                    ))
+                                    :
+                                    [...Array(5)].map((_, index) => (
+                                        <CommentSkeleton key={index} />
+                                    ))
+                                }
                             </div>
                         </div>
                     </div>

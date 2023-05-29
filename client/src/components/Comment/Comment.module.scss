@@ -7,6 +7,10 @@
     flex-direction: column;
     gap: 16px;
 
+    &:not(:last-child) {
+        border-bottom: 1px solid $grey-200;
+    }
+
     &__head {
         display: flex;
         align-items: center;
@@ -17,7 +21,6 @@
             height: 48px;
             border-radius: 100%;
             overflow: hidden;
-            background-color: $grey-300;
 
             img {
                 width: 100%;

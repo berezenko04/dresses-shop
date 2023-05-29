@@ -26,6 +26,7 @@ const Account = lazy(() => import("./pages/Profile/Account"));
 const WishList = lazy(() => import("./pages/Profile/WishList"));
 const Settings = lazy(() => import("./pages/Profile/Settings"));
 const MyReviews = lazy(() => import("./pages/Profile/MyReviews"));
+const Notifications = lazy(() => import("./pages/Profile/Notifications"));
 const Checkout = lazy(() => import("./pages/Checkout"));
 
 //redux
@@ -53,6 +54,7 @@ function App() {
               <Route path={'settings'} element={<Settings />} />
               <Route path={'reviews'} element={<MyReviews />} />
               <Route path={'checkout'} element={<Checkout />} />
+              <Route path={'notifications'} element={<Notifications />} />
             </Route>
           </Route>
 

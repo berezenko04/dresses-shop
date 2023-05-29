@@ -14,13 +14,11 @@ import { ReactComponent as SettingsIcon } from '@/assets/icons/settings.svg'
 import { ReactComponent as ReviewsIcon } from '@/assets/icons/reviews.svg'
 import { ReactComponent as StarIcon } from '@/assets/icons/star-empty.svg'
 import { ReactComponent as HouseIcon } from '@/assets/icons/house.svg'
-import { ReactComponent as CardIcon } from '@/assets/icons/card.svg'
+import { ReactComponent as NotificationsIcon } from '@/assets/icons/notifications.svg'
 import { ReactComponent as LogoutIcon } from '@/assets/icons/logout.svg'
 
 //redux
 import { fetchAuthMe } from '@/redux/user/asyncActions'
-
-
 
 
 const TabMenu: React.FC = () => {
@@ -43,10 +41,8 @@ const TabMenu: React.FC = () => {
         { title: 'My reviews', icon: <ReviewsIcon />, href: 'reviews' },
         { title: 'My orders', icon: <StarIcon />, href: 'orders' },
         { title: 'Shipping Address', icon: <HouseIcon />, href: 'shipping' },
-        { title: 'Payment', icon: <CardIcon />, href: 'billing' },
+        { title: 'Notifications', icon: <NotificationsIcon />, href: 'notifications' },
     ];
-
-
 
     return (
         <div className={styles.tabs}>

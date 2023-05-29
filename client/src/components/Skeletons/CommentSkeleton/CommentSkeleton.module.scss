@@ -1,0 +1,84 @@
+@import "@/scss/variables.scss";
+@import "@/scss/mixins.scss";
+
+.comment {
+    width: 100%;
+    padding: 32px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    &:not(:last-child) {
+        border-bottom: 1px solid $grey-200;
+    }
+
+    &__head {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+
+        &__avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 100%;
+            overflow: hidden;
+            background-color: lightgray;
+            position: relative;
+
+            @include Skeleton;
+            @include LoadAnimation;
+        }
+
+        &__rating {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+
+            &__stars {
+                background-color: lightgray;
+                position: relative;
+                overflow: hidden;
+                width: 110px;
+                height: 14px;
+
+                @include Skeleton;
+                @include LoadAnimation;
+            }
+
+            &__user {
+                background-color: lightgray;
+                position: relative;
+                overflow: hidden;
+                width: 150px;
+                height: 16px;
+
+                @include Skeleton;
+                @include LoadAnimation;
+            }
+        }
+    }
+
+    &__text {
+        background-color: lightgray;
+        position: relative;
+        overflow: hidden;
+        width: 400px;
+        height: 40px;
+        border-radius: 12px;
+
+        @include Skeleton;
+        @include LoadAnimation;
+    }
+
+    &__date {
+        background-color: lightgray;
+        position: relative;
+        overflow: hidden;
+        width: 80px;
+        height: 20px;
+        border-radius: 12px;
+
+        @include Skeleton;
+        @include LoadAnimation;
+    }
+}

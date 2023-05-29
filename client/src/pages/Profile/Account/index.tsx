@@ -21,15 +21,12 @@ import { updateUser } from '@/redux/user/slice'
 import { userDataSelector } from '@/redux/user/selectors'
 
 
-
-
 interface EditFormValues {
     name: string,
     lastName: string,
     email: string,
     sex: 'male' | 'female'
 }
-
 
 const Account: React.FC = () => {
     const { register, handleSubmit, formState: { errors } } = useForm<EditFormValues>();
@@ -77,7 +74,7 @@ const Account: React.FC = () => {
                         <div className={styles.account__edit}>
                             <div className={styles.account__edit__head}>
                                 <div className={styles.account__edit__head__avatar}>
-                                    <img src={data?.avatarUrl} alt="avatar" />
+                                    <img src={data?.avatarUrl} alt="" />
                                 </div>
                                 <div className={styles.account__edit__head__info}>
                                     <button onClick={handleVisible}>Change photo profile</button>

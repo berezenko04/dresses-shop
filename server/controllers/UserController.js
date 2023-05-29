@@ -208,7 +208,39 @@ export const forgotPassword = async (req, res) => {
       from: "sandrelashop@gmail.com",
       to: email,
       subject: "Reset Password",
-      text: link,
+      html: `<div style="font-family:'Inter', sans-serif;">
+        <div style="padding:24px;background-color:#F7F7F7;">
+          <h1 style="font-weight: 500;font-size: 24px;line-height: 29px;text-transform:uppercase;color:#686868;">
+            Sandrela
+          </h1>
+        </div>
+        <div style="background-color:#FFFFFF;padding:24px;">
+          <p style="font-size: 14px;line-height: 22px;color:#686868;width:100%;padding-bottom:16px;">
+            Your reset password link for Sandrela is:
+          </p>
+          <a href="${link}" style="padding: 8px 16px;background-color:#ED7222;font-weight: 500;font-size: 16px;
+          line-height: 24px;text-transform:uppercase;color:#FFFFFF;text-decoration:none;width:100%;">
+            Reset Password
+          </a>
+          <p style="font-size: 14px;line-height: 22px;color:#686868;width:100%;padding-top:16px;">
+           If it was not you, then we advise you to go in and change your password or write to 
+           <a href="" style="color:#ED7222;text-decoration:underline">support</a>.
+          </p>
+        </div>
+        <div style="padding:24px;background-color:#F7F7F7;">
+          <p style="font-size: 14px;line-height: 22px;color:#686868;width:100%;padding-bottom:16px;">
+            This email was sent to <span style="color:#ED7222;">${email}</span>. 
+            If you’d rather not receive this kind of email, you can <a href="" style="color:#ED7222;text-decoration:underline;">unsubscribe</a> 
+            or manage your email <a href="" style="color:#ED7222;text-decoration:underline;">preferences</a>.
+          </p>
+          <p style="font-size: 14px;line-height: 22px;color:#686868;width:100%;padding-bottom:48px;">
+            © 2023 Sandrela, 100 Smith Street, Melbourne VIC 3000
+          </p>
+          <h1 style="font-weight: 500;font-size: 24px;line-height: 29px;text-transform:uppercase;color:#686868;">
+            Sandrela
+          </h1>
+        </div>  
+      </div>`,
     };
 
     transporter.sendMail(mailOptions, function (error, info) {

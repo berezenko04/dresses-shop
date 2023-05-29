@@ -52,10 +52,7 @@ const Checkout: React.FC = () => {
                                 </div>
                             </div>
                             <div className={styles.page__main__left__billing}>
-                                <div className={styles.page__main__left__billing__head}>
-                                    <h4>Shipping Address</h4>
-                                    <button className={styles.edit}>Edit</button>
-                                </div>
+                                <h4>Billing Address</h4>
                                 <div className={styles.page__main__left__billing__body}>
                                     <div className={styles.page__main__left__billing__body__item}>
                                         <input type="radio" name='billing' id='paypal' />

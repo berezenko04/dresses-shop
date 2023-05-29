@@ -88,13 +88,6 @@
                 flex-direction: column;
                 gap: 32px;
 
-                &__head {
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    gap: 24px;
-                }
-
                 &__body {
                     display: grid;
                     grid-template-columns: 1fr 1fr;

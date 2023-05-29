@@ -30,7 +30,7 @@ const Comment: React.FC<CommentProps> = ({ text, date, rating, likes, dislikes, 
         <div className={styles.comment}>
             <div className={styles.comment__head}>
                 <div className={styles.comment__head__avatar}>
-                    <img src={userData?.avatarUrl} alt="avatar" />
+                    <img src={userData?.avatarUrl} alt=""/>
                 </div>
                 <div className={styles.comment__head__rating}>
                     {rating !== 0 &&

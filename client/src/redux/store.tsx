@@ -4,12 +4,14 @@ import { useDispatch } from 'react-redux'
 import products from './products/slice'
 import comments from './comments/slice'
 import user from './user/slice'
+import cart from './cart/slice'
 
 export const store = configureStore({
     reducer: {
         products,
         comments,
         user,
+        cart
     }
 })
 

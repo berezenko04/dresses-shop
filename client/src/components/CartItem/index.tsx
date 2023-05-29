@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useAppDispatch } from '@/redux/store'
 
 //styles
@@ -13,10 +13,8 @@ import { ReactComponent as PlusIcon } from '@/assets/icons/plus.svg'
 import { ReactComponent as TrashIcon } from '@/assets/icons/trash.svg'
 
 //redux
-import { TCartItem } from '@/redux/user/types'
-
-//API
-import { deleteFromCart } from '@/redux/user/slice'
+import { TCartItem } from '@/redux/cart/types'
+import { deleteFromCart, minusQuantity, plusQuantity } from '@/redux/cart/slice'
 
 
 type CartItemProps = {
@@ -27,16 +25,10 @@ type CartItemProps = {
 
 const CartItem: React.FC<CartItemProps> = ({ cart, readable = false }) => {
     const dispatch = useAppDispatch();
-    const { imageUrl, title, discount, price, size, _id } = cart;
-
-    const [quantity, setQuantity] = useState(1);
+    const { imageUrl, title, discount, price, size, _id, quantity } = cart;
 
     const handleRemove = async () => {
-        try {
-            dispatch(deleteFromCart({ _id, size }));
-        } catch (err) {
-            console.error(err);
-        }
+        dispatch(deleteFromCart({ _id, size }));
     }
 
     return (
@@ -47,7 +39,7 @@ const CartItem: React.FC<CartItemProps> = ({ cart, readable = false }) => {
             <div className={styles.item__content}>
                 <div className={styles.item__content__main}>
                     <h4>{title}</h4>
-                    <CardPrice price={price} discount={discount} />
+                    <CardPrice price={price * quantity} discount={discount} />
                     {discount !== 0 && <span>{discount * 100}% off</span>}
                 </div>
                 <div className={styles.item__content__info}>
@@ -58,9 +50,9 @@ const CartItem: React.FC<CartItemProps> = ({ cart, readable = false }) => {
                             <span>{quantity}</span>
                             :
                             <div className={styles.item__content__info__quantity__field}>
-                                <button disabled={quantity === 1} onClick={() => setQuantity(quantity - 1)}><MinusIcon /></button>
+                                <button disabled={quantity === 1} onClick={() => dispatch(minusQuantity({ _id, size }))}><MinusIcon /></button>
                                 <span>{quantity}</span>
-                                <button disabled={quantity === 10} onClick={() => setQuantity(quantity + 1)}><PlusIcon /></button>
+                                <button disabled={quantity === 10} onClick={() => dispatch(plusQuantity({ _id, size }))}><PlusIcon /></button>
                             </div>
                         }
                     </div>

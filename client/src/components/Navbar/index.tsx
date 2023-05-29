@@ -7,6 +7,7 @@ import styles from './Navbar.module.scss'
 
 //components
 import CartOverlay from '../CartOverlay'
+import Button from '../Button'
 
 //icons
 import { ReactComponent as PhoneIcon } from '@/assets/icons/phone.svg'
@@ -19,8 +20,7 @@ import { ReactComponent as PlatesIcon } from '@/assets/icons/grid-plates.svg'
 import { userDataSelector, isAuthSelector } from '@/redux/user/selectors'
 import { useAppDispatch } from '@/redux/store'
 import { fetchAuthMe } from '@/redux/user/asyncActions'
-import Button from '../Button'
-
+import { cartSelector } from '@/redux/cart/selectors'
 
 
 const Navbar: React.FC = () => {
@@ -34,6 +34,7 @@ const Navbar: React.FC = () => {
 
     const isAuth = useSelector(isAuthSelector);
     const data = useSelector(userDataSelector);
+    const cartItems = useSelector(cartSelector);
 
     const overlayRef = useRef<HTMLDivElement>(null);
     const [isOpened, setIsOpened] = useState(false);
@@ -103,13 +104,13 @@ const Navbar: React.FC = () => {
                                 </Link>
                                 <button onClick={handleOverlayClick}>
                                     <CartIcon />
-                                    {data && data.cart.length > 0 && <span>{data.cart.length}</span>}
+                                    {cartItems.length > 0 && <span>{cartItems.length}</span>}
                                 </button>
                                 <Link
                                     className={styles.navbar__bottom__user__avatar}
                                     to={`/Sandrela/profile/account`}
                                 >
-                                    <img src={data?.avatarUrl} alt="avatar" />
+                                    <img src={data?.avatarUrl} alt="" />
                                 </Link>
                             </div>
                             :

@@ -43,7 +43,11 @@ const ProductCardExtended: React.FC<ProductCardExtendedProps> = ({ _id, title, p
                 <Link to={`/Sandrela/products/${_id}`}>
                     <img src={imageUrl} alt="dress" />
                 </Link >
-                {discount !== 0 && <div className={styles.card__image__discount}>{discount * 100}% off</div>}
+                {discount !== 0 &&
+                    <div className={styles.card__image__discount}>
+                        {discount * 100}% off
+                    </div>
+                }
             </div>
             <div className={styles.card__info}>
                 <div className={styles.card__info__head}>
@@ -52,7 +56,9 @@ const ProductCardExtended: React.FC<ProductCardExtendedProps> = ({ _id, title, p
                         className={styles.card__info__head__title}>
                         {title}
                     </Link>
-                    <p className={styles.card__info__head__colors}>{colors.length} {colors.length > 1 ? 'colors' : 'color'}</p>
+                    <p className={styles.card__info__head__colors}>
+                        {colors.length} {colors.length > 1 ? 'colors' : 'color'}
+                    </p>
                 </div>
                 <div className={styles.card__info__price}>
                     <CardPrice price={price} discount={discount} />

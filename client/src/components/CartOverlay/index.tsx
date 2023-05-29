@@ -1,4 +1,4 @@
-import React, { forwardRef } from "react";
+import React, { forwardRef, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
@@ -13,11 +13,13 @@ import Button from "../Button";
 import { ReactComponent as CloseIcon } from "@/assets/icons/close.svg";
 
 //redux
-import { userDataSelector } from "@/redux/user/selectors";
-import { TCartItem } from "@/redux/user/types";
+import { userDataSelector, userIdSelector } from "@/redux/user/selectors";
 
 //utils
 import { getTotalPrice } from "@/utils/getTotalPrice";
+import { cartSelector, cartTotalPrice } from "@/redux/cart/selectors";
+import { fetchCart } from "@/redux/cart/asyncActions";
+import { useAppDispatch } from "@/redux/store";
 
 
 interface CartOverlayProps {
@@ -28,22 +30,26 @@ interface CartOverlayProps {
 
 
 const CartOverlay = forwardRef<HTMLDivElement, CartOverlayProps>(({ handleOverlayClick, isOpened }, ref) => {
-  const data = useSelector(userDataSelector);
-  const cartItems: TCartItem[] = data?.cart || [];
-  const totalPrice = getTotalPrice(cartItems);
+  const cartItems = useSelector(cartSelector);
+  const dispatch = useAppDispatch();
+  const totalPrice = useSelector(cartTotalPrice);
+
+  useEffect(() => {
+    dispatch(fetchCart());
+  }, []);
 
   return (
     <div className={`${styles.overlay} ${isOpened ? styles.overlay__opened : styles.overlay__closed}`} ref={ref}>
       <div className={styles.overlay__head}>
-        <h3>Cart ({data ? data?.cart.length : 0})</h3>
+        <h3>Cart ({cartItems.length > 0 ? cartItems.length : 0})</h3>
         <button onClick={handleOverlayClick}>
           <CloseIcon />
         </button>
       </div>
       <div className={styles.overlay__items}>
-        {data?.cart.map((cartItem, index) =>
-          data.cart.length > 0 && <CartItem cart={cartItem} key={index} />
-        )}
+        {cartItems && cartItems.map((cartItem, index) => (
+          <CartItem cart={cartItem} key={index} />
+        ))}
       </div>
       {totalPrice !== 0 && (
         <div className={styles.overlay__checkout}>

@@ -1,3 +1,4 @@
+import { TCartItem } from "../cart/types";
 import { ProductItem } from "../products/types"
 
 export interface UserSliceState {
@@ -22,16 +23,6 @@ export interface UserData {
     cart: TCartItem[]
 }
 
-export type TCartItem = {
-    _id: string,
-    title: string,
-    price: number,
-    discount: number,
-    size: string,
-    quantity: number,
-    imageUrl: string
-}
-
 export interface IFetchUserResponse {
     error?: {
         message?: string
@@ -40,15 +31,10 @@ export interface IFetchUserResponse {
     status: 'error'
 }
 
-export type RemoveFromCart = {
-    _id: string,
-    size: string
-}
-
 export type UpdatedUser = MakePartial<UserData>
 
 export type Avatar = {
-    image: File 
+    image: File
 }
 
 

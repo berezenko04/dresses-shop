@@ -1,4 +1,6 @@
 import { getPriceWithDiscount } from '@/utils/getPriceWithDiscount'
+
+//styles
 import styles from './CardPrice.module.scss'
 
 type CardPriceProps = {
