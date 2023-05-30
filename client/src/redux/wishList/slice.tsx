@@ -1,9 +1,8 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { ProductItem, Status } from "../products/types";
-import { WishListState } from "./types";
+import { Status } from "../products/types";
+import { WishListItem, WishListState } from "./types";
 import { fetchWishList } from "./asyncActions";
-import { removeFromWishList } from "@/API/wishListService";
-import { addToWishList } from "@/API/wishListService";
+import { removeFromWishList, addToWishList } from "@/API/wishListService";
 
 
 const initialState: WishListState = {
@@ -15,19 +14,18 @@ export const WishListSlice = createSlice({
     name: 'wishlist',
     initialState,
     reducers: {
-        updateFavorite(state, action: PayloadAction<string>) {
-            const findItem = state.items.find((obj) => obj._id === action.payload);
+        updateFavorite(state, action: PayloadAction<WishListItem>) {
+            const findItem = state.items.find((obj) => obj._id === action.payload._id);
             if (findItem) {
                 (async () => {
-                    await removeFromWishList(action.payload);
+                    await removeFromWishList(action.payload._id);
                 })();
-                state.items.filter((obj) => obj._id !== action.payload);
+                state.items = state.items.filter((obj) => obj._id !== action.payload._id);
             } else {
                 (async () => {
-                    await addToWishList(action.payload);
+                    await addToWishList(action.payload._id);
                 })();
-                const newItem = state.items.find((obj) => obj._id === action.payload);
-                newItem && state.items.push(newItem);
+                state.items.push(action.payload);
             }
         }
     },
@@ -37,8 +35,7 @@ export const WishListSlice = createSlice({
             state.status = Status.LOADING
         })
 
-        builder.addCase(fetchWishList.fulfilled, (state, action: PayloadAction<ProductItem[]>) => {
-            console.log(action.payload);
+        builder.addCase(fetchWishList.fulfilled, (state, action: PayloadAction<WishListItem[]>) => {
             state.items = action.payload;
             state.status = Status.SUCCESS;
         })

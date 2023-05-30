@@ -12,11 +12,7 @@ import { ReactComponent as FavoriteActiveIcon } from '@/assets/icons/heart-fille
 //components
 import CardPrice from '../CardPrice';
 
-//redux
-import { isAuthSelector } from '@/redux/user/selectors';
-
 //hooks
-import useWishList from '@/hooks/useWishList';
 import { wishListSelector } from '@/redux/wishList/selectors';
 import { useAppDispatch } from '@/redux/store';
 import { updateFavorite } from '@/redux/wishList/slice';
@@ -43,7 +39,7 @@ const ProductCardExtended: React.FC<ProductCardExtendedProps> = ({ _id, title, p
                 <div className={styles.card__image}>
                     <button
                         className={styles.card__image__favorite}
-                        onClick={() => dispatch(updateFavorite(_id))}
+                        onClick={() => dispatch(updateFavorite({ _id, title, price, images, discount, colors }))}
                     >
                         {isFavorite ? <FavoriteActiveIcon /> : <FavoriteIcon />}
                     </button>

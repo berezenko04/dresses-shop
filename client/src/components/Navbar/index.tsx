@@ -21,6 +21,7 @@ import { userDataSelector, isAuthSelector } from '@/redux/user/selectors'
 import { useAppDispatch } from '@/redux/store'
 import { fetchAuthMe } from '@/redux/user/asyncActions'
 import { cartSelector } from '@/redux/cart/selectors'
+import { wishListSelector } from '@/redux/wishList/selectors'
 
 
 const Navbar: React.FC = () => {
@@ -35,6 +36,7 @@ const Navbar: React.FC = () => {
     const isAuth = useSelector(isAuthSelector);
     const data = useSelector(userDataSelector);
     const cartItems = useSelector(cartSelector);
+    const wishList = useSelector(wishListSelector);
 
     const overlayRef = useRef<HTMLDivElement>(null);
     const [isOpened, setIsOpened] = useState(false);
@@ -100,7 +102,7 @@ const Navbar: React.FC = () => {
                             <div className={styles.navbar__bottom__user}>
                                 <Link to="/Sandrela/profile/wishlist">
                                     <FavoriteIcon />
-                                    {data && data.wishList.length > 0 && <span>{data.wishList.length}</span>}
+                                    {wishList.length > 0 && <span>{wishList.length}</span>}
                                 </Link>
                                 <button onClick={handleOverlayClick}>
                                     <CartIcon />
