@@ -30,7 +30,7 @@ export type ProductItem = {
     desc: string,
     price: number,
     discount: number,
-    imageUrl: string,
+    images: string[],
     sizes: string[],
     colors: string[],
     rating: number,

@@ -27,6 +27,7 @@ const WishList = lazy(() => import("./pages/Profile/WishList"));
 const Settings = lazy(() => import("./pages/Profile/Settings"));
 const MyReviews = lazy(() => import("./pages/Profile/MyReviews"));
 const Notifications = lazy(() => import("./pages/Profile/Notifications"));
+const MyOrders = lazy(() => import("./pages/Profile/MyOrders"));
 const Shipping = lazy(() => import("./pages/Profile/Shipping"));
 const Checkout = lazy(() => import("./pages/Checkout"));
 
@@ -55,6 +56,7 @@ function App() {
               <Route path={'settings'} element={<Settings />} />
               <Route path={'reviews'} element={<MyReviews />} />
               <Route path={'checkout'} element={<Checkout />} />
+              <Route path={'my-orders'} element={<MyOrders />} />
               <Route path={'notifications'} element={<Notifications />} />
               <Route path={'shipping'} element={<Shipping />} />
             </Route>

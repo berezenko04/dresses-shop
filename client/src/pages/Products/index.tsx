@@ -42,6 +42,7 @@ const Products: React.FC = () => {
     const productsLength = useSelector(productsLengthSelector);
     const products = useSelector(productsSelector);
     const status = useSelector(productsStatusSelector);
+    const pageCount = Math.ceil(products.length / limit);
 
     const handlePageChange = (newPage: number) => {
         setPage(newPage);
@@ -134,13 +135,17 @@ const Products: React.FC = () => {
                             ))
                             :
                             products.map((product) => (
-                                <ProductCardExtended key={product.id} {...product} />
+                                <ProductCardExtended
+                                    key={product.id}
+                                    imageUrl={product.images[0]}
+                                    {...product}
+                                />
                             ))
                         }
 
                     </div>
                 </div>
-                <Pagination pageCount={Math.ceil(products.length / limit)} limit={limit} onPageChange={handlePageChange} />
+                {pageCount > 1 && <Pagination pageCount={pageCount} limit={limit} onPageChange={handlePageChange} />}
             </div>
         </div>
     )

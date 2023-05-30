@@ -1,0 +1,18 @@
+.orders {
+    &__wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 32px;
+    }
+
+    &__head {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 24px;
+
+        button {
+            width: max-content;
+        }
+    }
+}

@@ -8,3 +8,8 @@ export const addToWishList = async (itemId: string) => {
 export const removeFromWishList = async (itemId: string) => {
     await axios.delete(`/wishlist/delete?itemId=${itemId}`);
 }
+
+export const getWishList = async () => {
+    const { data } = await axios.get(`/wishlist/get`);
+    return data;
+}

@@ -2,6 +2,7 @@ import { useParams, Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
+import cn from 'classnames'
 
 //styles
 import styles from './Product.module.scss'
@@ -47,6 +48,7 @@ const Product: React.FC = () => {
     const [comment, setComment] = useState("");
     const [rating, setRating] = useState(0);
     const [selectedSize, setSelectedSize] = useState('xxs');
+    const [imageIndex, setImageIndex] = useState(0);
 
     const { id } = useParams();
     const dispatch = useAppDispatch();
@@ -81,7 +83,7 @@ const Product: React.FC = () => {
                     discount: product[0]?.discount,
                     size: selectedSize,
                     quantity: 1,
-                    imageUrl: product[0]?.imageUrl
+                    imageUrl: product[0]?.images[0]
                 };
 
                 dispatch(addInCart({ item, userId: user._id }));
@@ -125,14 +127,21 @@ const Product: React.FC = () => {
                     <div className={styles.page__product}>
                         <div className={styles.page__product__left}>
                             <div className={styles.page__product__left__images}>
-                                {[...Array(4)].map((_, index) => (
-                                    <div className={styles.page__product__left__images__item} key={index}>
-                                        <img src={product[0]?.imageUrl} alt={product[0]?.title} />
+                                {product[0]?.images.map((image, index) => (
+                                    <div
+                                        className={
+                                            cn(styles.page__product__left__images__item,
+                                                index === imageIndex && styles.page__product__left__images__item__active)
+                                        }
+                                        key={index}
+                                        onClick={() => setImageIndex(index)}
+                                    >
+                                        <img src={image} alt={product[0]?.title} />
                                     </div>
                                 ))}
                             </div>
                             <div className={styles.page__product__left__banner}>
-                                <img src={product[0]?.imageUrl} alt={product[0]?.title} />
+                                <img src={product[0]?.images[imageIndex]} alt={product[0]?.title} />
                             </div>
                         </div>
                         <div className={styles.page__product__right}>

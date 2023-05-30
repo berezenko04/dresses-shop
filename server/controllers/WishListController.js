@@ -2,6 +2,36 @@ import UserModel from "../models/user.js";
 import ProductModel from "../models/product.js";
 import { extractUserIdFromToken } from "../utils/extractUserIdFromToken.js";
 
+export const getWishList = async (req, res) => {
+  try {
+    const token = req.headers.authorization;
+
+    if (!token) {
+      return res.status(401).json({
+        message: "Authorization token not found",
+      });
+    }
+
+    const userId = extractUserIdFromToken(token);
+
+    const user = await UserModel.findById(userId);
+
+    if (!user) {
+      res.status(400).json({
+        message: "User is not found",
+      });
+    }
+
+    const wishList = user.wishList;
+    console.log(wishList);
+
+    res.status(200).json(wishList);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
 export const addToWishList = async (req, res) => {
   try {
     const { itemId } = req.query;

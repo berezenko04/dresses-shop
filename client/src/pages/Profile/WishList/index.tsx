@@ -8,21 +8,21 @@ import ProductCardExtended from '@/components/ProductCardExtended';
 import ProfileLayout from '@/layout/ProfileLayout';
 
 //types
-import { userDataSelector } from '@/redux/user/selectors';
+import { wishListSelector } from '@/redux/wishList/selectors';
 
 
 
 
 const WishList: React.FC = () => {
-    const data = useSelector(userDataSelector);
+    const wishList = useSelector(wishListSelector);
 
     return (
         <div className={styles.wishlist}>
             <ProfileLayout>
                 <div className={styles.wishlist__wrapper}>
-                    <h3>Wish List ({data?.wishList.length})</h3>
+                    <h3>Wish List ({wishList.length})</h3>
                     <div className={styles.wishlist__main}>
-                        {data?.wishList.map((item, index) => (
+                        {wishList.map((item, index) => (
                             <ProductCardExtended {...item} key={index} />
                         ))}
                     </div>

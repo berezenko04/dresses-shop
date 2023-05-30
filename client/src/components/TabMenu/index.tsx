@@ -39,7 +39,7 @@ const TabMenu: React.FC = () => {
         { title: 'Wish List', icon: <FavoriteIcon />, href: 'wishlist' },
         { title: 'Settings', icon: <SettingsIcon />, href: 'settings' },
         { title: 'My reviews', icon: <ReviewsIcon />, href: 'reviews' },
-        { title: 'My orders', icon: <StarIcon />, href: 'orders' },
+        { title: 'My orders', icon: <StarIcon />, href: 'my-orders' },
         { title: 'Shipping Address', icon: <HouseIcon />, href: 'shipping' },
         { title: 'Notifications', icon: <NotificationsIcon />, href: 'notifications' },
     ];
