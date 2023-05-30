@@ -21,15 +21,6 @@ export const getAuthMe = async () => {
     return data;
 }
 
-export const addToWishList = async (userId: string, itemId: string) => {
-    const data = await axios.post(`/wishlist/add?userId=${userId}&itemId=${itemId}`);
-    return data;
-}
-
-export const removeFromWishList = async (userId: string, itemId: string) => {
-    await axios.delete(`/wishlist/delete?userId=${userId}&itemId=${itemId}`);
-}
-
 export const getUserReviews = async () => {
     const { data } = await axios.get('/user/comments');
     return data;

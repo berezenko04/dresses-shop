@@ -16,7 +16,7 @@ const AuthField = forwardRef<HTMLInputElement, AuthFieldProps>(({ title, error, 
         <div className={styles.input}>
             <label htmlFor={title}>{title}</label>
             <div className={styles.input__block}>
-                <input ref={ref} id={title} {...props} />
+                <input ref={ref} id={title} {...props} className={error ? styles.input__block__error : ''} />
                 {error && <ErrorIcon />}
             </div>
         </div>

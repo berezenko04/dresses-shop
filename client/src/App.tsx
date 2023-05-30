@@ -27,6 +27,7 @@ const WishList = lazy(() => import("./pages/Profile/WishList"));
 const Settings = lazy(() => import("./pages/Profile/Settings"));
 const MyReviews = lazy(() => import("./pages/Profile/MyReviews"));
 const Notifications = lazy(() => import("./pages/Profile/Notifications"));
+const Shipping = lazy(() => import("./pages/Profile/Shipping"));
 const Checkout = lazy(() => import("./pages/Checkout"));
 
 //redux
@@ -55,14 +56,13 @@ function App() {
               <Route path={'reviews'} element={<MyReviews />} />
               <Route path={'checkout'} element={<Checkout />} />
               <Route path={'notifications'} element={<Notifications />} />
+              <Route path={'shipping'} element={<Shipping />} />
             </Route>
           </Route>
 
-          <>
-            <Route path={'Sandrela/register'} element={<Register />} />
-            <Route path={'Sandrela/login'} element={<Login />} />
-            <Route path={'Sandrela/forgot-password'} element={<ForgotPassword />} />
-          </>
+          <Route path={'Sandrela/register'} element={<Register />} />
+          <Route path={'Sandrela/login'} element={<Login />} />
+          <Route path={'Sandrela/forgot-password'} element={<ForgotPassword />} />
           <Route path={'Sandrela/reset-password/:id/:token/'} element={<ResetPassword />} />
         </Routes>
       </Suspense>

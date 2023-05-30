@@ -19,6 +19,7 @@ export interface UserData {
     avatarUrl: string,
     token: string,
     sex: string,
+    address: string,
     wishList: ProductItem[],
     cart: TCartItem[]
 }

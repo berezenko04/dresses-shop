@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux'
 import styles from './Account.module.scss'
 
 //components
-import AccountInput from '@/components/ProfileComponents/AccountInput'
+import AuthField from '@/components/AuthField'
 import UploadAvatar from '@/components/ProfileComponents/UploadAvatar'
 import Button from '@/components/Button'
 import Radio from '@/components/Radio'
@@ -84,7 +84,7 @@ const Account: React.FC = () => {
                             <div className={styles.account__edit__profile}>
                                 <h4>Profile information</h4>
                                 <form action="" className={styles.account__edit__profile__form} onSubmit={handleSubmit(onSubmit)}>
-                                    <AccountInput
+                                    <AuthField
                                         type='text'
                                         title='First Name'
                                         defaultValue={data?.name}
@@ -95,7 +95,7 @@ const Account: React.FC = () => {
                                             maxLength: 50,
                                         })}
                                     />
-                                    <AccountInput
+                                    <AuthField
                                         type='text'
                                         title='Last Name'
                                         defaultValue={data?.lastName}
@@ -106,7 +106,7 @@ const Account: React.FC = () => {
                                             maxLength: 50,
                                         })}
                                     />
-                                    <AccountInput
+                                    <AuthField
                                         type='email'
                                         title='Email'
                                         defaultValue={data?.email}
@@ -140,7 +140,10 @@ const Account: React.FC = () => {
                                 <h3>Profile information</h3>
                                 <div className={styles.account__default__info__list}>
                                     <p>E-mail: {data?.email}</p>
-                                    <p>Sex: {data?.sex}</p>
+                                    <p>Sex: {data?.sex ?
+                                        data.sex :
+                                        <button onClick={() => setEditable(true)}>edit</button>}
+                                    </p>
                                 </div>
                             </div>
                         </div>

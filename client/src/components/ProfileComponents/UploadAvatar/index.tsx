@@ -60,7 +60,7 @@ const UploadAvatar = forwardRef<HTMLDivElement, UploadAvatarProps>(({ handleVisi
     };
 
     const handleDeletePhoto = async () => {
-        dispatch(removeAvatar({}));
+        dispatch(removeAvatar());
         handleVisible();
         toast.success('Avatar removed succesfully');
     }

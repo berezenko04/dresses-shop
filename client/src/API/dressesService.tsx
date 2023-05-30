@@ -2,14 +2,8 @@ import axios from '@/axios'
 
 //types
 import { ProductItem, Products } from '@/redux/products/types';
-import { Comments } from '@/redux/comments/types';
+import { Comment, Comments } from '@/redux/comments/types';
 
-type Comment = {
-    text: string,
-    rating: number,
-    user: string,
-    date: string
-}
 
 const DEFAULT_LINK = '/api/products';
 

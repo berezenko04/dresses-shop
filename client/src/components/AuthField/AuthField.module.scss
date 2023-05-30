@@ -17,6 +17,11 @@
         width: 100%;
         position: relative;
 
+        &__error {
+            border: 1px solid $error-500 !important;
+            box-shadow: none !important;
+        }
+
         input {
             padding: 10px 14px;
             background-color: $white;

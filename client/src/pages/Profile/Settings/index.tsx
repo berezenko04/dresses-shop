@@ -6,7 +6,7 @@ import styles from './Settings.module.scss'
 
 //components
 import Button from '@/components/Button'
-import AccountInput from '@/components/ProfileComponents/AccountInput'
+import AuthField from '@/components/AuthField'
 import DeviceInfo from '@/components/ProfileComponents/DeviceInfo'
 import ProfileLayout from '@/layout/ProfileLayout'
 
@@ -15,7 +15,6 @@ import { ReactComponent as TrashIcon } from '@/assets/icons/trash.svg'
 
 //redux
 import { fetchAuthMe } from '@/redux/user/asyncActions'
-
 
 
 const Settings: React.FC = () => {
@@ -50,20 +49,23 @@ const Settings: React.FC = () => {
                         <h3>Password</h3>
                         <form className={styles.settings__passwordForm}>
                             <div className={styles.settings__passwordForm__fields}>
-                                <AccountInput
+                                <AuthField
                                     title='Current Password'
                                     placeholder='Enter the current password'
                                     type='text'
+                                    error
                                 />
-                                <AccountInput
+                                <AuthField
                                     title='New Password'
                                     placeholder='Enter the new password'
                                     type='text'
+                                    error
                                 />
-                                <AccountInput
+                                <AuthField
                                     title='Repeat Password'
                                     placeholder='Repeat the new password'
                                     type='text'
+                                    error
                                 />
                             </div>
                             <div className={styles.settings__passwordForm__buttons}>

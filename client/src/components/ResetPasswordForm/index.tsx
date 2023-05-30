@@ -18,6 +18,7 @@ import { fetchAuthMe } from '@/redux/user/asyncActions'
 
 //icons
 import { ReactComponent as ArrowLeftIcon } from '@/assets/icons/arrow-left-small.svg'
+import { AxiosResponse } from 'axios'
 
 
 type ResetPasswordFormValues = {
@@ -41,7 +42,7 @@ const ResetPasswordForm: React.FC = () => {
             }
             dispatch(fetchAuthMe());
             navigate('/Sandrela/login');
-        } catch (err) {
+        } catch (err: AxiosResponse | any) {
             toast.error(err?.response?.data.message);
         }
     }

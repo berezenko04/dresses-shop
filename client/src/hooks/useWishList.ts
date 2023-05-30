@@ -9,7 +9,7 @@ import { ProductItem } from "@/redux/products/types"
 
 //API
 import { getProduct } from "@/API/dressesService"
-import { addToWishList, removeFromWishList } from "@/API/userService"
+import { addToWishList, removeFromWishList } from "@/API/wishListService"
 
 type UseWishListResult = {
     isFavorite: boolean,
@@ -30,7 +30,7 @@ const useWishList = (itemId: string, isAuth: boolean): UseWishListResult => {
         getProductItem();
     }, [itemId]);
 
-    useEffect(() => { 
+    useEffect(() => {
         const checkIsFavorite = async () => {
             if (data && product) {
                 setIsFavorite(
@@ -47,9 +47,9 @@ const useWishList = (itemId: string, isAuth: boolean): UseWishListResult => {
     const updateWishList = async (user: UserData, product: ProductItem) => {
         try {
             if (isFavorite) {
-                await removeFromWishList(user._id, product._id);
+                await removeFromWishList(product._id);
             } else {
-                await addToWishList(user._id, product._id);
+                await addToWishList(product._id);
             }
 
         } catch (err) {
