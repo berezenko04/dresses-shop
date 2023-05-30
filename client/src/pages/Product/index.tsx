@@ -31,15 +31,14 @@ import { ReactComponent as FavoriteActiveIcon } from '@/assets/icons/heart-fille
 import { ReactComponent as StarActiveIcon } from '@/assets/icons/star.svg'
 import { ReactComponent as StarIcon } from '@/assets/icons/star-empty.svg'
 
-//hooks
-import useWishList from '@/hooks/useWishList';
-
 //API
 import { addInCart } from '@/redux/cart/slice';
 import { createComment } from '@/redux/comments/slice';
 
 //utils
 import { formatDate } from '@/utils/formatDate';
+import { wishListSelector } from '@/redux/wishList/selectors';
+import { updateFavorite } from '@/redux/wishList/slice';
 
 
 
@@ -53,7 +52,8 @@ const Product: React.FC = () => {
     const { id } = useParams();
     const dispatch = useAppDispatch();
     const product = useSelector(productsSelector);
-    const isAuth = useSelector(isAuthSelector);
+    const wishList = useSelector(wishListSelector);
+    const isFavorite = wishList.find((obj) => obj._id === id);
     const status = useSelector(commentsStatusSelector);
     const user = useSelector(userDataSelector);
     const comments = useSelector(commentsItemsSelector);
@@ -71,7 +71,6 @@ const Product: React.FC = () => {
         }
     }, [])
 
-    const { isFavorite, toggleFavorite } = useWishList(id || '', isAuth);
 
     const handleAddClick = async () => {
         try {
@@ -197,7 +196,7 @@ const Product: React.FC = () => {
                                     >
                                         {isAvailable ? 'Add to bag' : 'Out of stock'}
                                     </Button>
-                                    <Button theme='iconary' size='lg' onClick={toggleFavorite}>
+                                    <Button theme='iconary' size='lg' onClick={() => dispatch(updateFavorite(id))}>
                                         {isFavorite ? <FavoriteActiveIcon /> : <FavoriteIcon />}
                                     </Button>
                                 </div>

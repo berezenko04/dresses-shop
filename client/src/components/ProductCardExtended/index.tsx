@@ -29,7 +29,6 @@ interface ProductCardExtendedProps {
 
 const ProductCardExtended: React.FC<ProductCardExtendedProps> = ({ _id, title, price, images, discount, colors }) => {
     const wishList = useSelector(wishListSelector);
-    console.log(wishList);
     const dispatch = useAppDispatch();
     const isFavorite = wishList.find((obj) => obj._id === _id);
 
