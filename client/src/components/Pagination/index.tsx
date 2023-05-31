@@ -16,8 +16,6 @@ type PaginationProps = {
 
 const Pagination: React.FC<PaginationProps> = ({ pageCount, limit, onPageChange }) => {
 
-    console.log(pageCount);
-
     const handlePageChange = (newPage: number) => {
         onPageChange(newPage);
         window.scrollTo(0, 0);

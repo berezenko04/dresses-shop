@@ -137,7 +137,6 @@ const Products: React.FC = () => {
                             products.map((product) => (
                                 <ProductCardExtended
                                     key={product.id}
-                                    imageUrl={product.images[0]}
                                     {...product}
                                 />
                             ))

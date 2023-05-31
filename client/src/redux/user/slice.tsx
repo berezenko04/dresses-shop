@@ -27,12 +27,8 @@ export const UserSlice = createSlice({
                 }
                 try {
                     (async () => {
-                        if (state.data?._id) {
-                            await updateUserData(state.data?._id, newData);
-                            toast.success('Data updated successfully');
-                        } else {
-                            toast.error('Failed to receive user');
-                        }
+                        await updateUserData(newData._id, newData);
+                        toast.success('Data updated successfully');
                     })();
                     state.data = newData;
                 }

@@ -1,4 +1,6 @@
 import { useSelector } from 'react-redux';
+import { useAppDispatch } from '@/redux/store';
+import { useEffect } from 'react';
 
 //styles
 import styles from './WishList.module.scss'
@@ -7,14 +9,18 @@ import styles from './WishList.module.scss'
 import ProductCardExtended from '@/components/ProductCardExtended';
 import ProfileLayout from '@/layout/ProfileLayout';
 
-//types
+//redux
 import { wishListSelector } from '@/redux/wishList/selectors';
-
-
+import { fetchWishList } from '@/redux/wishList/asyncActions';
 
 
 const WishList: React.FC = () => {
     const wishList = useSelector(wishListSelector);
+    const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        dispatch(fetchWishList());
+    }, [])
 
     return (
         <div className={styles.wishlist}>

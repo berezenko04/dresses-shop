@@ -1,7 +1,7 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit"
 import { Status } from "../products/types";
 import { fetchCart } from "./asyncActions";
-import { AddToCart, CartItemInfo, CartState, TCartItem } from "./types";
+import { CartItemInfo, CartState, TCartItem } from "./types";
 import { addToCart, removeFromCart } from "@/API/cartService";
 import { toast } from "react-toastify";
 import { getTotalPrice } from "@/utils/getTotalPrice";
@@ -17,15 +17,15 @@ export const CartSlice = createSlice({
     name: 'cart',
     initialState,
     reducers: {
-        addInCart(state, action: PayloadAction<AddToCart>) {
-            const findItem = state.cartItems.find((obj) => (obj._id === action.payload.item._id) && (obj.size === action.payload.item.size));
-
+        addInCart(state, action: PayloadAction<TCartItem>) {
+            const findItem = state.cartItems.find((obj) => (obj._id === action.payload._id) && (obj.size === action.payload.size));
+            console.log(action.payload);
             if (!findItem) {
                 toast.success('Item added to cart');
-                state.cartItems.push(action.payload.item);
                 (async () => {
-                    await addToCart({ item: action.payload.item, userId: action.payload.userId });
+                    await addToCart(action.payload);
                 })();
+                state.cartItems.push(action.payload);
                 state.totalPrice = getTotalPrice(state.cartItems);
             } else {
                 toast.error('Item already in cart');

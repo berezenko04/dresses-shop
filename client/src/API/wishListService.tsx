@@ -10,6 +10,7 @@ export const removeFromWishList = async (itemId: string) => {
 }
 
 export const getWishList = async () => {
-    const { data } = await axios.get(`/wishlist/get`);
+    const { data } = await axios.get('/wishlist/get');
+    console.log(data);
     return data;
 }

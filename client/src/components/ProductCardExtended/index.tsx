@@ -1,9 +1,11 @@
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux';
 import { useMemo } from 'react'
+import { LazyLoadImage } from 'react-lazy-load-image-component'
 
 //styles
 import styles from './ProductCardExtended.module.scss'
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 //icons
 import { ReactComponent as FavoriteIcon } from '@/assets/icons/heart.svg'
@@ -43,7 +45,11 @@ const ProductCardExtended: React.FC<ProductCardExtendedProps> = ({ _id, title, p
                         {isFavorite ? <FavoriteActiveIcon /> : <FavoriteIcon />}
                     </button>
                     <Link to={`/Sandrela/products/${_id}`}>
-                        <img src={images[0]} alt="dress" />
+                        <LazyLoadImage
+                            effect="blur"
+                            src={images[0]}
+                            alt={title}
+                        />
                     </Link>
                     {discount !== 0 &&
                         <div className={styles.card__image__discount}>

@@ -1,6 +1,8 @@
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import nodemailer from "nodemailer";
+import sharp from "sharp";
+import crypto from "crypto";
 
 //models
 import UserModel from "../models/user.js";
@@ -151,9 +153,25 @@ export const getUser = async (req, res) => {
 };
 
 export const uploadAvatar = async (req, res) => {
-  res.json({
-    url: `http://localhost:3001/uploads/${req.file.originalname}`,
-  });
+  try {
+    const tempFilePath = req.file.path;
+    const originalName = req.file.originalname;
+
+    const hash = crypto
+      .createHash("md5")
+      .update(originalName + Date.now())
+      .digest("hex");
+    const destinationPath = `uploads/${hash}.webp`;
+
+    await sharp(tempFilePath).resize(200, 200).toFile(destinationPath);
+
+    res.json({
+      url: `http://localhost:3001/${destinationPath}`,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Ошибка при загрузке и обработке изображения" });
+  }
 };
 
 export const updateUser = async (req, res) => {

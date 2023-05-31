@@ -18,8 +18,3 @@ export type CartItemInfo = {
     _id: string,
     size: string
 }
-
-export type AddToCart = {
-    item: TCartItem,
-    userId: string
-}

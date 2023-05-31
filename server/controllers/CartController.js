@@ -39,22 +39,26 @@ export const getCart = async (req, res) => {
 
 export const addToCart = async (req, res) => {
   try {
-    const { userId, item } = req.body;
+    const cartItem = req.body;
 
-    if (!userId) {
-      res.status(400).json({
-        message: "User ID not found",
+    const token = req.headers.authorization;
+
+    if (!token) {
+      return res.status(401).json({
+        message: "Authorization token not found",
       });
     }
 
-    if (!item) {
-      return res.status(400).json({
-        message: "Product not found",
+    const userId = extractUserIdFromToken(token);
+
+    if (!userId) {
+      return res.status(401).json({
+        message: "Invalid authorization token",
       });
     }
 
     const user = await UserModel.findById(userId);
-    const product = await ProductModel.findById(item._id);
+    const product = await ProductModel.findById(cartItem._id);
 
     if (!user) {
       res.status(400).json({
@@ -67,7 +71,7 @@ export const addToCart = async (req, res) => {
       });
     }
 
-    user.cart.push(item);
+    user.cart.push({ ...cartItem });
     await user.save();
 
     res.status(200).json({

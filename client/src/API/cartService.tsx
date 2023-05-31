@@ -1,24 +1,13 @@
 import axios from "@/axios";
+import { TCartItem } from "@/redux/cart/types";
 
-type AddToCartProps = {
-    item: {
-        _id: string,
-        title: string,
-        price: number,
-        imageUrl: string,
-        discount: number,
-        size: string,
-        quantity: number
-    },
-    userId: string
-}
 
 export const getCart = async () => {
     const { data } = await axios.get(`/cart/get`);
     return data;
 }
 
-export const addToCart = async (item: AddToCartProps) => {
+export const addToCart = async (item: TCartItem) => {
     const { data } = await axios.post('/cart/add', item);
     return data;
 }

@@ -6,18 +6,13 @@ export const getWishList = async (req, res) => {
   try {
     const token = req.headers.authorization;
 
-    console.log(token);
-
     if (!token) {
       return res.status(401).json({
         message: "Authorization token not found",
       });
     }
     const userId = extractUserIdFromToken(token);
-
     const user = await UserModel.findById(userId);
-
-    console.log(user);
 
     if (!user) {
       res.status(400).json({

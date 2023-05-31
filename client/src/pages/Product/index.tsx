@@ -1,11 +1,14 @@
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, Navigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import cn from 'classnames'
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+
 
 //styles
 import styles from './Product.module.scss'
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 //components
 import CardPrice from '@/components/CardPrice';
@@ -23,7 +26,7 @@ import { fetchProduct } from '@/redux/products/asyncActions';
 import { productsSelector } from '@/redux/products/selectors';
 import { fetchComments } from '@/redux/comments/asyncActions';
 import { commentsItemsSelector, commentsStatusSelector } from '@/redux/comments/selectors';
-import { userDataSelector, isAuthSelector } from '@/redux/user/selectors';
+import { userDataSelector } from '@/redux/user/selectors';
 
 //icons
 import { ReactComponent as FavoriteIcon } from '@/assets/icons/heart.svg'
@@ -41,9 +44,7 @@ import { wishListSelector } from '@/redux/wishList/selectors';
 import { updateFavorite } from '@/redux/wishList/slice';
 
 
-
 const Product: React.FC = () => {
-
     const [comment, setComment] = useState("");
     const [rating, setRating] = useState(0);
     const [selectedSize, setSelectedSize] = useState('xxs');
@@ -69,29 +70,31 @@ const Product: React.FC = () => {
             dispatch(fetchProduct(id));
             dispatch(fetchComments(id));
         }
-    }, [])
-
+    }, [id])
 
     const handleAddClick = async () => {
-        try {
-            if (user?._id) {
-                const item = {
-                    _id: product[0]?._id,
-                    title: product[0]?.title,
-                    price: product[0]?.price,
-                    discount: product[0]?.discount,
-                    size: selectedSize,
-                    quantity: 1,
-                    imageUrl: product[0]?.images[0]
-                };
+        const item = {
+            _id: product[0]._id,
+            title: product[0].title,
+            price: product[0].price,
+            discount: product[0].discount,
+            size: selectedSize,
+            quantity: 1,
+            imageUrl: product[0].images[0]
+        };
+        dispatch(addInCart(item));
+    }
 
-                dispatch(addInCart({ item, userId: user._id }));
-            } else {
-                toast.error('Please login!');
-            }
-        } catch (err) {
-            console.error(err);
+    const handleFavorite = async () => {
+        const item = {
+            _id: product[0]._id,
+            title: product[0].title,
+            price: product[0].price,
+            discount: product[0].discount,
+            images: product[0].images,
+            colors: product[0].colors
         }
+        dispatch(updateFavorite(item));
     }
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -135,12 +138,20 @@ const Product: React.FC = () => {
                                         key={index}
                                         onClick={() => setImageIndex(index)}
                                     >
-                                        <img src={image} alt={product[0]?.title} />
+                                        <LazyLoadImage
+                                            src={image}
+                                            alt={product[0]?.title}
+                                            effect='blur'
+                                        />
                                     </div>
                                 ))}
                             </div>
                             <div className={styles.page__product__left__banner}>
-                                <img src={product[0]?.images[imageIndex]} alt={product[0]?.title} />
+                                <LazyLoadImage
+                                    src={product[0]?.images[imageIndex]}
+                                    alt={product[0]?.title}
+                                    effect='blur'
+                                />
                             </div>
                         </div>
                         <div className={styles.page__product__right}>
@@ -173,7 +184,7 @@ const Product: React.FC = () => {
                                                     type="radio"
                                                     name='size'
                                                     id={size}
-                                                    defaultChecked={index === 0}
+                                                    defaultChecked={size === product[0]?.sizes[0]}
                                                     disabled={product[0]?.sizes && !product[0]?.sizes.includes(size)}
                                                     onClick={() => setSelectedSize(size)}
                                                 />
@@ -183,11 +194,6 @@ const Product: React.FC = () => {
                                     </ul>
                                 </div>
                                 <div className={styles.page__product__right__checkout}>
-                                    {/* <Link to=''>
-                                            <Button size='lg' theme='primary'>
-                                                Buy Now
-                                            </Button>
-                                        </Link> */}
                                     <Button
                                         size='lg'
                                         theme='primary'
@@ -196,7 +202,7 @@ const Product: React.FC = () => {
                                     >
                                         {isAvailable ? 'Add to bag' : 'Out of stock'}
                                     </Button>
-                                    <Button theme='iconary' size='lg' onClick={() => dispatch(updateFavorite(id))}>
+                                    <Button theme='iconary' size='lg' onClick={handleFavorite}>
                                         {isFavorite ? <FavoriteActiveIcon /> : <FavoriteIcon />}
                                     </Button>
                                 </div>

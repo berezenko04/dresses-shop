@@ -22,6 +22,7 @@ import { useAppDispatch } from '@/redux/store'
 import { fetchAuthMe } from '@/redux/user/asyncActions'
 import { cartSelector } from '@/redux/cart/selectors'
 import { wishListSelector } from '@/redux/wishList/selectors'
+import { fetchWishList } from '@/redux/wishList/asyncActions'
 
 
 const Navbar: React.FC = () => {
@@ -43,6 +44,7 @@ const Navbar: React.FC = () => {
 
     useEffect(() => {
         dispatch(fetchAuthMe());
+        dispatch(fetchWishList());
     }, [])
 
 
@@ -90,10 +92,10 @@ const Navbar: React.FC = () => {
                 <div className="container">
                     <div className={styles.navbar__bottom__wrapper}>
                         <Link to="/Sandrela" className={styles.navbar__bottom__logo}>Sandrela</Link>
-                        <button className={styles.navbar__bottom__catalog}>
+                        <Link to='/Sandrela/products' className={styles.navbar__bottom__catalog}>
                             <PlatesIcon />
                             Catalog
-                        </button>
+                        </Link>
                         <div className={styles.navbar__bottom__search}>
                             <SearchIcon />
                             <input type="text" placeholder='Search something...' />
@@ -133,7 +135,7 @@ const Navbar: React.FC = () => {
                 </div>
             </div>
             <CartOverlay isOpened={isOpened} ref={overlayRef} handleOverlayClick={handleOverlayClick} />
-        </nav >
+        </nav>
     )
 }
 
