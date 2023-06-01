@@ -6,10 +6,11 @@ import { toast } from 'react-toastify';
 import styles from './UploadAvatar.module.scss'
 
 //redux
-import { removeAvatar, setAvatarPath } from '@/redux/user/slice';
+import { setAvatarPath } from '@/redux/user/slice';
 
 //API
 import { uploadFile } from '@/API/userService';
+import { updateUserAsync } from '@/redux/user/asyncActions';
 
 
 type UploadAvatarProps = {
@@ -51,7 +52,7 @@ const UploadAvatar = forwardRef<HTMLDivElement, UploadAvatarProps>(({ handleVisi
             const response = await uploadFile(formData);
             const newPath = response.url;
 
-            dispatch(setAvatarPath(newPath));
+            dispatch(updateUserAsync({ avatarUrl: newPath }));
             handleVisible();
         } catch (err) {
             console.log(err);
@@ -60,7 +61,7 @@ const UploadAvatar = forwardRef<HTMLDivElement, UploadAvatarProps>(({ handleVisi
     };
 
     const handleDeletePhoto = async () => {
-        dispatch(removeAvatar());
+        dispatch(updateUserAsync({ avatarUrl: '/default-avatar.png' }));
         handleVisible();
         toast.success('Avatar removed succesfully');
     }

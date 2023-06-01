@@ -2,9 +2,14 @@ import axios from "@/axios"
 
 //types
 import { LoginFormValues } from "@/components/LoginForm";
-import { UpdatedUser } from "@/redux/user/types";
+import { UserData } from "@/redux/user/types";
 
 const API_KEY = 'a29807b5b18547d2966ec2e2d9e2325d';
+
+export const updateUserData = async (newData: Partial<UserData>) => {
+    const { data } = await axios.put(`/user/update`, newData);
+    return data;
+}
 
 export const getUserData = async (params: LoginFormValues) => {
     const { data } = await axios.post('/auth/login', params);
@@ -23,11 +28,6 @@ export const getAuthMe = async () => {
 
 export const getUserReviews = async () => {
     const { data } = await axios.get('/user/comments');
-    return data;
-}
-
-export const updateUserData = async (userId: string, newData: UpdatedUser) => {
-    const { data } = await axios.put(`/user/${userId}`, newData);
     return data;
 }
 

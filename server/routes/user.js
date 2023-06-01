@@ -26,6 +26,6 @@ router.get("/comments", checkAuth, UserController.getReviews);
 
 router.post("/upload", upload.single("image"), checkAuth, UserController.uploadAvatar);
 
-router.put("/:id", checkAuth, UserController.updateUser);
+router.put("/update", checkAuth, UserController.updateUser);
 
 export default router;

@@ -1,5 +1,7 @@
-import { getWishList } from "@/API/wishListService";
+import { addToWishList, getWishList, removeFromWishList } from "@/API/wishListService";
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { addToWishListSuccess, removeFromWishListSuccess } from "./slice";
+import { WishListState } from "./types";
 
 export const fetchWishList = createAsyncThunk(
     'wishlist/fetchWishList',
@@ -8,3 +10,19 @@ export const fetchWishList = createAsyncThunk(
         return wishlist;
     }
 )
+
+export const updateFavorite = createAsyncThunk(
+    'wishlist/update',
+    async (itemId: string, { dispatch, getState }) => {
+        const { items } = getState().wishList as WishListState;
+        const findItem = items.find((obj) => obj._id === itemId);
+
+        if (findItem) {
+            await removeFromWishList(itemId);
+            dispatch(removeFromWishListSuccess(itemId));
+        } else {
+            const data = await addToWishList(itemId);
+            dispatch(addToWishListSuccess(data));
+        }
+    }
+);

@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit"
-import { Status } from "../products/types";
+import { ProductItem, Status } from "../products/types";
 import { fetchCart } from "./asyncActions";
 import { CartItemInfo, CartState, TCartItem } from "./types";
 import { addToCart, removeFromCart } from "@/API/cartService";
@@ -18,33 +18,16 @@ export const CartSlice = createSlice({
     initialState,
     reducers: {
         addInCart(state, action: PayloadAction<TCartItem>) {
-            const findItem = state.cartItems.find((obj) => (obj._id === action.payload._id) && (obj.size === action.payload.size));
-            console.log(action.payload);
-            if (!findItem) {
-                toast.success('Item added to cart');
-                (async () => {
-                    await addToCart(action.payload);
-                })();
-                state.cartItems.push(action.payload);
-                state.totalPrice = getTotalPrice(state.cartItems);
-            } else {
-                toast.error('Item already in cart');
-            }
+            state.cartItems.push(action.payload);
+            toast.success('Item added to cart');
+            state.totalPrice = getTotalPrice(state.cartItems);
         },
         deleteFromCart(state, action: PayloadAction<CartItemInfo>) {
-            try {
-                (async () => {
-                    await removeFromCart(action.payload._id, action.payload.size);
-                })();
-                state.cartItems = state.cartItems.filter(obj => obj._id !== action.payload._id || obj.size !== action.payload.size);
-                state.totalPrice = getTotalPrice(state.cartItems);
-            } catch (err) {
-                console.log(err);
-                toast.error('An error occurred while removing item');
-            }
+            state.cartItems = state.cartItems.filter(obj => obj.id !== action.payload.id || obj.size !== action.payload.size);
+            state.totalPrice = getTotalPrice(state.cartItems);
         },
         plusQuantity(state, action: PayloadAction<CartItemInfo>) {
-            const findItem = state.cartItems.find((obj) => (obj._id === action.payload._id) && (obj.size === action.payload.size));
+            const findItem = state.cartItems.find((obj) => (obj.id === action.payload.id) && (obj.size === action.payload.size));
 
             if (findItem) {
                 findItem.quantity++;
@@ -52,7 +35,7 @@ export const CartSlice = createSlice({
             state.totalPrice = getTotalPrice(state.cartItems);
         },
         minusQuantity(state, action: PayloadAction<CartItemInfo>) {
-            const findItem = state.cartItems.find((obj) => (obj._id === action.payload._id) && (obj.size === action.payload.size));
+            const findItem = state.cartItems.find((obj) => (obj.id === action.payload.id) && (obj.size === action.payload.size));
 
             if (findItem && findItem.quantity > 1) {
                 findItem.quantity--;

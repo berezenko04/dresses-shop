@@ -102,11 +102,7 @@ const Home: React.FC = () => {
                             setNextButtonDisabled(swiperRef.current?.isEnd!);
                         }}
                     >
-                        {products.map((product) => (
-                            <SwiperSlide key={product.id}>
-                                <ProductCard {...product} />
-                            </SwiperSlide>
-                        ))}
+                        
                     </Swiper>
                 </div>
             </SectionBlock>

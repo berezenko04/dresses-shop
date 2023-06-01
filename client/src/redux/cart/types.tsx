@@ -5,7 +5,7 @@ export interface CartState {
 }
 
 export type TCartItem = {
-    _id: string,
+    id: string,
     title: string,
     price: number,
     discount: number,
@@ -15,6 +15,6 @@ export type TCartItem = {
 }
 
 export type CartItemInfo = {
-    _id: string,
+    id: string,
     size: string
 }

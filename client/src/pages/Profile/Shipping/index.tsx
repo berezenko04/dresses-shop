@@ -12,7 +12,7 @@ import ShippingInfo from '@/components/ShippingInfo'
 import ProfileLayout from '@/layout/ProfileLayout'
 
 //redux
-import { updateUser } from '@/redux/user/slice'
+import { updateUserAsync } from '@/redux/user/asyncActions'
 
 type ShippingFormValues = {
     country: string,
@@ -28,7 +28,7 @@ const Shipping: React.FC = () => {
         try {
             const { country, city, address } = data;
             const newData = { address: `${country}, ${city}, ${address}` };
-            dispatch(updateUser(newData));
+            dispatch(updateUserAsync(newData));
         } catch (error) {
             console.error(error);
             toast.error('An error occurred while')

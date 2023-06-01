@@ -17,8 +17,8 @@ import ProfileLayout from '@/layout/ProfileLayout'
 import { ReactComponent as EditIcon } from '@/assets/icons/edit.svg'
 
 //redux
-import { updateUser } from '@/redux/user/slice'
 import { userDataSelector } from '@/redux/user/selectors'
+import { updateUserAsync } from '@/redux/user/asyncActions'
 
 
 interface EditFormValues {
@@ -53,7 +53,7 @@ const Account: React.FC = () => {
 
     const onSubmit: SubmitHandler<EditFormValues> = (data) => {
         setEditable(false);
-        dispatch(updateUser(data));
+        dispatch(updateUserAsync(data));
     }
 
     const handleVisible = () => {

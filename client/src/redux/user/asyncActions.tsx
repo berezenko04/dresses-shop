@@ -1,7 +1,10 @@
-import { getAuthMe, getUserData } from "@/API/userService";
+import { getAuthMe, getUserData, updateUserData } from "@/API/userService";
 import { LoginFormValues } from "@/components/LoginForm";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { UserData } from "./types";
+import { UserData, UserSliceState } from "./types";
+import { updateUser } from "./slice";
+import { toast } from "react-toastify";
+import { RootState } from "../store";
 
 export const fetchUserData = createAsyncThunk(
     '/auth/fetchUserData',
@@ -23,3 +26,23 @@ export const fetchAuthMe = createAsyncThunk(
         return data;
     }
 )
+
+export const updateUserAsync = createAsyncThunk(
+    'user/updateUser',
+    async (payload: Partial<UserData>, { dispatch, getState }) => {
+        const { data } = getState().user as UserSliceState;
+        console.log(data);
+
+        if (data) {
+            try {
+                const updatedData = await updateUserData({ ...payload });
+                dispatch(updateUser(updatedData));
+                toast.success('Data updated successfully');
+            } catch (err) {
+                toast.error('Failed to save data while updating user');
+                console.log(err);
+                throw err;
+            }
+        }
+    }
+);

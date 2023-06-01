@@ -3,6 +3,8 @@ import bcrypt from "bcrypt";
 import nodemailer from "nodemailer";
 import sharp from "sharp";
 import crypto from "crypto";
+import fs from "fs";
+import { extractUserIdFromToken } from "../utils/extractUserIdFromToken.js";
 
 //models
 import UserModel from "../models/user.js";
@@ -165,6 +167,8 @@ export const uploadAvatar = async (req, res) => {
 
     await sharp(tempFilePath).resize(200, 200).toFile(destinationPath);
 
+    fs.unlinkSync(tempFilePath);
+
     res.json({
       url: `http://localhost:3001/${destinationPath}`,
     });
@@ -176,8 +180,15 @@ export const uploadAvatar = async (req, res) => {
 
 export const updateUser = async (req, res) => {
   try {
-    const userId = req.params.id;
     const updatedData = req.body;
+    const token = req.headers.authorization;
+
+    if (!token) {
+      return res.status(401).json({
+        message: "Authorization token not found",
+      });
+    }
+    const userId = extractUserIdFromToken(token);
 
     const user = await UserModel.findById(userId);
 
@@ -185,17 +196,15 @@ export const updateUser = async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    for (let key in updatedData) {
-      if (updatedData.hasOwnProperty(key)) {
-        if (user[key] !== updatedData[key]) {
-          user[key] = updatedData[key];
-        }
+    Object.keys(updatedData).forEach((key) => {
+      if (user[key] !== updatedData[key]) {
+        user[key] = updatedData[key];
       }
-    }
+    });
 
     const updatedUser = await user.save();
 
-    res.json(updatedUser);
+    res.status(200).json(updatedUser);
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: "Server error" });

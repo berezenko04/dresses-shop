@@ -1,8 +1,7 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit"
-import { fetchAuthMe, fetchUserData } from "./asyncActions";
+import { fetchAuthMe, fetchUserData, updateUserAsync } from "./asyncActions";
 import { Status } from "../products/types";
-import { UserSliceState, UserData, UpdatedUser } from "./types";
-import { updateUserData } from "@/API/userService";
+import { UserSliceState, UserData } from "./types";
 import { toast } from "react-toastify";
 
 const initialState: UserSliceState = {
@@ -15,54 +14,19 @@ export const UserSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
-        updateUser(state, action: PayloadAction<UpdatedUser>) {
-            if (state.data) {
-                const newData = { ...state.data };
-                for (let key in action.payload) {
-                    if (action.payload.hasOwnProperty(key)) {
-                        if (newData[key] !== action.payload[key]) {
-                            newData[key] = action.payload[key];
-                        }
-                    }
-                }
-                try {
-                    (async () => {
-                        await updateUserData(newData._id, newData);
-                        toast.success('Data updated successfully');
-                    })();
-                    state.data = newData;
-                }
-                catch (err) {
-                    console.log(err);
-                    toast.error('An error occured while updating user');
-                }
-            }
+        updateUser(state, action: PayloadAction<UserData>) {
+            state.data = action.payload;
         },
-        setAvatarPath(state, action: PayloadAction<string>) {
+        setAvatarPath: (state, action) => {
             if (state.data?.avatarUrl) {
-                state.data.avatarUrl = action.payload;
                 const newData = { ...state.data };
                 newData.avatarUrl = action.payload;
-                (async () => {
-                    await updateUserData(newData._id, newData);
-                })();
+                updateUserAsync(newData);
+                state.data.avatarUrl = action.payload;
             } else {
                 toast.error('Failed to receive avatar');
             }
         },
-        removeAvatar(state) {
-            if (state.data?.avatarUrl) {
-                const defaultAvatar = '/default-avatar.png'
-                state.data.avatarUrl = defaultAvatar;
-
-                const newData = { ...state.data };
-                newData.avatarUrl = defaultAvatar;
-
-                (async () => {
-                    await updateUserData(newData._id, newData);
-                })();
-            }
-        }
     },
     extraReducers: (builder) => {
         builder.addCase(fetchUserData.pending, (state) => {
@@ -99,6 +63,6 @@ export const UserSlice = createSlice({
 
 });
 
-export const { updateUser, setAvatarPath, removeAvatar } = UserSlice.actions;
+export const { updateUser, setAvatarPath } = UserSlice.actions;
 
 export default UserSlice.reducer;

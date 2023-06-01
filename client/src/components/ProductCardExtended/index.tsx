@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux';
 import { useMemo } from 'react'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
+import { useAppDispatch } from '@/redux/store';
 
 //styles
 import styles from './ProductCardExtended.module.scss'
@@ -14,10 +15,9 @@ import { ReactComponent as FavoriteActiveIcon } from '@/assets/icons/heart-fille
 //components
 import CardPrice from '../CardPrice';
 
-//hooks
+//redux
 import { wishListSelector } from '@/redux/wishList/selectors';
-import { useAppDispatch } from '@/redux/store';
-import { updateFavorite } from '@/redux/wishList/slice';
+import { updateFavorite } from '@/redux/wishList/asyncActions';
 
 
 interface ProductCardExtendedProps {
@@ -40,7 +40,7 @@ const ProductCardExtended: React.FC<ProductCardExtendedProps> = ({ _id, title, p
                 <div className={styles.card__image}>
                     <button
                         className={styles.card__image__favorite}
-                        onClick={() => dispatch(updateFavorite({ _id, title, price, images, discount, colors }))}
+                        onClick={() => dispatch(updateFavorite(_id))}
                     >
                         {isFavorite ? <FavoriteActiveIcon /> : <FavoriteIcon />}
                     </button>

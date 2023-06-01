@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react'
 import { useAppDispatch } from '@/redux/store'
 
 //styles
@@ -14,7 +13,8 @@ import { ReactComponent as TrashIcon } from '@/assets/icons/trash.svg'
 
 //redux
 import { TCartItem } from '@/redux/cart/types'
-import { deleteFromCart, minusQuantity, plusQuantity } from '@/redux/cart/slice'
+import { minusQuantity, plusQuantity } from '@/redux/cart/slice'
+import { removeFromCartAsync } from '@/redux/cart/asyncActions'
 
 
 type CartItemProps = {
@@ -25,10 +25,10 @@ type CartItemProps = {
 
 const CartItem: React.FC<CartItemProps> = ({ cart, readable = false }) => {
     const dispatch = useAppDispatch();
-    const { imageUrl, title, discount, price, size, _id, quantity } = cart;
+    const { imageUrl, title, discount, price, size, id, quantity } = cart;
 
     const handleRemove = async () => {
-        dispatch(deleteFromCart({ _id, size }));
+        dispatch(removeFromCartAsync({ id, size }));
     }
 
     return (
@@ -50,9 +50,9 @@ const CartItem: React.FC<CartItemProps> = ({ cart, readable = false }) => {
                             <span>{quantity}</span>
                             :
                             <div className={styles.item__content__info__quantity__field}>
-                                <button disabled={quantity === 1} onClick={() => dispatch(minusQuantity({ _id, size }))}><MinusIcon /></button>
+                                <button disabled={quantity === 1} onClick={() => dispatch(minusQuantity({ id, size }))}><MinusIcon /></button>
                                 <span>{quantity}</span>
-                                <button disabled={quantity === 10} onClick={() => dispatch(plusQuantity({ _id, size }))}><PlusIcon /></button>
+                                <button disabled={quantity === 10} onClick={() => dispatch(plusQuantity({ id, size }))}><PlusIcon /></button>
                             </div>
                         }
                     </div>

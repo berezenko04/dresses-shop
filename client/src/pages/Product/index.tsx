@@ -41,7 +41,8 @@ import { createComment } from '@/redux/comments/slice';
 //utils
 import { formatDate } from '@/utils/formatDate';
 import { wishListSelector } from '@/redux/wishList/selectors';
-import { updateFavorite } from '@/redux/wishList/slice';
+import { updateFavorite } from '@/redux/wishList/asyncActions';
+import { addToCartAsync } from '@/redux/cart/asyncActions';
 
 
 const Product: React.FC = () => {
@@ -71,31 +72,6 @@ const Product: React.FC = () => {
             dispatch(fetchComments(id));
         }
     }, [id])
-
-    const handleAddClick = async () => {
-        const item = {
-            _id: product[0]._id,
-            title: product[0].title,
-            price: product[0].price,
-            discount: product[0].discount,
-            size: selectedSize,
-            quantity: 1,
-            imageUrl: product[0].images[0]
-        };
-        dispatch(addInCart(item));
-    }
-
-    const handleFavorite = async () => {
-        const item = {
-            _id: product[0]._id,
-            title: product[0].title,
-            price: product[0].price,
-            discount: product[0].discount,
-            images: product[0].images,
-            colors: product[0].colors
-        }
-        dispatch(updateFavorite(item));
-    }
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -197,12 +173,12 @@ const Product: React.FC = () => {
                                     <Button
                                         size='lg'
                                         theme='primary'
-                                        onClick={handleAddClick}
+                                        onClick={() => dispatch(addToCartAsync({ id: product[0]._id, size: selectedSize }))}
                                         disabled={!isAvailable}
                                     >
                                         {isAvailable ? 'Add to bag' : 'Out of stock'}
                                     </Button>
-                                    <Button theme='iconary' size='lg' onClick={handleFavorite}>
+                                    <Button theme='iconary' size='lg' onClick={() => dispatch(updateFavorite(product[0]._id))}>
                                         {isFavorite ? <FavoriteActiveIcon /> : <FavoriteIcon />}
                                     </Button>
                                 </div>
@@ -276,7 +252,7 @@ const Product: React.FC = () => {
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
 

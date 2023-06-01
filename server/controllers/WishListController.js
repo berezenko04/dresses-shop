@@ -1,5 +1,6 @@
 import UserModel from "../models/user.js";
 import ProductModel from "../models/product.js";
+import WishListModel from "../models/wishList.js";
 import { extractUserIdFromToken } from "../utils/extractUserIdFromToken.js";
 
 export const getWishList = async (req, res) => {
@@ -8,7 +9,7 @@ export const getWishList = async (req, res) => {
 
     if (!token) {
       return res.status(401).json({
-        message: "Authorization token not found",
+        message: "Authorization token not found", 
       });
     }
     const userId = extractUserIdFromToken(token);
@@ -20,9 +21,10 @@ export const getWishList = async (req, res) => {
       });
     }
 
-    const wishList = user.wishList;
+    const wishList = await WishListModel.find({ user: userId }).populate("product");
+    const products = wishList.map((item) => item.product);
 
-    res.status(200).json(wishList);
+    res.status(200).json(products);
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Server error" });
@@ -50,18 +52,21 @@ export const addToWishList = async (req, res) => {
         message: "User is not found",
       });
     }
+
     if (!product) {
       res.status(400).json({
         message: "Product is not found",
       });
     }
 
-    user.wishList.push(product);
-    await user.save();
-
-    res.status(200).json({
-      message: "Item added to wishlist",
+    const wishListItem = new WishListModel({
+      product: itemId,
+      user: userId,
     });
+
+    await wishListItem.save();
+
+    res.status(200).json(product);
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Server error" });
@@ -80,16 +85,13 @@ export const removeFromWishlist = async (req, res) => {
     }
 
     const userId = extractUserIdFromToken(token);
-
     const user = await UserModel.findById(userId);
 
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
 
-    user.wishList = user.wishList.filter((item) => item._id.toString() !== itemId);
-
-    await user.save();
+    await WishListModel.findOneAndDelete({ product: itemId, user: userId });
 
     res.status(200).json({ message: "Item removed from wishlist" });
   } catch (err) {
