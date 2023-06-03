@@ -1,3 +1,5 @@
+@import "@/scss/variables.scss";
+
 .orders {
     &__wrapper {
         display: flex;
@@ -13,6 +15,24 @@
 
         button {
             width: max-content;
+        }
+    }
+
+    &__main {
+        border: 1px solid $grey-50;
+
+        &__head {
+            width: 100%;
+            background-color: $grey-50;
+            display: grid;
+            padding: 16px 0;
+            grid-template-columns: 104px 2fr 1fr 1fr 2fr 3fr 1fr;
+
+            p {
+                font-weight: 500;
+                text-transform: uppercase;
+                color: $grey-700;
+            }
         }
     }
 }

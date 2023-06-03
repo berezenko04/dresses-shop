@@ -1,0 +1,29 @@
+@import "@/scss/variables.scss";
+
+.empty {
+    padding: 32px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+
+    &__text {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        text-align: center;
+
+        p:first-child {
+            font-weight: 500;
+            font-size: 20px;
+            line-height: 30px;
+            text-transform: uppercase;
+            color: $grey-700;
+        }
+
+        p:last-child {
+            color: $grey-500;
+        }
+    }
+}

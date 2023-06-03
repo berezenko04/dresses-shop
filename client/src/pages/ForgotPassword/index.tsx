@@ -19,6 +19,7 @@ import { authErrorSelector, isAuthSelector } from '@/redux/user/selectors'
 
 //icons
 import { ReactComponent as ArrowLeftIcon } from '@/assets/icons/arrow-left-small.svg'
+import Timer from "@/components/Timer"
 
 
 type ForgotPasswordValues = {
@@ -47,8 +48,12 @@ const ForgotPassword: React.FC = () => {
     const handleResend = () => {
         onSubmit({ email: email });
         toast.success('Email resend successfully');
-
+        setTimer(true);
     }
+
+    const handleTimerComplete = () => {
+        setTimer(false);
+    };
 
     return (
         <AuthLayout>
@@ -90,7 +95,7 @@ const ForgotPassword: React.FC = () => {
                     {!timer ?
                         <button onClick={handleResend}>Click to resend</button>
                         :
-                        <p></p>
+                        <Timer timeout={60000} onTimerComplete={handleTimerComplete} />
                     }
                 </div>
             }

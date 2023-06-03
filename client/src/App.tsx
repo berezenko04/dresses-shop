@@ -1,6 +1,7 @@
 import { Routes, Route } from "react-router-dom"
 import { useEffect, lazy, Suspense } from "react";
 import { useAppDispatch } from "./redux/store";
+import { useSelector } from "react-redux";
 
 //styles
 import "./scss/main.scss";
@@ -33,9 +34,12 @@ const Checkout = lazy(() => import("./pages/Checkout"));
 
 //redux
 import { fetchAuthMe } from "./redux/user/asyncActions";
+import { isAuthSelector } from "./redux/user/selectors";
+
 
 function App() {
   const dispatch = useAppDispatch();
+  const isAuth = useSelector(isAuthSelector);
 
   useEffect(() => {
     dispatch(fetchAuthMe());
@@ -50,7 +54,7 @@ function App() {
             <Route path={'*'} element={<Error404 />} />
             <Route path={'products'} element={<Products />} />
             <Route path={'products/:id'} element={<Product />} />
-            <Route path={'profile/'}>
+            {isAuth && <Route path={'profile/'}>
               <Route path={'account'} element={<Account />} />
               <Route path={'wishlist'} element={<WishList />} />
               <Route path={'settings'} element={<Settings />} />
@@ -60,10 +64,14 @@ function App() {
               <Route path={'notifications'} element={<Notifications />} />
               <Route path={'shipping'} element={<Shipping />} />
             </Route>
+            }
           </Route>
-
-          <Route path={'Sandrela/register'} element={<Register />} />
-          <Route path={'Sandrela/login'} element={<Login />} />
+          {!isAuth &&
+            <>
+              <Route path={'Sandrela/register'} element={<Register />} />
+              <Route path={'Sandrela/login'} element={<Login />} />
+            </>
+          }
           <Route path={'Sandrela/forgot-password'} element={<ForgotPassword />} />
           <Route path={'Sandrela/reset-password/:id/:token/'} element={<ResetPassword />} />
         </Routes>

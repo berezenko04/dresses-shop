@@ -5,7 +5,7 @@ import { useAppDispatch } from '@/redux/store'
 import styles from './TabMenu.module.scss'
 
 //components
-import ProfileTab from '../ProfileTab'
+import ProfileTab from '../ProfileComponents/ProfileTab'
 
 //icons
 import { ReactComponent as UserIcon } from '@/assets/icons/user.svg'

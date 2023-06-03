@@ -1,6 +1,7 @@
-import React, { forwardRef, useEffect, useState } from "react";
+import React, { forwardRef, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { useAppDispatch } from "@/redux/store";
 
 //styles
 import styles from "./CartOverlay.module.scss";
@@ -13,13 +14,9 @@ import Button from "../Button";
 import { ReactComponent as CloseIcon } from "@/assets/icons/close.svg";
 
 //redux
-import { userDataSelector, userIdSelector } from "@/redux/user/selectors";
-
-//utils
-import { getTotalPrice } from "@/utils/getTotalPrice";
 import { cartSelector, cartTotalPrice } from "@/redux/cart/selectors";
 import { fetchCart } from "@/redux/cart/asyncActions";
-import { useAppDispatch } from "@/redux/store";
+import CartEmptyState from "../CartEmptyState";
 
 
 interface CartOverlayProps {
@@ -38,20 +35,26 @@ const CartOverlay = forwardRef<HTMLDivElement, CartOverlayProps>(({ handleOverla
     dispatch(fetchCart());
   }, []);
 
+  const cartEmpty = cartItems.length <= 0;
+
   return (
     <div className={`${styles.overlay} ${isOpened ? styles.overlay__opened : styles.overlay__closed}`} ref={ref}>
       <div className={styles.overlay__head}>
-        <h3>Cart ({cartItems.length > 0 ? cartItems.length : 0})</h3>
+        <h3>Cart {!cartEmpty && `(${cartItems.length})`}</h3>
         <button onClick={handleOverlayClick}>
           <CloseIcon />
         </button>
       </div>
       <div className={styles.overlay__items}>
-        {cartItems && cartItems.map((cartItem, index) => (
-          <CartItem cart={cartItem} key={index} />
-        ))}
+        {!cartEmpty ?
+          cartItems && cartItems.map((cartItem, index) => (
+            <CartItem cart={cartItem} key={index} />
+          ))
+          :
+          <CartEmptyState />
+        }
       </div>
-      {totalPrice !== 0 && (
+      {!cartEmpty && (
         <div className={styles.overlay__checkout}>
           <div className={styles.overlay__checkout__total}>
             <h4>Total</h4>

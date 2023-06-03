@@ -19,7 +19,7 @@ export const addToCartAsync = createAsyncThunk(
         const { id, size } = payload;
         const findItem = cartItems.find((obj) => (obj.id === id) && (obj.size === size));
         if (!findItem) {
-            const data = await addToCart(id, size);
+            const data = await addToCart(id, size); 
             dispatch(addInCart(data));
         } else {
             toast.error('Item already in cart');

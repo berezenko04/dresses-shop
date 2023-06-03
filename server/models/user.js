@@ -31,39 +31,6 @@ const UserSchema = new mongoose.Schema(
       type: String,
       default: "",
     },
-    cart: {
-      type: Array,
-      items: {
-        id: {
-          type: Number,
-          unique: true,
-        },
-        title: {
-          type: String,
-          required: true,
-        },
-        price: {
-          type: Number,
-          required: true,
-        },
-        imageUrl: {
-          type: String,
-          required: true,
-        },
-        discount: {
-          type: Number,
-          default: 0,
-        },
-        size: {
-          type: String,
-          required: true,
-        },
-        quantity: {
-          type: Number,
-          default: 1,
-        },
-      },
-    },
   },
   {
     timestamps: true,

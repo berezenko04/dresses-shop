@@ -23,3 +23,31 @@
         }
     }
 }
+
+@mixin CustomScroll {
+    $scrollbar-width: 32px;
+    $scrollbar-track-thumb-width: 8px;
+    $scrollbar-track-thumb-border-clip-width: ($scrollbar-width - $scrollbar-track-thumb-width) / 2;
+
+    /* width */
+    &::-webkit-scrollbar {
+        width: $scrollbar-width;
+    }
+
+    /* Track */
+    &::-webkit-scrollbar-track {
+        background: #e3e3e3;
+        background-clip: padding-box;
+        border: $scrollbar-track-thumb-border-clip-width solid rgba(0, 0, 0, 0);
+    }
+
+    /* Handle */
+    &::-webkit-scrollbar-thumb {
+        background-color: $primary-500;
+        background-clip: padding-box;
+        border: $scrollbar-track-thumb-border-clip-width solid rgba(0, 0, 0, 0);
+        &:hover {
+            background-color: $primary-600;
+        }
+    }
+}

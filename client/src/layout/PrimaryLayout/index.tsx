@@ -8,6 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import SupportUkraine from '@/components/SupportUkraine'
+import BreadCrumbs from '@/components/BreadCrumbs';
 
 
 
@@ -16,6 +17,7 @@ const PrimaryLayout: React.FC = () => {
         <>
             <SupportUkraine />
             <Navbar />
+            <BreadCrumbs />
             <main style={{ paddingTop: '60px', paddingBottom: '60px' }}>
                 <Outlet />
                 <ToastContainer

@@ -10,6 +10,7 @@
     &__main {
         display: grid;
         grid-template-columns: 7fr 5fr;
+        align-items: start;
         gap: 24px;
 
         &__left {
@@ -59,7 +60,9 @@
                         border: 1px solid $gray-300;
                         display: flex;
                         align-items: center;
+                        justify-content: space-between;
                         gap: 8px;
+                        cursor: pointer;
 
                         label {
                             font-weight: 500;
@@ -69,6 +72,29 @@
                             color: $grey-700;
                             flex: 1;
                         }
+
+                        div {
+                            display: flex;
+                            align-items: center;
+                            gap: 8px;
+                        }
+                    }
+                }
+
+                &__form {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 24px;
+
+                    &__block {
+                        width: 100%;
+                    }
+
+                    &__footer {
+                        display: flex;
+                        align-items: center;
+                        gap: 24px;
+                        flex: 1;
                     }
                 }
             }
@@ -79,38 +105,69 @@
             padding: 24px;
             display: flex;
             flex-direction: column;
-            gap: 32px;
+            gap: 24px;
+            min-height: 590px;
 
-            h3 {
-                font-weight: 500;
-                font-size: 36px;
-                line-height: 54px;
-                text-transform: uppercase;
-                color: $black;
-                font-family: "Poppins", sans-serif;
+            &__head {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 32px;
+
+                button {
+                    font-weight: 500;
+                    font-size: 16px;
+                    line-height: 24px;
+                    color: $grey-300;
+                    text-decoration: underline;
+                }
+
+                h3 {
+                    font-weight: 500;
+                    font-size: 20px;
+                    line-height: 30px;
+                    text-transform: uppercase;
+                    color: $black;
+                    font-family: "Poppins", sans-serif;
+                }
             }
 
             &__items {
                 display: flex;
                 flex-direction: column;
                 gap: 24px;
-                max-height: 1100px;
+                max-height: 560px;
+                flex: 1;
                 overflow-x: auto;
             }
 
             &__total {
                 display: flex;
-                justify-content: space-between;
-                align-items: center;
-                gap: 24px;
+                flex-direction: column;
+                gap: 8px;
+                border-top: 1px solid $grey-200;
 
-                h4,
-                p {
-                    font-weight: 500;
-                    font-size: 24px;
-                    line-height: 36px;
-                    color: $black;
-                    text-transform: uppercase;
+                li {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    gap: 24px;
+
+                    p,
+                    span {
+                        color: $grey-500;
+                    }
+
+                    &:last-child {
+                        p,
+                        span {
+                            font-weight: 500;
+                            font-size: 24px;
+                            line-height: 36px;
+                            text-transform: uppercase;
+                            color: $grey-700;
+                        }
+                    }
                 }
             }
         }

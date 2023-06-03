@@ -4,9 +4,11 @@ import styles from './MyOrders.module.scss'
 //components
 import ProfileLayout from '@/layout/ProfileLayout'
 import Button from '@/components/Button'
+import OrderItem from '@/components/OrderItem'
 
 //icons
 import { ReactComponent as UploadIcon } from '@/assets/icons/upload.svg'
+
 
 const MyOrders: React.FC = () => {
     return (
@@ -21,7 +23,21 @@ const MyOrders: React.FC = () => {
                         </Button>
                     </div>
                     <div className={styles.orders__main}>
-                    
+                        <div className={styles.orders__main__head}>
+                            <div></div>
+                            <p>Order Id</p>
+                            <p>Date</p>
+                            <p>Items</p>
+                            <p>Total Amount</p>
+                            <p>Status</p>
+                            <p>Action</p>
+                        </div>
+                        <div className={styles.orders__main__content}>
+                            <OrderItem />
+                            <OrderItem />
+                            <OrderItem />
+                            <OrderItem />
+                        </div>
                     </div>
                 </div>
             </ProfileLayout>

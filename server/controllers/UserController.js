@@ -165,7 +165,7 @@ export const uploadAvatar = async (req, res) => {
       .digest("hex");
     const destinationPath = `uploads/${hash}.webp`;
 
-    await sharp(tempFilePath).resize(200, 200).toFile(destinationPath);
+    await sharp(tempFilePath).resize(200, 200, {fit: 'inside'}).toFile(destinationPath);
 
     fs.unlinkSync(tempFilePath);
 
