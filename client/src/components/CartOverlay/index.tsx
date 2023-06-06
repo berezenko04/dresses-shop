@@ -9,27 +9,28 @@ import styles from "./CartOverlay.module.scss";
 //components
 import CartItem from "../CartItem";
 import Button from "../Button";
+import CartEmptyState from "../CartEmptyState";
+import TotalPrice from "../TotalPrice";
 
 //icons
 import { ReactComponent as CloseIcon } from "@/assets/icons/close.svg";
 
 //redux
-import { cartSelector, cartTotalPrice } from "@/redux/cart/selectors";
+import { cartSelector } from "@/redux/cart/selectors";
 import { fetchCart } from "@/redux/cart/asyncActions";
-import CartEmptyState from "../CartEmptyState";
 
 
-interface CartOverlayProps {
+
+interface ICartOverlayProps {
   handleOverlayClick: () => void;
   isOpened: boolean;
   ref?: React.ForwardedRef<HTMLDivElement>;
 };
 
 
-const CartOverlay = forwardRef<HTMLDivElement, CartOverlayProps>(({ handleOverlayClick, isOpened }, ref) => {
-  const cartItems = useSelector(cartSelector);
+const CartOverlay = forwardRef<HTMLDivElement, ICartOverlayProps>(({ handleOverlayClick, isOpened }, ref) => {
+  const { cartItems } = useSelector(cartSelector);
   const dispatch = useAppDispatch();
-  const totalPrice = useSelector(cartTotalPrice);
 
   useEffect(() => {
     dispatch(fetchCart());
@@ -56,10 +57,7 @@ const CartOverlay = forwardRef<HTMLDivElement, CartOverlayProps>(({ handleOverla
       </div>
       {!cartEmpty && (
         <div className={styles.overlay__checkout}>
-          <div className={styles.overlay__checkout__total}>
-            <h4>Total</h4>
-            <p>{totalPrice + " UAH"}</p>
-          </div>
+          <TotalPrice discount={0} />
           <Link to="/Sandrela/profile/checkout">
             <Button theme="primary" size="sm" onClick={handleOverlayClick}>
               Checkout

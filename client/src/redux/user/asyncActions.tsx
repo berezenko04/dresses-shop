@@ -1,17 +1,16 @@
 import { getAuthMe, getUserData, updateUserData } from "@/API/userService";
-import { LoginFormValues } from "@/components/LoginForm";
+import { TLoginFormValues } from "@/components/LoginForm";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { UserData, UserSliceState } from "./types";
+import { IUserData, IUserSliceState } from "./types";
 import { updateUser } from "./slice";
 import { toast } from "react-toastify";
-import { RootState } from "../store";
 
 export const fetchUserData = createAsyncThunk(
     '/auth/fetchUserData',
-    async (params: LoginFormValues, { rejectWithValue }) => {
+    async (params: TLoginFormValues, { rejectWithValue }) => {
         try {
             const data = await getUserData(params);
-            return data as UserData;
+            return data as IUserData;
         } catch (error: any) {
             const errorResponse = error.response?.data || error;
             return rejectWithValue({ error: errorResponse });
@@ -29,8 +28,8 @@ export const fetchAuthMe = createAsyncThunk(
 
 export const updateUserAsync = createAsyncThunk(
     'user/updateUser',
-    async (payload: Partial<UserData>, { dispatch, getState }) => {
-        const { data } = getState().user as UserSliceState;
+    async (payload: Partial<IUserData>, { dispatch, getState }) => {
+        const { data } = getState().user as IUserSliceState;
         console.log(data);
 
         if (data) {

@@ -1,4 +1,4 @@
-export interface CartState {
+export interface ICartState {
     cartItems: TCartItem[],
     status: 'loading' | 'success' | 'error',
     totalPrice: number
@@ -14,7 +14,7 @@ export type TCartItem = {
     imageUrl: string
 }
 
-export type CartItemInfo = {
+export type TCartItemInfo = {
     id: string,
     size: string
 }

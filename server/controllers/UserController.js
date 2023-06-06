@@ -116,6 +116,9 @@ export const getMe = async (req, res) => {
 
 export const getReviews = async (req, res) => {
   try {
+    const { limit = 10, page = 1 } = req.query;
+    const skip = (page - 1) * limit;
+
     const user = await UserModel.findById(req.userId);
 
     if (!user) {
@@ -124,8 +127,11 @@ export const getReviews = async (req, res) => {
       });
     }
 
-    const comments = await CommentsModel.find({ user: user });
-    res.json(comments);
+    const comments = await CommentsModel.find({ user: user }).skip(skip).limit(parseInt(limit));
+
+    const commentsLength = await CommentsModel.find({ user: user }).countDocuments();
+
+    res.json({ comments, length: commentsLength });
   } catch (err) {
     console.log(err);
     res.status(500).json({
@@ -165,7 +171,7 @@ export const uploadAvatar = async (req, res) => {
       .digest("hex");
     const destinationPath = `uploads/${hash}.webp`;
 
-    await sharp(tempFilePath).resize(200, 200, {fit: 'inside'}).toFile(destinationPath);
+    await sharp(tempFilePath).resize(200, 200, { fit: "inside" }).toFile(destinationPath);
 
     fs.unlinkSync(tempFilePath);
 

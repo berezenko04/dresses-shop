@@ -1,12 +1,12 @@
 import { TCartItem } from "../cart/types";
 
-export interface UserSliceState {
-    data: null | UserData,
+export interface IUserSliceState {
+    data: null | IUserData,
     status: 'loading' | 'success' | 'error',
     message: null | string
 }
 
-export interface UserData {
+export interface IUserData {
     _id: string,
     email: string,
     name: string,
@@ -22,7 +22,7 @@ export interface IFetchUserResponse {
     error?: {
         message?: string
     }
-    data?: UserData,
+    data?: IUserData,
     status: 'error'
 }
 

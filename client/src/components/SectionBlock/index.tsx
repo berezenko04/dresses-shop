@@ -2,11 +2,11 @@ import React, { HTMLAttributes } from 'react'
 
 import styles from './SectionBlock.module.scss'
 
-interface SectionBlockProps extends HTMLAttributes<HTMLDivElement> {
+interface ISectionBlockProps extends HTMLAttributes<HTMLDivElement> {
     children: React.ReactNode
 }
 
-const SectionBlock: React.FC<SectionBlockProps> = ({ children, ...props }) => {
+const SectionBlock: React.FC<ISectionBlockProps> = ({ children, ...props }) => {
     return (
         <section className={styles.section} {...props}>
             <div className="container">

@@ -1,7 +1,8 @@
-export interface ProductSliceState {
-    items: ProductItem[],
+export interface IProductSliceState {
+    items: TProductItem[],
     status: 'loading' | 'success' | 'error',
-    length: number
+    length: number,
+    maxPrice: number
 }
 
 export enum Status {
@@ -10,19 +11,23 @@ export enum Status {
     SUCCESS = 'success'
 }
 
-export interface Products {
-    products: ProductItem[],
-    length: number
+export interface IProducts {
+    products: TProductItem[],
+    length: number,
+    maxPrice: number
 }
 
-export type FetchProducts = {
+export type TFetchProducts = {
     sortBy?: string,
     order?: string,
     page?: number,
-    limit?: number
+    limit?: number,
+    colors: string,
+    sizes: string,
+    priceRange: string
 }
 
-export type ProductItem = {
+export type TProductItem = {
     _id: string,
     id: number,
     title: string,

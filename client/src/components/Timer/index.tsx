@@ -3,25 +3,25 @@ import Countdown from 'react-countdown-now';
 //styles
 import styles from './Timer.module.scss'
 
-type TimerProps = {
+type TTimerProps = {
     timeout: number,
     onTimerComplete: () => void
 }
 
-type RendererProps = {
+type TRendererProps = {
     minutes: number,
     seconds: number,
     completed: boolean
 }
 
-const Timer: React.FC<TimerProps> = ({ timeout, onTimerComplete }) => {
+const Timer: React.FC<TTimerProps> = ({ timeout, onTimerComplete }) => {
     const endTime = Date.now() + timeout;
 
     const handleTimerComplete = () => {
         onTimerComplete();
     };
 
-    const renderer: React.FC<RendererProps> = ({ minutes, seconds, completed }) => {
+    const renderer: React.FC<TRendererProps> = ({ minutes, seconds, completed }) => {
         if (completed) {
             return <></>;
         } else {

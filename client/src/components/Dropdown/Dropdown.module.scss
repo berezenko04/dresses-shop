@@ -27,6 +27,8 @@
     &__content {
         opacity: 0;
         animation: Visible 1s forwards;
+        width: 100%;
+        padding-bottom: 16px;
     }
 
     @keyframes Visible {
@@ -40,9 +42,6 @@
     }
 
     .icon {
-        &__default {
-        }
-
         &__active {
             transform: rotate(180deg);
         }

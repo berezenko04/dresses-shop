@@ -1,16 +1,17 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit"
 
-import { Status, ProductSliceState, Products, ProductItem } from "./types"
+import { Status, IProductSliceState, IProducts, TProductItem } from "./types"
 import { fetchProducts, fetchProduct } from "./asyncActions"
 
 
-const initialState: ProductSliceState = {
+const initialState: IProductSliceState = {
     items: [],
     status: Status.LOADING,
-    length: 0
+    length: 0,
+    maxPrice: 0
 }
 
-export const ProductsSlice = createSlice({
+const ProductsSlice = createSlice({
     name: 'products',
     initialState,
     reducers: {
@@ -19,13 +20,14 @@ export const ProductsSlice = createSlice({
     extraReducers: (builder) => {
         builder.addCase(fetchProducts.pending, (state) => {
             state.items = [];
-            state.status = Status.LOADING
+            state.status = Status.LOADING;
         })
 
-        builder.addCase(fetchProducts.fulfilled, (state, action: PayloadAction<Products>) => {
+        builder.addCase(fetchProducts.fulfilled, (state, action: PayloadAction<IProducts>) => {
             state.items = action.payload.products;
             state.length = action.payload.length;
             state.status = Status.SUCCESS;
+            state.maxPrice = action.payload.maxPrice;
         })
 
         builder.addCase(fetchProducts.rejected, (state) => {
@@ -38,7 +40,7 @@ export const ProductsSlice = createSlice({
             state.status = Status.LOADING
         })
 
-        builder.addCase(fetchProduct.fulfilled, (state, action: PayloadAction<ProductItem>) => {
+        builder.addCase(fetchProduct.fulfilled, (state, action: PayloadAction<TProductItem>) => {
             state.items.push(action.payload);
             state.status = Status.SUCCESS;
         })

@@ -4,12 +4,12 @@ import styles from './AuthFormHead.module.scss'
 //icons
 import { ReactComponent as LogoIcon } from '@/assets/icons/frorex-logo.svg'
 
-type AuthFormHeadProps = {
+type TAuthFormHeadProps = {
     title: string,
     text: string
 }
 
-const AuthFormHead: React.FC<AuthFormHeadProps> = ({ title, text }) => {
+const AuthFormHead: React.FC<TAuthFormHeadProps> = ({ title, text }) => {
     return (
         <div className={styles.head}>
             <div className={styles.head__logo}>

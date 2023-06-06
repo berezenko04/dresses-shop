@@ -21,7 +21,7 @@ import { userDataSelector } from '@/redux/user/selectors'
 import { updateUserAsync } from '@/redux/user/asyncActions'
 
 
-interface EditFormValues {
+interface IEditFormValues {
     name: string,
     lastName: string,
     email: string,
@@ -29,7 +29,7 @@ interface EditFormValues {
 }
 
 const Account: React.FC = () => {
-    const { register, handleSubmit, formState: { errors } } = useForm<EditFormValues>();
+    const { register, handleSubmit, formState: { errors } } = useForm<IEditFormValues>();
 
     const dispatch = useAppDispatch();
     const data = useSelector(userDataSelector);
@@ -51,7 +51,7 @@ const Account: React.FC = () => {
         }
     }, [isUploadVisible])
 
-    const onSubmit: SubmitHandler<EditFormValues> = (data) => {
+    const onSubmit: SubmitHandler<IEditFormValues> = (data) => {
         setEditable(false);
         dispatch(updateUserAsync(data));
     }

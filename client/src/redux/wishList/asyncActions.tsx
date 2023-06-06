@@ -1,7 +1,7 @@
 import { addToWishList, getWishList, removeFromWishList } from "@/API/wishListService";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { addToWishListSuccess, removeFromWishListSuccess } from "./slice";
-import { WishListState } from "./types";
+import { IWishListState } from "./types";
 
 export const fetchWishList = createAsyncThunk(
     'wishlist/fetchWishList',
@@ -14,7 +14,7 @@ export const fetchWishList = createAsyncThunk(
 export const updateFavorite = createAsyncThunk(
     'wishlist/update',
     async (itemId: string, { dispatch, getState }) => {
-        const { items } = getState().wishList as WishListState;
+        const { items } = getState().wishList as IWishListState;
         const findItem = items.find((obj) => obj._id === itemId);
 
         if (findItem) {

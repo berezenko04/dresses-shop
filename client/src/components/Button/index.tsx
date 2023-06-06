@@ -4,13 +4,13 @@ import cn from 'classnames'
 //styles
 import styles from './Button.module.scss'
 
-export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+export interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     children: React.ReactNode,
     theme: 'primary' | 'secondary' | 'tertiary' | 'iconary' | 'tertiary-link',
     size: 'sm' | 'lg'
 }
 
-const Button: React.FC<ButtonProps> = ({ children, theme, size, ...props }) => {
+const Button: React.FC<IButtonProps> = ({ children, theme, size, ...props }) => {
 
     const themes = cn(styles.button, {
         [styles.button__primary]: theme === 'primary',

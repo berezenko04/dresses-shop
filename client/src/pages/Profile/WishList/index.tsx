@@ -7,12 +7,12 @@ import styles from './WishList.module.scss'
 
 //components
 import ProductCardExtended from '@/components/ProductCardExtended';
+import ProductCardSkeleton from '@/components/Skeletons/ProductCardSkeleton';
 import ProfileLayout from '@/layout/ProfileLayout';
 
 //redux
 import { wishListSelector, wishListStatusSelector } from '@/redux/wishList/selectors';
 import { fetchWishList } from '@/redux/wishList/asyncActions';
-import ProductCardSkeleton from '@/components/Skeletons/ProductCardSkeleton';
 
 
 const WishList: React.FC = () => {

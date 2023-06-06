@@ -18,32 +18,32 @@ import { useAppDispatch } from '@/redux/store'
 import { authErrorSelector, isAuthSelector } from '@/redux/user/selectors'
 import { IFetchUserResponse } from '@/redux/user/types'
 
-export type LoginFormValues = {
+export type TLoginFormValues = {
     email: string,
     password: string
 }
 
 const LoginForm: React.FC = () => {
-    const { register, handleSubmit, formState: { errors } } = useForm<LoginFormValues>();
+    const { register, handleSubmit, formState: { errors } } = useForm<TLoginFormValues>();
     const message = useSelector(authErrorSelector);
     const isAuth = useSelector(isAuthSelector);
     const dispatch = useAppDispatch();
 
-    const onSubmit: SubmitHandler<LoginFormValues> = async (data) => {
+    const onSubmit: SubmitHandler<TLoginFormValues> = async (data) => {
         try {
             const response = await dispatch(fetchUserData(data)) as PayloadAction<IFetchUserResponse>;
             if ('token' in response.payload) {
                 window.localStorage.setItem('token', response.payload.token as string);
             } else {
                 toast.error(message);
-            } 
+            }
         } catch (error) {
             console.error(error);
         }
     }
 
     if (isAuth) {
-        return <Navigate to={'/Sandrela/'} />
+        return <Navigate to={'/Sandrela/'} />;
     }
 
     return (

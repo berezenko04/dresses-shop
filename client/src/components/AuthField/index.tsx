@@ -6,12 +6,12 @@ import styles from './AuthField.module.scss'
 //icons
 import { ReactComponent as ErrorIcon } from '@/assets/icons/alert-circle.svg'
 
-interface AuthFieldProps extends InputHTMLAttributes<HTMLInputElement> {
+interface IAuthFieldProps extends InputHTMLAttributes<HTMLInputElement> {
     title: string,
     error: boolean
 }
 
-const AuthField = forwardRef<HTMLInputElement, AuthFieldProps>(({ title, error, ...props }, ref) => {
+const AuthField = forwardRef<HTMLInputElement, IAuthFieldProps>(({ title, error, ...props }, ref) => {
     return (
         <div className={styles.input}>
             <label htmlFor={title}>{title}</label>

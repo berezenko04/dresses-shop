@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react'
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 //styles
 import styles from './Comment.module.scss'
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 //icons
 import { ReactComponent as StarActiveIcon } from '@/assets/icons/star.svg'
@@ -9,14 +11,16 @@ import { ReactComponent as StarIcon } from '@/assets/icons/star-empty.svg'
 import { ReactComponent as LikeIcon } from '@/assets/icons/like.svg'
 import { ReactComponent as DislikeIcon } from '@/assets/icons/dislike.svg'
 
-//types
-import { Comment as CommentProps } from '@/redux/comments/types';
+//redux
+import { TComment } from '@/redux/comments/types';
+import { IUserData } from '@/redux/user/types'
+
+//API
 import { getUser } from '@/API/userService'
-import { UserData } from '@/redux/user/types'
 
-const Comment: React.FC<CommentProps> = ({ text, date, rating, likes, dislikes, user }) => {
+const Comment: React.FC<TComment> = ({ text, date, rating, likes, dislikes, user }) => {
 
-    const [userData, setUserData] = useState<UserData>();;
+    const [userData, setUserData] = useState<IUserData>();;
 
     useEffect(() => {
         (async () => {
@@ -25,12 +29,15 @@ const Comment: React.FC<CommentProps> = ({ text, date, rating, likes, dislikes, 
         })();
     }, [])
 
-
     return (
         <div className={styles.comment}>
             <div className={styles.comment__head}>
                 <div className={styles.comment__head__avatar}>
-                    <img src={userData?.avatarUrl} alt=""/>
+                    <LazyLoadImage
+                        src={userData?.avatarUrl}
+                        alt='avatar'
+                        effect='blur'
+                    />
                 </div>
                 <div className={styles.comment__head__rating}>
                     {rating !== 0 &&

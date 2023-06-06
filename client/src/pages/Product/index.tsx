@@ -1,10 +1,9 @@
-import { useParams, Link, Navigate } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import cn from 'classnames'
 import { LazyLoadImage } from 'react-lazy-load-image-component';
-
 
 //styles
 import styles from './Product.module.scss'
@@ -17,9 +16,6 @@ import Comment from '@/components/Comment';
 import Button from '@/components/Button';
 import CommentSkeleton from '@/components/Skeletons/CommentSkeleton';
 
-//Array
-import { sizes } from '../Products';
-
 //redux
 import { useAppDispatch } from '@/redux/store';
 import { fetchProduct } from '@/redux/products/asyncActions';
@@ -27,6 +23,9 @@ import { productsSelector } from '@/redux/products/selectors';
 import { fetchComments } from '@/redux/comments/asyncActions';
 import { commentsItemsSelector, commentsStatusSelector } from '@/redux/comments/selectors';
 import { userDataSelector } from '@/redux/user/selectors';
+import { wishListSelector } from '@/redux/wishList/selectors';
+import { updateFavorite } from '@/redux/wishList/asyncActions';
+import { addToCartAsync } from '@/redux/cart/asyncActions';
 
 //icons
 import { ReactComponent as FavoriteIcon } from '@/assets/icons/heart.svg'
@@ -35,21 +34,17 @@ import { ReactComponent as StarActiveIcon } from '@/assets/icons/star.svg'
 import { ReactComponent as StarIcon } from '@/assets/icons/star-empty.svg'
 
 //API
-import { addInCart } from '@/redux/cart/slice';
 import { createComment } from '@/redux/comments/slice';
 
 //utils
 import { formatDate } from '@/utils/formatDate';
-import { wishListSelector } from '@/redux/wishList/selectors';
-import { updateFavorite } from '@/redux/wishList/asyncActions';
-import { addToCartAsync } from '@/redux/cart/asyncActions';
-
 
 const Product: React.FC = () => {
     const [comment, setComment] = useState("");
     const [rating, setRating] = useState(0);
     const [selectedSize, setSelectedSize] = useState('xxs');
     const [imageIndex, setImageIndex] = useState(0);
+
 
     const { id } = useParams();
     const dispatch = useAppDispatch();
@@ -154,14 +149,14 @@ const Product: React.FC = () => {
                                         <Link to="">Size Guide</Link>
                                     </div>
                                     <ul className={styles.page__product__right__sizes__list}>
-                                        {sizes.map((size, index) => (
+                                        {product[0]?.sizes.map((size, index) => (
                                             <li key={index}>
                                                 <input
                                                     type="radio"
                                                     name='size'
                                                     id={size}
-                                                    defaultChecked={size === product[0]?.sizes[0]}
-                                                    disabled={product[0]?.sizes && !product[0]?.sizes.includes(size)}
+                                                    defaultChecked={index === 0 && isAvailable}
+                                                    disabled={!isAvailable}
                                                     onClick={() => setSelectedSize(size)}
                                                 />
                                                 <label htmlFor={size}>{size}</label>

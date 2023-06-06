@@ -1,0 +1,101 @@
+@import "@/scss/variables.scss";
+
+.sort {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-width: 232px;
+    width: 100%;
+
+    :global {
+        .range-slider {
+            background-color: $grey-100;
+            height: 4px !important;
+        }
+
+        .range-slider__thumb {
+            background: $primary-500 !important;
+            width: 14px !important;
+            height: 14px !important;
+        }
+        .range-slider__range {
+            background: $primary-500 !important;
+        }
+    }
+
+    &__sizes {
+        &__list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
+            gap: 8px;
+
+            li {
+                input[type="checkbox"] {
+                    display: none;
+
+                    &:checked + label {
+                        border-color: $primary-500;
+                    }
+                }
+
+                label {
+                    cursor: pointer;
+                    display: flex;
+                    justify-content: center;
+                    border: 1px solid $grey-200;
+                    font-weight: 500;
+                    font-size: 16px;
+                    line-height: 24px;
+                    user-select: none;
+                    text-transform: uppercase;
+                    color: $grey-500;
+                    padding: 4px 12px;
+                }
+            }
+        }
+    }
+
+    &__colors {
+        &__list {
+            display: grid;
+            gap: 8px;
+            grid-template-columns: repeat(3, 1fr);
+
+            input[type="checkbox"] {
+                display: none;
+
+                &:checked + label svg {
+                    display: flex;
+                }
+            }
+
+            label {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 4px;
+                font-size: 12px;
+                line-height: 18px;
+                text-align: center;
+                color: $grey-300;
+                text-transform: capitalize;
+                cursor: pointer;
+
+                div {
+                    position: relative;
+                    width: 36px;
+                    height: 36px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    border-radius: 50%;
+                }
+
+                svg {
+                    position: absolute;
+                    display: none;
+                }
+            }
+        }
+    }
+}

@@ -34,6 +34,8 @@ const ProductCardExtended: React.FC<ProductCardExtendedProps> = ({ _id, title, p
     const dispatch = useAppDispatch();
     const isFavorite = wishList.find((obj) => obj._id === _id);
 
+    const productLink = `/Sandrela/products/${_id}`;
+
     const memoizedContent = useMemo(() => {
         return (
             <article className={styles.card}>
@@ -44,7 +46,7 @@ const ProductCardExtended: React.FC<ProductCardExtendedProps> = ({ _id, title, p
                     >
                         {isFavorite ? <FavoriteActiveIcon /> : <FavoriteIcon />}
                     </button>
-                    <Link to={`/Sandrela/products/${_id}`}>
+                    <Link to={productLink}>
                         <LazyLoadImage
                             effect="blur"
                             src={images[0]}
@@ -60,7 +62,7 @@ const ProductCardExtended: React.FC<ProductCardExtendedProps> = ({ _id, title, p
                 <div className={styles.card__info}>
                     <div className={styles.card__info__head}>
                         <Link
-                            to={`/Sandrela/products/${_id}`}
+                            to={productLink}
                             className={styles.card__info__head__title}>
                             {title}
                         </Link>

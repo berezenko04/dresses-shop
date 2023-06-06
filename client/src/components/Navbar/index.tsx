@@ -36,7 +36,7 @@ const Navbar: React.FC = () => {
 
     const isAuth = useSelector(isAuthSelector);
     const data = useSelector(userDataSelector);
-    const cartItems = useSelector(cartSelector);
+    const { cartItems } = useSelector(cartSelector);
     const wishList = useSelector(wishListSelector);
 
     const overlayRef = useRef<HTMLDivElement>(null);

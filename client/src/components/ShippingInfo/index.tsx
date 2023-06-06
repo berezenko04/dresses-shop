@@ -7,11 +7,11 @@ import styles from './ShippingInfo.module.scss'
 //redux
 import { userDataSelector } from '@/redux/user/selectors';
 
-type ShippingInfoProps = {
+type TShippingInfoProps = {
     editable?: boolean
 }
 
-const ShippingInfo: React.FC<ShippingInfoProps> = ({ editable = false }) => {
+const ShippingInfo: React.FC<TShippingInfoProps> = ({ editable = false }) => {
     const data = useSelector(userDataSelector);
 
     return (

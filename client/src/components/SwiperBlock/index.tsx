@@ -1,12 +1,12 @@
 import { Navigation, Swiper as SwiperType, SwiperOptions } from 'swiper'
 import { SwiperSlide, Swiper } from 'swiper/react'
 
-interface SwiperBlockProps extends SwiperOptions {
+interface ISwiperBlockProps extends SwiperOptions {
     children: React.ReactNode,
     onBeforeInit: () => void
 }
 
-const SwiperBlock: React.FC<SwiperBlockProps> = ({ children, onBeforeInit }) => {
+const SwiperBlock: React.FC<ISwiperBlockProps> = ({ children, onBeforeInit }) => {
     return (
         <div style={{ width: '100%' }}>
             <Swiper

@@ -14,17 +14,17 @@ import ProfileLayout from '@/layout/ProfileLayout'
 //redux
 import { updateUserAsync } from '@/redux/user/asyncActions'
 
-type ShippingFormValues = {
+type TShippingFormValues = {
     country: string,
     city: string,
     address: string
 }
 
 const Shipping: React.FC = () => {
-    const { register, handleSubmit, formState: { errors } } = useForm<ShippingFormValues>();
+    const { register, handleSubmit, formState: { errors } } = useForm<TShippingFormValues>();
     const dispatch = useAppDispatch();
 
-    const onSubmit: SubmitHandler<ShippingFormValues> = async (data) => {
+    const onSubmit: SubmitHandler<TShippingFormValues> = async (data) => {
         try {
             const { country, city, address } = data;
             const newData = { address: `${country}, ${city}, ${address}` };

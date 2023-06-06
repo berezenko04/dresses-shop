@@ -17,13 +17,13 @@ import { minusQuantity, plusQuantity } from '@/redux/cart/slice'
 import { removeFromCartAsync } from '@/redux/cart/asyncActions'
 
 
-type CartItemProps = {
+type TCartItemProps = {
     cart: TCartItem,
     readable?: boolean
 }
 
 
-const CartItem: React.FC<CartItemProps> = ({ cart, readable = false }) => {
+const CartItem: React.FC<TCartItemProps> = ({ cart, readable = false }) => {
     const dispatch = useAppDispatch();
     const { imageUrl, title, discount, price, size, id, quantity } = cart;
 

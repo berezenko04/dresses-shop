@@ -7,14 +7,14 @@ import styles from './Pagination.module.scss'
 import { ReactComponent as ArrowPrevIcon } from '@/assets/icons/arrow-left.svg'
 import { ReactComponent as ArrowNextIcon } from '@/assets/icons/arrow-right.svg'
 
-type PaginationProps = {
+type TPaginationProps = {
     pageCount: number,
     onPageChange: (param: number) => void,
     limit: number
 }
 
 
-const Pagination: React.FC<PaginationProps> = ({ pageCount, limit, onPageChange }) => {
+const Pagination: React.FC<TPaginationProps> = ({ pageCount, limit, onPageChange }) => {
 
     const handlePageChange = (newPage: number) => {
         onPageChange(newPage);

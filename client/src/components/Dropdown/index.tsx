@@ -6,12 +6,12 @@ import styles from './Dropdown.module.scss'
 //icons
 import { ReactComponent as DropdownIcon } from '@/assets/icons/arrow-dropdown.svg'
 
-interface DropdownProps extends HTMLAttributes<HTMLDivElement> {
+interface IDropdownProps extends HTMLAttributes<HTMLDivElement> {
     title: string,
     children: React.ReactNode
 }
 
-const Dropdown: React.FC<DropdownProps> = ({ title, children }) => {
+const Dropdown: React.FC<IDropdownProps> = ({ title, children }) => {
     const [opened, setOpened] = useState<boolean>(false);
 
     return (

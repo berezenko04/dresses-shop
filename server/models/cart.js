@@ -3,8 +3,9 @@ import mongoose from "mongoose";
 const CartSchema = new mongoose.Schema({
   product: {
     id: {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
       required: true,
+      unique: true,
     },
     title: {
       type: String,

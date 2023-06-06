@@ -1,7 +1,7 @@
 import { addToCart, getCart, removeFromCart } from "@/API/cartService";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { addInCart, deleteFromCart } from "./slice";
-import { CartItemInfo, CartState } from "./types";
+import { TCartItemInfo, ICartState } from "./types";
 import { toast } from "react-toastify";
 
 export const fetchCart = createAsyncThunk(
@@ -14,8 +14,8 @@ export const fetchCart = createAsyncThunk(
 
 export const addToCartAsync = createAsyncThunk(
     'cart/addToCart',
-    async (payload: CartItemInfo, { dispatch, getState }) => {
-        const { cartItems } = getState().cart as CartState;
+    async (payload: TCartItemInfo, { dispatch, getState }) => {
+        const { cartItems } = getState().cart as ICartState;
         const { id, size } = payload;
         const findItem = cartItems.find((obj) => (obj.id === id) && (obj.size === size));
         if (!findItem) {
@@ -30,7 +30,7 @@ export const addToCartAsync = createAsyncThunk(
 
 export const removeFromCartAsync = createAsyncThunk(
     'cart/addToCart',
-    async (payload: CartItemInfo, { dispatch }) => {
+    async (payload: TCartItemInfo, { dispatch }) => {
         const { id, size } = payload;
         await removeFromCart(id, size);
         dispatch(deleteFromCart(payload));

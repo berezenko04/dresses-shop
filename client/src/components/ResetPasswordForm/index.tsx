@@ -21,20 +21,20 @@ import { ReactComponent as ArrowLeftIcon } from '@/assets/icons/arrow-left-small
 import { AxiosResponse } from 'axios'
 
 
-type ResetPasswordFormValues = {
+type TResetPasswordFormValues = {
     password: string,
     repeatPassword: string
 }
 
 const ResetPasswordForm: React.FC = () => {
-    const { register, handleSubmit, formState: { errors }, watch } = useForm<ResetPasswordFormValues>();
+    const { register, handleSubmit, formState: { errors }, watch } = useForm<TResetPasswordFormValues>();
     const user = useSelector(isAuthSelector);
     const { id, token } = useParams();
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
 
 
-    const onSubmit: SubmitHandler<ResetPasswordFormValues> = async (data) => {
+    const onSubmit: SubmitHandler<TResetPasswordFormValues> = async (data) => {
         try {
             await axios.post(`/reset-password/${id}/${token}`, data);
             if ('token' in localStorage) {

@@ -1,17 +1,17 @@
 import axios from "@/axios"
 
 //types
-import { LoginFormValues } from "@/components/LoginForm";
-import { UserData } from "@/redux/user/types";
+import { TLoginFormValues } from "@/components/LoginForm";
+import { IUserData } from "@/redux/user/types";
 
 const API_KEY = 'a29807b5b18547d2966ec2e2d9e2325d';
 
-export const updateUserData = async (newData: Partial<UserData>) => {
+export const updateUserData = async (newData: Partial<IUserData>) => {
     const { data } = await axios.put(`/user/update`, newData);
     return data;
 }
 
-export const getUserData = async (params: LoginFormValues) => {
+export const getUserData = async (params: TLoginFormValues) => {
     const { data } = await axios.post('/auth/login', params);
     return data;
 }
@@ -26,8 +26,8 @@ export const getAuthMe = async () => {
     return data;
 }
 
-export const getUserReviews = async () => {
-    const { data } = await axios.get('/user/comments');
+export const getUserReviews = async (page: number, limit: number) => {
+    const { data } = await axios.get(`/user/comments?page=${page}&limit=${limit}`);
     return data;
 }
 

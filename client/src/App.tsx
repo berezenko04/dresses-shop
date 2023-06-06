@@ -66,12 +66,12 @@ function App() {
             </Route>
             }
           </Route>
-          {!isAuth &&
+          {(
             <>
               <Route path={'Sandrela/register'} element={<Register />} />
               <Route path={'Sandrela/login'} element={<Login />} />
             </>
-          }
+          )}
           <Route path={'Sandrela/forgot-password'} element={<ForgotPassword />} />
           <Route path={'Sandrela/reset-password/:id/:token/'} element={<ResetPassword />} />
         </Routes>

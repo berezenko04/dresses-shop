@@ -6,6 +6,7 @@ import comments from './comments/slice'
 import user from './user/slice'
 import cart from './cart/slice'
 import wishList from './wishList/slice'
+import myReviews from './myReviews/slice'
 
 export const store = configureStore({
     reducer: {
@@ -13,7 +14,8 @@ export const store = configureStore({
         comments,
         user,
         cart,
-        wishList
+        wishList,
+        myReviews
     }
 })
 

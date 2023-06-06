@@ -10,7 +10,7 @@ import styles from "./RegistrationForm.module.scss";
 import AuthField from "../AuthField";
 import Button from "../Button";
 
-type FormValues = {
+type TFormValues = {
   fullName: string;
   email: string;
   password: string;
@@ -24,13 +24,13 @@ const RegistrationForm: React.FC = () => {
     handleSubmit,
     formState: { errors },
     watch,
-  } = useForm<FormValues>();
+  } = useForm<TFormValues>();
 
   const [error, setError] = useState("");
 
   const navigate = useNavigate();
 
-  const onSubmit: SubmitHandler<FormValues> = async (data) => {
+  const onSubmit: SubmitHandler<TFormValues> = async (data) => {
     try {
       const { fullName, ...restData } = data;
       const [name, lastName] = fullName.split(" ");

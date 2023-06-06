@@ -1,4 +1,4 @@
-export type Comment = {
+export type TComment = {
     text: string,
     likes: number,
     dislikes: number,
@@ -7,18 +7,18 @@ export type Comment = {
     date: string
 }
 
-export interface PostComment {
-    comment: Comment,
+export interface IPostComment {
+    comment: TComment,
     itemId: string
 }
 
-export interface Comments {
-    comments: Comment[],
+export interface IComments {
+    comments: TComment[],
     length: number
 }
 
-export interface CommentsSliceState {
-    items: Comment[],
+export interface ICommentsSliceState {
+    items: TComment[],
     status: 'loading' | 'success' | 'error',
     length: number
 }

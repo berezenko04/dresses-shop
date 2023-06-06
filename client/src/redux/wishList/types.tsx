@@ -1,11 +1,11 @@
 import { Status } from "../products/types";
 
-export interface WishListState {
-    items: WishListItem[],
+export interface IWishListState {
+    items: TWishListItem[],
     status: Status.LOADING | Status.SUCCESS | Status.ERROR
 }
 
-export type WishListItem = {
+export type TWishListItem = {
     _id: string,
     title: string,
     price: number,

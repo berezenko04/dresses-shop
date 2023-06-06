@@ -1,13 +1,13 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 import { getProducts, getProduct } from "../../API/dressesService";
-import { FetchProducts } from "./types";
+import { TFetchProducts } from "./types";
 
 export const fetchProducts = createAsyncThunk(
     'products/fetchProducts',
-    async (params: FetchProducts) => { 
-        const { order = 'desc', sortBy = '_id', page = 1, limit = 12 } = params;
-        const products = await getProducts(order, sortBy, page, limit);
+    async (params: TFetchProducts) => {
+        const { order = 'asc', sortBy = '_id', page = 1, limit = 12, colors = '', sizes = '', priceRange = '' } = params;
+        const products = await getProducts(order, sortBy, page, limit, colors, sizes, priceRange);
         return products;
     }
 )

@@ -1,22 +1,22 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { Status } from "../products/types";
-import { WishListItem, WishListState } from "./types";
+import { TWishListItem, IWishListState } from "./types";
 import { fetchWishList } from "./asyncActions";
 
 
-const initialState: WishListState = {
+const initialState: IWishListState = {
     items: [],
     status: Status.LOADING
 }
 
-export const WishListSlice = createSlice({
+const WishListSlice = createSlice({
     name: 'wishlist',
     initialState,
     reducers: {
         removeFromWishListSuccess: (state, action: PayloadAction<string>) => {
             state.items = state.items.filter((obj) => obj._id !== action.payload);
         },
-        addToWishListSuccess: (state, action: PayloadAction<WishListItem>) => {
+        addToWishListSuccess: (state, action: PayloadAction<TWishListItem>) => {
             state.items.push(action.payload);
         },
     },
@@ -26,7 +26,7 @@ export const WishListSlice = createSlice({
             state.status = Status.LOADING
         })
 
-        builder.addCase(fetchWishList.fulfilled, (state, action: PayloadAction<WishListItem[]>) => {
+        builder.addCase(fetchWishList.fulfilled, (state, action: PayloadAction<TWishListItem[]>) => {
             state.items = action.payload;
             state.status = Status.SUCCESS;
         })

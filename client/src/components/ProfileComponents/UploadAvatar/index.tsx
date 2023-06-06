@@ -5,20 +5,17 @@ import { toast } from 'react-toastify';
 //styles
 import styles from './UploadAvatar.module.scss'
 
-//redux
-import { setAvatarPath } from '@/redux/user/slice';
-
 //API
 import { uploadFile } from '@/API/userService';
 import { updateUserAsync } from '@/redux/user/asyncActions';
 
 
-type UploadAvatarProps = {
+type TUploadAvatarProps = {
     handleVisible: () => void,
     ref?: React.ForwardedRef<HTMLDivElement>;
 }
 
-const UploadAvatar = forwardRef<HTMLDivElement, UploadAvatarProps>(({ handleVisible }, ref) => {
+const UploadAvatar = forwardRef<HTMLDivElement, TUploadAvatarProps>(({ handleVisible }, ref) => {
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const [previewUrl, setPreviewUrl] = useState<string | null>(null);
     const [error, setError] = useState(false);

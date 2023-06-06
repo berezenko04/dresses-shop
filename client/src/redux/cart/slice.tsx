@@ -1,19 +1,18 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit"
-import { ProductItem, Status } from "../products/types";
+import { Status } from "../products/types";
 import { fetchCart } from "./asyncActions";
-import { CartItemInfo, CartState, TCartItem } from "./types";
-import { addToCart, removeFromCart } from "@/API/cartService";
+import { TCartItemInfo, ICartState, TCartItem } from "./types";
 import { toast } from "react-toastify";
 import { getTotalPrice } from "@/utils/getTotalPrice";
 
 
-const initialState: CartState = {
+const initialState: ICartState = {
     cartItems: [],
     totalPrice: 0,
     status: Status.LOADING
 }
 
-export const CartSlice = createSlice({
+const CartSlice = createSlice({
     name: 'cart',
     initialState,
     reducers: {
@@ -22,11 +21,11 @@ export const CartSlice = createSlice({
             toast.success('Item added to cart');
             state.totalPrice = getTotalPrice(state.cartItems);
         },
-        deleteFromCart(state, action: PayloadAction<CartItemInfo>) {
+        deleteFromCart(state, action: PayloadAction<TCartItemInfo>) {
             state.cartItems = state.cartItems.filter(obj => obj.id !== action.payload.id || obj.size !== action.payload.size);
             state.totalPrice = getTotalPrice(state.cartItems);
         },
-        plusQuantity(state, action: PayloadAction<CartItemInfo>) {
+        plusQuantity(state, action: PayloadAction<TCartItemInfo>) {
             const findItem = state.cartItems.find((obj) => (obj.id === action.payload.id) && (obj.size === action.payload.size));
 
             if (findItem) {
@@ -34,7 +33,7 @@ export const CartSlice = createSlice({
             }
             state.totalPrice = getTotalPrice(state.cartItems);
         },
-        minusQuantity(state, action: PayloadAction<CartItemInfo>) {
+        minusQuantity(state, action: PayloadAction<TCartItemInfo>) {
             const findItem = state.cartItems.find((obj) => (obj.id === action.payload.id) && (obj.size === action.payload.size));
 
             if (findItem && findItem.quantity > 1) {

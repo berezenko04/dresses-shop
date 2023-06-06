@@ -4,11 +4,11 @@ import styles from './ProfileLayout.module.scss'
 //components
 import TabMenu from '@/components/TabMenu'
 
-type ProfileLayoutProps = {
+type TProfileLayoutProps = {
     children: React.ReactNode
 }
 
-const ProfileLayout: React.FC<ProfileLayoutProps> = ({ children }) => {
+const ProfileLayout: React.FC<TProfileLayoutProps> = ({ children }) => {
     return (
         <div className='container'>
             <div className={styles.layout}>

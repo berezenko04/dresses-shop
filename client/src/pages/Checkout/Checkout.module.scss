@@ -1,4 +1,5 @@
 @import "@/scss/variables.scss";
+@import "@/scss/mixins.scss";
 
 .page {
     &__wrapper {
@@ -29,7 +30,7 @@
             &__billing,
             &__promo {
                 padding: 24px;
-                border: 1px solid $gray-300;
+                border: 1px solid $grey-300;
             }
 
             &__promo {
@@ -57,7 +58,7 @@
 
                     &__item {
                         padding: 16px;
-                        border: 1px solid $gray-300;
+                        border: 1px solid $grey-300;
                         display: flex;
                         align-items: center;
                         justify-content: space-between;
@@ -101,7 +102,7 @@
         }
 
         &__cart {
-            border: 1px solid $gray-300;
+            border: 1px solid $grey-300;
             padding: 24px;
             display: flex;
             flex-direction: column;
@@ -139,36 +140,8 @@
                 max-height: 560px;
                 flex: 1;
                 overflow-x: auto;
-            }
 
-            &__total {
-                display: flex;
-                flex-direction: column;
-                gap: 8px;
-                border-top: 1px solid $grey-200;
-
-                li {
-                    display: flex;
-                    align-items: center;
-                    justify-content: space-between;
-                    gap: 24px;
-
-                    p,
-                    span {
-                        color: $grey-500;
-                    }
-
-                    &:last-child {
-                        p,
-                        span {
-                            font-weight: 500;
-                            font-size: 24px;
-                            line-height: 36px;
-                            text-transform: uppercase;
-                            color: $grey-700;
-                        }
-                    }
-                }
+                @include CustomScroll;
             }
         }
     }

@@ -10,27 +10,26 @@ import Button from '@/components/Button';
 import ShippingInfo from '@/components/ShippingInfo';
 import Radio from '@/components/Radio';
 import AuthField from '@/components/AuthField';
+import CartEmptyState from '@/components/CartEmptyState';
+import TotalPrice from '@/components/TotalPrice';
 
 //redux
-import { cartSelector, cartTotalPrice } from '@/redux/cart/selectors';
+import { cartSelector } from '@/redux/cart/selectors';
 
 //icons
 import { ReactComponent as PlusIcon } from '@/assets/icons/plus.svg'
 import { ReactComponent as PaypalIcon } from '@/assets/icons/paypal.svg'
 import { ReactComponent as MCIcon } from '@/assets/icons/mastercard.svg'
 import { ReactComponent as VisaIcon } from '@/assets/icons/visa.svg'
-import CartEmptyState from '@/components/CartEmptyState';
+
 
 
 const Checkout: React.FC = () => {
     const cartItems = useSelector(cartSelector);
-    const totalPrice = useSelector(cartTotalPrice);
-    const [discount, setDiscount] = useState(0);
     const [payment, setPayment] = useState('paypal');
     const [readableCart, setReadableCart] = useState(true);
 
     const cartEmpty = cartItems.length <= 0;
-    const deliveryPrice = 1200;
 
     return (
         <div className={styles.page}>
@@ -121,26 +120,7 @@ const Checkout: React.FC = () => {
                                 }
                             </div>
                             {!cartEmpty &&
-                                <ul className={styles.page__main__cart__total}>
-                                    <li>
-                                        <p>Total</p>
-                                        <span>{totalPrice} UAH</span>
-                                    </li>
-                                    {discount !== 0 &&
-                                        <li>
-                                            <p>Discount</p>
-                                            <span>{discount * 100}%</span>
-                                        </li>
-                                    }
-                                    <li>
-                                        <p>Delivery</p>
-                                        <span>{deliveryPrice} UAH</span>
-                                    </li>
-                                    <li>
-                                        <p>Grand Total</p>
-                                        <span>{(totalPrice + deliveryPrice) - (totalPrice * discount)} UAH</span>
-                                    </li>
-                                </ul>
+                                <TotalPrice discount={0} />
                             }
                         </div>
                     </div>

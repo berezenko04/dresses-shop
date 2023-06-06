@@ -1,20 +1,20 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit"
 import { fetchAuthMe, fetchUserData, updateUserAsync } from "./asyncActions";
 import { Status } from "../products/types";
-import { UserSliceState, UserData } from "./types";
+import { IUserSliceState, IUserData } from "./types";
 import { toast } from "react-toastify";
 
-const initialState: UserSliceState = {
+const initialState: IUserSliceState = {
     data: null,
     status: 'loading',
     message: null
 }
 
-export const UserSlice = createSlice({
+const UserSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
-        updateUser(state, action: PayloadAction<UserData>) {
+        updateUser(state, action: PayloadAction<IUserData>) {
             state.data = action.payload;
         },
         setAvatarPath: (state, action) => {
@@ -34,7 +34,7 @@ export const UserSlice = createSlice({
             state.status = Status.LOADING
         })
 
-        builder.addCase(fetchUserData.fulfilled, (state, action: PayloadAction<UserData>) => {
+        builder.addCase(fetchUserData.fulfilled, (state, action: PayloadAction<IUserData>) => {
             state.data = action.payload;
             state.status = Status.SUCCESS;
         })
@@ -50,7 +50,7 @@ export const UserSlice = createSlice({
             state.status = Status.LOADING
         })
 
-        builder.addCase(fetchAuthMe.fulfilled, (state, action: PayloadAction<UserData>) => {
+        builder.addCase(fetchAuthMe.fulfilled, (state, action: PayloadAction<IUserData>) => {
             state.data = action.payload;
             state.status = Status.SUCCESS;
         })

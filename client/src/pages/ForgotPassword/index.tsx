@@ -22,19 +22,19 @@ import { ReactComponent as ArrowLeftIcon } from '@/assets/icons/arrow-left-small
 import Timer from "@/components/Timer"
 
 
-type ForgotPasswordValues = {
+type TForgotPasswordValues = {
     email: string
 }
 
 const ForgotPassword: React.FC = () => {
-    const { register, handleSubmit, formState: { errors } } = useForm<ForgotPasswordValues>();
+    const { register, handleSubmit, formState: { errors } } = useForm<TForgotPasswordValues>();
     const message = useSelector(authErrorSelector);
     const user = useSelector(isAuthSelector);
     const [verified, setVerified] = useState(false);
     const [email, setEmail] = useState('');
     const [timer, setTimer] = useState(false);
 
-    const onSubmit: SubmitHandler<ForgotPasswordValues> = async (data) => {
+    const onSubmit: SubmitHandler<TForgotPasswordValues> = async (data) => {
         (async () => {
             try {
                 await axios.post('/forgot-password', data);

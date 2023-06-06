@@ -1,21 +1,21 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { Status } from "../products/types";
 import { fetchComments } from "./asyncActions";
-import { Comments, CommentsSliceState, PostComment } from "./types";
+import { IComments, ICommentsSliceState, IPostComment } from "./types";
 import { addToComments } from "@/API/dressesService";
 
 
-const initialState: CommentsSliceState = {
+const initialState: ICommentsSliceState = {
     items: [],
     status: Status.LOADING,
     length: 0
 }
 
-export const CommentsSlice = createSlice({
+const CommentsSlice = createSlice({
     name: 'comments',
     initialState,
     reducers: {
-        createComment(state, action: PayloadAction<PostComment>) {
+        createComment(state, action: PayloadAction<IPostComment>) {
             const { itemId, comment } = action.payload;
             state.items.push(comment);
             (async () => {
@@ -29,7 +29,7 @@ export const CommentsSlice = createSlice({
             state.status = Status.LOADING
         })
 
-        builder.addCase(fetchComments.fulfilled, (state, action: PayloadAction<Comments>) => {
+        builder.addCase(fetchComments.fulfilled, (state, action: PayloadAction<IComments>) => {
             state.items = action.payload.comments;
             state.length = action.payload.length;
             state.status = Status.SUCCESS;

@@ -27,7 +27,7 @@
 @mixin CustomScroll {
     $scrollbar-width: 32px;
     $scrollbar-track-thumb-width: 8px;
-    $scrollbar-track-thumb-border-clip-width: ($scrollbar-width - $scrollbar-track-thumb-width) / 2;
+    $scrollbar-track-thumb-border-clip-width: 12px;
 
     /* width */
     &::-webkit-scrollbar {

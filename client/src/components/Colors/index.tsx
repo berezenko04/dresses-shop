@@ -3,11 +3,11 @@ import cn from 'classnames'
 //styles
 import styles from './Colors.module.scss'
 
-type ColorsProps = {
+type TColorsProps = {
     colors: string[]
 }
 
-const Colors: React.FC<ColorsProps> = ({ colors }) => {
+const Colors: React.FC<TColorsProps> = ({ colors }) => {
 
     const getColor = (color: string) => {
         return cn(styles.colors__item__circle__color, {

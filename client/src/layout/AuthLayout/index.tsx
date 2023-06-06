@@ -7,11 +7,11 @@ import 'react-toastify/dist/ReactToastify.css';
 //images
 import WeddingImage from '@/assets/img/register.jpg'
 
-type AuthLayoutProps = {
+type TAuthLayoutProps = {
     children: React.ReactNode
 }
 
-const AuthLayout: React.FC<AuthLayoutProps> = ({ children }) => {
+const AuthLayout: React.FC<TAuthLayoutProps> = ({ children }) => {
     return (
         <>
             <div className={styles.page}>

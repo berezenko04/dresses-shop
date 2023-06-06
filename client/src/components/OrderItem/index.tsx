@@ -9,7 +9,7 @@ import { ReactComponent as ArrowDownIcon } from '@/assets/icons/arrow-down.svg'
 import { ReactComponent as PrintIcon } from '@/assets/icons/print.svg'
 import { ReactComponent as DownloadIcon } from '@/assets/icons/upload.svg'
 
-const OrderItem = () => {
+const OrderItem: React.FC = () => {
     const [isVisible, setIsVisible] = useState(false);
 
     return (
