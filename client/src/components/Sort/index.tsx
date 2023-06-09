@@ -14,7 +14,7 @@ import MultiRangeSlider from '../MultiRangeSlider';
 import { ReactComponent as CheckIcon } from '@/assets/icons/check.svg'
 
 //redux
-import { productsSelector } from '@/redux/products/selectors';
+import { productsMaxPriceSelector } from '@/redux/products/selectors';
 import { fetchProducts } from '@/redux/products/asyncActions';
 
 
@@ -32,8 +32,7 @@ const Sort: React.FC = () => {
     ];
     const sizes = ["xxs", "xs", "s", "m", "l", "xl", "2xl", "3xl", "4xl"];
 
-    const products = useSelector(productsSelector);
-    const maxPrice = Math.max(...products.map(product => product.price));
+    const maxPrice = useSelector(productsMaxPriceSelector);
 
     const handleCheckbox = (e: FormEvent<HTMLInputElement>, setSelectedValues: Function) => {
         const { value, checked } = e.currentTarget;

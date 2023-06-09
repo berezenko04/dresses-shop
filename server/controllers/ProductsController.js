@@ -19,28 +19,28 @@ export const getProducts = async (req, res) => {
       filter.sizes = { $all: sortSizes };
     }
     if (priceRange.length > 0) {
-      filter.price = { $gte: Number(sortPriceRange[0]), $lte: Number(sortPriceRange[1]) };
+      filter.price = {
+        $gte: Number(sortPriceRange[0]),
+        $lte: Number(sortPriceRange[1]),
+      };
     }
 
-    const products = await ProductModel.find({})
-      .find(filter)
+    const products = await ProductModel.find(filter)
       .sort({ [sortField]: sortOrder })
       .skip(skip)
       .limit(parseInt(limit));
 
-    const productsLength = await ProductModel.find({})
+    console.log(filter);
+    console.log(products);
+
+    const productsLength = await ProductModel.find(filter)
       .find(filter)
       .sort({ [sortField]: sortOrder })
       .countDocuments();
 
-    const maxPrice = await ProductModel.aggregate([
-      {
-        $group: {
-          _id: null,
-          maxPrice: { $max: "$price" },
-        },
-      },
-    ]);
+    const maxPrice = (await ProductModel.find({})).reduce((max, item) => {
+      return item.price > max ? item.price : max;
+    }, 0);
 
     res.status(200).json({
       products,

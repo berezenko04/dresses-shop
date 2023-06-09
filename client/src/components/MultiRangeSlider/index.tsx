@@ -16,7 +16,6 @@ const MultiRangeSlider: React.FC<TMultiRangeSliderProps> = ({ min, max, onChange
     const [maxVal, setMaxVal] = useState(max);
     const minValRef = useRef(min);
     const maxValRef = useRef(max);
-    const timeoutRef = useRef<number | null>(null);
     const range = useRef<HTMLInputElement | null>(null);
 
     // Convert to percentage
