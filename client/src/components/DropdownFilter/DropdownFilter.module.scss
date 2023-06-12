@@ -1,0 +1,88 @@
+@import "@/scss/variables.scss";
+
+.dropdown {
+    position: relative;
+
+    &__head {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        cursor: pointer;
+
+        &__order {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+
+            span {
+                font-size: 16px;
+                font-weight: 500;
+                color: $grey-700;
+                text-transform: uppercase;
+                user-select: none;
+                display: flex;
+                align-items: center;
+
+                svg {
+                    width: 16px;
+                    height: 16px;
+                }
+            }
+        }
+
+        .icon {
+            transition: all 0.25s ease-in-out;
+
+            &__active {
+                transform: rotate(180deg);
+            }
+        }
+    }
+
+    &__main {
+        position: absolute;
+        z-index: 10;
+        background-color: $white;
+        box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.09);
+        padding: 12px;
+        border-radius: 10px;
+        top: 35px;
+        right: 0;
+        visibility: hidden;
+        opacity: 0;
+        transition: all 0.25s ease-in;
+
+        &__active {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        &__item {
+            button {
+                transition: all 0.15s ease-in;
+                svg {
+                    width: 16px;
+                    height: 16px;
+                }
+
+                &:hover {
+                    color: $primary-500;
+
+                    svg path {
+                        fill: $primary-500;
+                    }
+                }
+            }
+
+            &__active {
+                button {
+                    color: $primary-500;
+
+                    svg path {
+                        fill: $primary-500;
+                    }
+                }
+            }
+        }
+    }
+}

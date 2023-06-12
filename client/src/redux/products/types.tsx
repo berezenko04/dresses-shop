@@ -22,9 +22,9 @@ export type TFetchProducts = {
     order?: string,
     page?: number,
     limit?: number,
-    colors: string,
-    sizes: string,
-    priceRange: string
+    colors?: string,
+    sizes?: string,
+    priceRange?: string
 }
 
 export type TProductItem = {

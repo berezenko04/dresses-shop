@@ -1,4 +1,4 @@
-import { Outlet } from 'react-router-dom'
+import { Outlet, useLocation } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify';
 
 //styles
@@ -11,13 +11,13 @@ import SupportUkraine from '@/components/SupportUkraine'
 import BreadCrumbs from '@/components/BreadCrumbs';
 
 
-
 const PrimaryLayout: React.FC = () => {
+    const location = useLocation();
     return (
         <>
             <SupportUkraine />
             <Navbar />
-            <BreadCrumbs />
+            {location.pathname !== '/Sandrela' && <BreadCrumbs />}
             <main style={{ paddingTop: '60px', paddingBottom: '60px' }}>
                 <Outlet />
                 <ToastContainer

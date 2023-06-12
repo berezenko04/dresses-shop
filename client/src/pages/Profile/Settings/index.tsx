@@ -1,5 +1,8 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { useAppDispatch } from '@/redux/store'
+import { SubmitHandler, useForm } from 'react-hook-form'
+import axios from '@/axios'
+import { toast } from 'react-toastify'
 
 //styles
 import styles from './Settings.module.scss'
@@ -17,7 +20,15 @@ import { ReactComponent as TrashIcon } from '@/assets/icons/trash.svg'
 import { fetchAuthMe } from '@/redux/user/asyncActions'
 
 
+interface IPasswordForm {
+    currentPassword: string,
+    newPassword: string,
+    repeatPassword: string
+}
+
+
 const Settings: React.FC = () => {
+    const { register, handleSubmit, formState: { errors }, watch } = useForm<IPasswordForm>();
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
@@ -26,6 +37,18 @@ const Settings: React.FC = () => {
             localStorage.removeItem('token');
             dispatch(fetchAuthMe());
             navigate('/Sandrela/');
+        }
+    }
+
+    const onSubmit: SubmitHandler<IPasswordForm> = async (data) => {
+        try {
+            await axios.post("/change-password", data);
+            toast.success('Password Changed');
+            localStorage.removeItem('token');
+            dispatch(fetchAuthMe());
+            navigate('/Sandrela/login');
+        } catch (err) {
+            toast.error('Invalid Current Password!');
         }
     }
 
@@ -47,26 +70,56 @@ const Settings: React.FC = () => {
                     </div>
                     <div className={styles.settings__block}>
                         <h3>Password</h3>
-                        <form className={styles.settings__passwordForm}>
+                        <form className={styles.settings__passwordForm} onSubmit={handleSubmit(onSubmit)}>
                             <div className={styles.settings__passwordForm__fields}>
-                                <AuthField
-                                    title='Current Password'
-                                    placeholder='Enter the current password'
-                                    type='text'
-                                    error
-                                />
-                                <AuthField
-                                    title='New Password'
-                                    placeholder='Enter the new password'
-                                    type='text'
-                                    error
-                                />
-                                <AuthField
-                                    title='Repeat Password'
-                                    placeholder='Repeat the new password'
-                                    type='text'
-                                    error
-                                />
+                                <div className={styles.settings__passwordForm__fields__block}>
+                                    <AuthField
+                                        title='Current Password'
+                                        placeholder='Enter the current password'
+                                        type='password'
+                                        {...register("currentPassword", { required: true })}
+                                        error={Boolean(errors.currentPassword)}
+                                    />
+                                    {errors.currentPassword?.type === "required" && (
+                                        <span>Password is required.</span>
+                                    )}
+                                </div>
+                                <div className={styles.settings__passwordForm__fields__block}>
+                                    <AuthField
+                                        title='New Password'
+                                        placeholder='Enter the new password'
+                                        type='password'
+                                        {...register("newPassword", { required: true, min: 8, max: 32 })}
+                                        error={Boolean(errors.newPassword)}
+                                    />
+                                    {errors.newPassword?.type === "required" && (
+                                        <span>Password is required.</span>
+                                    )}
+                                    {errors.newPassword?.type === "minLength" && (
+                                        <span>Password must be at least 8 characters.</span>
+                                    )}
+                                    {errors.newPassword?.type === "maxLength" && (
+                                        <span>Password must be less than 32 characters.</span>
+                                    )}
+                                </div>
+                                <div className={styles.settings__passwordForm__fields__block}>
+                                    <AuthField
+                                        title='Repeat Password'
+                                        placeholder='Repeat the new password'
+                                        type='password'
+                                        {...register("repeatPassword", {
+                                            required: true,
+                                            validate: (value) => value === watch('newPassword')
+                                        })}
+                                        error={Boolean(errors.repeatPassword)}
+                                    />
+                                    {errors.repeatPassword?.type === "required" && (
+                                        <span>Repeat password is required.</span>
+                                    )}
+                                    {errors.repeatPassword?.type === "validate" && (
+                                        <span>Passwords do not match.</span>
+                                    )}
+                                </div>
                             </div>
                             <div className={styles.settings__passwordForm__buttons}>
                                 <Button type='submit' theme='primary' size='sm'>Change Password</Button>

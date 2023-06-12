@@ -34,7 +34,7 @@ const ProductCardExtended: React.FC<ProductCardExtendedProps> = ({ _id, title, p
     const dispatch = useAppDispatch();
     const isFavorite = wishList.find((obj) => obj._id === _id);
 
-    const productLink = `/Sandrela/products/${_id}`;
+    const productLink = `/Sandrela/dresses/${_id}`;
 
     const memoizedContent = useMemo(() => {
         return (

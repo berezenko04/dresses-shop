@@ -1,5 +1,6 @@
 import { useSelector } from 'react-redux'
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
+import { useForm } from 'react-hook-form';
 
 //styles
 import styles from './Checkout.module.scss'
@@ -15,6 +16,7 @@ import TotalPrice from '@/components/TotalPrice';
 
 //redux
 import { cartSelector } from '@/redux/cart/selectors';
+import { userDataSelector } from '@/redux/user/selectors';
 
 //icons
 import { ReactComponent as PlusIcon } from '@/assets/icons/plus.svg'
@@ -23,13 +25,39 @@ import { ReactComponent as MCIcon } from '@/assets/icons/mastercard.svg'
 import { ReactComponent as VisaIcon } from '@/assets/icons/visa.svg'
 
 
+interface IPaymentForm {
+    fullName: string,
+    cardNumber: string,
+    expirationDate: string,
+    cvv: string,
+    paypalAddress?: string
+}
 
 const Checkout: React.FC = () => {
-    const cartItems = useSelector(cartSelector);
+    const { register, handleSubmit, formState: { errors } } = useForm<IPaymentForm>();
+    const { cartItems } = useSelector(cartSelector);
+    const user = useSelector(userDataSelector);
     const [payment, setPayment] = useState('paypal');
+    const [formData, setFormData] = useState<IPaymentForm>({
+        fullName: '',
+        cardNumber: '',
+        expirationDate: '',
+        cvv: '',
+    });
     const [readableCart, setReadableCart] = useState(true);
 
     const cartEmpty = cartItems.length <= 0;
+
+    const expression = user?.address !== '' && Object.keys(formData).length === 0;
+
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.currentTarget;
+        setFormData((prevData) => ({ ...prevData, [name]: value }));
+    }
+
+    const onSubmit = (data: IPaymentForm) => {
+
+    }
 
     return (
         <div className={styles.page}>
@@ -69,37 +97,58 @@ const Checkout: React.FC = () => {
                                         </div>
                                     </label>
                                 </div>
-                                <form className={styles.page__main__left__billing__form}>
+                                <form className={styles.page__main__left__billing__form} onSubmit={handleSubmit(onSubmit)}>
                                     {payment === 'paypal' ?
                                         <div className={styles.page__main__left__billing__form__block}>
-                                            <AuthField title='Paypal Address' error={false} />
+                                            <AuthField
+                                                title='Paypal Address'
+                                                error={false}
+                                                onChange={handleChange}
+                                            />
                                         </div>
-
                                         :
                                         <>
                                             <div className={styles.page__main__left__billing__form__block}>
-                                                <AuthField title='Full Name' error={false} />
+                                                <AuthField
+                                                    title='Full Name'
+                                                    error={false}
+                                                    onChange={handleChange}
+                                                />
                                             </div>
                                             <div className={styles.page__main__left__billing__form__block}>
-                                                <AuthField title='Card Number' error={false} />
+                                                <AuthField
+                                                    title='Card Number'
+                                                    error={false}
+                                                    onChange={handleChange}
+                                                />
                                             </div>
                                             <div className={styles.page__main__left__billing__form__footer}>
                                                 <div className={styles.page__main__left__billing__form__block}>
-                                                    <AuthField title='Expiration Date' error={false} />
+                                                    <AuthField
+                                                        title='Expiration Date'
+                                                        error={false}
+                                                        onChange={handleChange}
+                                                    />
                                                 </div>
                                                 <div className={styles.page__main__left__billing__form__block}>
-                                                    <AuthField title='CVV Number' error={false} />
+                                                    <AuthField
+                                                        title='CVV Number'
+                                                        error={false}
+                                                        onChange={handleChange}
+                                                    />
                                                 </div>
                                             </div>
                                         </>
                                     }
-
-
-
-
                                 </form>
                             </div>
-                            <Button theme='primary' size='lg'>Place order</Button>
+                            <Button
+                                theme='primary'
+                                size='lg'
+                                disabled={expression}
+                            >
+                                Place order
+                            </Button>
                         </div>
                         <div className={styles.page__main__cart}>
                             <div className={styles.page__main__cart__head}>

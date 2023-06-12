@@ -50,6 +50,18 @@
             flex-direction: column;
             gap: 16px;
             width: 50%;
+
+            &__block {
+                display: flex;
+                flex-direction: column;
+                gap: 6px;
+
+                span {
+                    color: $error-500;
+                    font-size: 14px;
+                    line-height: 20px;
+                }
+            }
         }
 
         &__buttons {

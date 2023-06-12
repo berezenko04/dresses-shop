@@ -13,14 +13,16 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            
+
             span {
                 color: $grey-900;
+                text-transform: capitalize;
             }
 
             a {
                 text-decoration: underline;
                 color: $grey-500;
+                text-transform: capitalize;
             }
         }
     }

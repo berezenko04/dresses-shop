@@ -52,15 +52,15 @@ function App() {
           <Route path={'Sandrela/'} element={<PrimaryLayout />}>
             <Route path={''} element={<Home />} />
             <Route path={'*'} element={<Error404 />} />
-            <Route path={'products'} element={<Products />} />
-            <Route path={'products/:id'} element={<Product />} />
+            <Route path={'dresses'} element={<Products />} />
+            <Route path={'dresses/:id'} element={<Product />} />
+            <Route path={'checkout'} element={<Checkout />} />
             {isAuth && <Route path={'profile/'}>
               <Route path={'account'} element={<Account />} />
               <Route path={'wishlist'} element={<WishList />} />
               <Route path={'settings'} element={<Settings />} />
               <Route path={'reviews'} element={<MyReviews />} />
-              <Route path={'checkout'} element={<Checkout />} />
-              <Route path={'my-orders'} element={<MyOrders />} />
+              <Route path={'orders'} element={<MyOrders />} />
               <Route path={'notifications'} element={<Notifications />} />
               <Route path={'shipping'} element={<Shipping />} />
             </Route>

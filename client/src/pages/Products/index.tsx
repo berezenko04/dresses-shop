@@ -7,11 +7,11 @@ import { useAppDispatch } from '@/redux/store'
 import styles from './Products.module.scss'
 
 //components
-import Dropdown from '@/components/Dropdown'
 import ProductCardExtended from '@/components/ProductCardExtended';
 import Pagination from '@/components/Pagination';
 import ProductCardSkeleton from '@/components/Skeletons/ProductCardSkeleton';
 import Sort from '@/components/Sort';
+import DropdownFilter from '@/components/DropdownFilter';
 
 //icons
 import { ReactComponent as FilterIcon } from '@/assets/icons/filter.svg'
@@ -19,6 +19,7 @@ import { ReactComponent as FilterIcon } from '@/assets/icons/filter.svg'
 //redux
 import { productsLengthSelector, productsSelector, productsStatusSelector } from '@/redux/products/selectors'
 import { fetchProducts } from '@/redux/products/asyncActions'
+
 
 const Products: React.FC = () => {
     const [showFilters, setShowFilters] = useState(true);
@@ -35,7 +36,7 @@ const Products: React.FC = () => {
     }
 
     useEffect(() => {
-        dispatch(fetchProducts({ page, limit, colors: '', sizes: '', priceRange: '' }));
+        dispatch(fetchProducts({ page, limit }));
     }, [page, limit])
 
 
@@ -49,9 +50,7 @@ const Products: React.FC = () => {
                             {showFilters ? 'Hide filters' : 'Show filters'}
                             <FilterIcon />
                         </button>
-                        <Dropdown title='Sort By'>
-
-                        </Dropdown>
+                        <DropdownFilter />
                     </div>
                 </div>
                 <div className={styles.page__main}>
@@ -64,9 +63,9 @@ const Products: React.FC = () => {
                                 <ProductCardSkeleton key={index} />
                             ))
                             :
-                            products.map((product) => (
+                            products.map((product, index) => (
                                 <ProductCardExtended
-                                    key={product.id}
+                                    key={index}
                                     {...product}
                                 />
                             ))
@@ -75,7 +74,7 @@ const Products: React.FC = () => {
                 </div>
                 {pageCount > 1 && <Pagination pageCount={pageCount} limit={limit} onPageChange={handlePageChange} />}
             </div>
-        </div>
+        </div >
     )
 }
 

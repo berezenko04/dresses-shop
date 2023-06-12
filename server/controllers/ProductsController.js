@@ -30,9 +30,6 @@ export const getProducts = async (req, res) => {
       .skip(skip)
       .limit(parseInt(limit));
 
-    console.log(filter);
-    console.log(products);
-
     const productsLength = await ProductModel.find(filter)
       .find(filter)
       .sort({ [sortField]: sortOrder })

@@ -30,7 +30,7 @@ const DeviceInfo: React.FC = () => {
         <div className={styles.info}>
             {isMobile ? <MobileIcon /> : isTablet ? <TabletIcon /> : <DesktopIcon />}
             <div className={styles.info__device}>
-                <h4>{`${osName} ${osVersion}, ${country} ${city}`}</h4>
+                <h4>{`${osName} ${osVersion}${country && city && `, ${country} ${city}`}`}</h4>
                 <p>Session started on {formatDate(new Date().toString())}</p>
             </div>
         </div>

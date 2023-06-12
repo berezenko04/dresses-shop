@@ -323,3 +323,35 @@ export const resetPassword = async (req, res) => {
     res.status(404).json({ message: "Invalid token or id" });
   }
 };
+
+export const changePassword = async (req, res) => {
+  const { currentPassword, newPassword } = req.body;
+
+  const token = req.headers.authorization;
+
+  if (!token) {
+    return res.status(401).json({
+      message: "Authorization token not found",
+    });
+  }
+
+  const userId = extractUserIdFromToken(token);
+  const user = await UserModel.findById(userId);
+
+  if (!user) {
+    return res.status(404).json({ message: "User not found" });
+  }
+
+  const passwordMatch = await bcrypt.compare(currentPassword, user.passwordHash);
+
+  if (!passwordMatch) {
+    return res.status(401).json({ message: "Invalid current password" });
+  }
+
+  const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+  user.passwordHash = hashedPassword;
+  await user.save();
+
+  return res.status(200).json({ message: "Password changed successfully" });
+};

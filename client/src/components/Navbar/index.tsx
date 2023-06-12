@@ -92,7 +92,7 @@ const Navbar: React.FC = () => {
                 <div className="container">
                     <div className={styles.navbar__bottom__wrapper}>
                         <Link to="/Sandrela" className={styles.navbar__bottom__logo}>Sandrela</Link>
-                        <Link to='/Sandrela/products' className={styles.navbar__bottom__catalog}>
+                        <Link to='/Sandrela/dresses' className={styles.navbar__bottom__catalog}>
                             <PlatesIcon />
                             Catalog
                         </Link>
