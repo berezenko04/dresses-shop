@@ -1,0 +1,36 @@
+@import "@/scss/variables.scss";
+
+.credit {
+    display: flex;
+    justify-content: space-between;
+    gap: 32px;
+    align-items: center;
+
+    &__form {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+        width: 50%;
+
+        &__block {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+
+            span {
+                color: $error-500;
+                font-size: 14px;
+                line-height: 20px;
+
+                user-select: none;
+            }
+        }
+
+        &__footer {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            flex: 1;
+        }
+    }
+}

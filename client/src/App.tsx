@@ -45,6 +45,8 @@ function App() {
     dispatch(fetchAuthMe());
   }, [])
 
+  const token = localStorage.getItem('token');
+
   return (
     <div className="App">
       <Suspense fallback={<Loader />}>
@@ -54,7 +56,7 @@ function App() {
             <Route path={'*'} element={<Error404 />} />
             <Route path={'dresses'} element={<Products />} />
             <Route path={'dresses/:id'} element={<Product />} />
-            <Route path={'checkout'} element={<Checkout />} />
+            {isAuth && <Route path={'checkout'} element={<Checkout />} />}
             {isAuth && <Route path={'profile/'}>
               <Route path={'account'} element={<Account />} />
               <Route path={'wishlist'} element={<WishList />} />
@@ -66,7 +68,7 @@ function App() {
             </Route>
             }
           </Route>
-          {(
+          {!token && (
             <>
               <Route path={'Sandrela/register'} element={<Register />} />
               <Route path={'Sandrela/login'} element={<Login />} />

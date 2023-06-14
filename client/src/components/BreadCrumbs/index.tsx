@@ -46,8 +46,7 @@ const BreadCrumbs: React.FC = () => {
                                         <span>
                                             {path}
                                         </span>
-                                    }
-
+                                    }           
                                     <ArrowRightIcon />
                                 </>
                                 :

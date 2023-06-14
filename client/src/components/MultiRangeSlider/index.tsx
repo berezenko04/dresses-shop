@@ -18,14 +18,13 @@ const MultiRangeSlider: React.FC<TMultiRangeSliderProps> = ({ min, max, onChange
     const maxValRef = useRef(max);
     const range = useRef<HTMLInputElement | null>(null);
 
-    // Convert to percentage
     const getPercent = useCallback(
         (value: number) => Math.round(((value - min) / (max - min)) * 100),
         [min, max]
     );
 
-    // Set width of the range to decrease from the left side
     useEffect(() => {
+        console.log('1');
         const minPercent = getPercent(minVal);
         const maxPercent = getPercent(maxValRef.current);
 
@@ -35,8 +34,8 @@ const MultiRangeSlider: React.FC<TMultiRangeSliderProps> = ({ min, max, onChange
         }
     }, [minVal, getPercent]);
 
-    // Set width of the range to decrease from the right side
     useEffect(() => {
+        console.log('2');
         const minPercent = getPercent(minValRef.current);
         const maxPercent = getPercent(maxVal);
 
@@ -45,7 +44,6 @@ const MultiRangeSlider: React.FC<TMultiRangeSliderProps> = ({ min, max, onChange
         }
     }, [maxVal, getPercent]);
 
-    // Get min and max values when their state changes
     useEffect(() => {
         onChange({ min: minVal, max: maxVal });
     }, [minVal, maxVal]);

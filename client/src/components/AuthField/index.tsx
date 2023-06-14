@@ -8,7 +8,7 @@ import { ReactComponent as ErrorIcon } from '@/assets/icons/alert-circle.svg'
 
 interface IAuthFieldProps extends InputHTMLAttributes<HTMLInputElement> {
     title: string,
-    error: boolean
+    error?: boolean
 }
 
 const AuthField = forwardRef<HTMLInputElement, IAuthFieldProps>(({ title, error, ...props }, ref) => {
