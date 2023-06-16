@@ -1,5 +1,5 @@
 import { getAuthMe, getUserData, updateUserData } from "@/API/userService";
-import { TLoginFormValues } from "@/components/LoginForm";
+import { TLoginFormValues } from "@/components/Forms/LoginForm";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { IUserData, IUserSliceState } from "./types";
 import { updateUser } from "./slice";
@@ -30,7 +30,6 @@ export const updateUserAsync = createAsyncThunk(
     'user/updateUser',
     async (payload: Partial<IUserData>, { dispatch, getState }) => {
         const { data } = getState().user as IUserSliceState;
-        console.log(data);
 
         if (data) {
             try {

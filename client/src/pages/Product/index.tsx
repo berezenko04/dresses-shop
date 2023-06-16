@@ -38,6 +38,7 @@ import { createComment } from '@/redux/comments/slice';
 
 //utils
 import { formatDate } from '@/utils/formatDate';
+import { resetProduct } from '@/redux/products/slice';
 
 const Product: React.FC = () => {
     const [comment, setComment] = useState("");
@@ -66,7 +67,11 @@ const Product: React.FC = () => {
             dispatch(fetchProduct(id));
             dispatch(fetchComments(id));
         }
-    }, [id])
+
+        return () => {
+            dispatch(resetProduct());
+        }
+    }, [id]);
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -94,7 +99,7 @@ const Product: React.FC = () => {
     }
 
     return (
-        <div className={styles.page}>
+        <div className={styles.page} >
             <div className="container">
                 <div className={styles.page__wrapper}>
                     <div className={styles.page__product}>
@@ -247,7 +252,7 @@ const Product: React.FC = () => {
                     </div>
                 </div>
             </div>
-        </div >
+        </div>
     )
 }
 

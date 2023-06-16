@@ -4,7 +4,6 @@ import nodemailer from "nodemailer";
 import sharp from "sharp";
 import crypto from "crypto";
 import fs from "fs";
-import { extractUserIdFromToken } from "../utils/extractUserIdFromToken.js";
 
 //models
 import UserModel from "../models/user.js";
@@ -187,14 +186,7 @@ export const uploadAvatar = async (req, res) => {
 export const updateUser = async (req, res) => {
   try {
     const updatedData = req.body;
-    const token = req.headers.authorization;
-
-    if (!token) {
-      return res.status(401).json({
-        message: "Authorization token not found",
-      });
-    }
-    const userId = extractUserIdFromToken(token);
+    const userId = req.userId;
 
     const user = await UserModel.findById(userId);
 
@@ -327,15 +319,7 @@ export const resetPassword = async (req, res) => {
 export const changePassword = async (req, res) => {
   const { currentPassword, newPassword } = req.body;
 
-  const token = req.headers.authorization;
-
-  if (!token) {
-    return res.status(401).json({
-      message: "Authorization token not found",
-    });
-  }
-
-  const userId = extractUserIdFromToken(token);
+  const userId = req.userId;
   const user = await UserModel.findById(userId);
 
   if (!user) {

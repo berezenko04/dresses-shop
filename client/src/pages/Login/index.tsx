@@ -1,6 +1,6 @@
 //components
 import AuthFormHead from '@/components/AuthFormHead'
-import LoginForm from '@/components/LoginForm'
+import LoginForm from '@/components/Forms/LoginForm'
 import AuthLayout from '@/layout/AuthLayout'
 
 const Login: React.FC = () => {

@@ -1,25 +1,10 @@
 import UserModel from "../models/user.js";
 import ProductModel from "../models/product.js";
 import CartModel from "../models/cart.js";
-import { extractUserIdFromToken } from "../utils/extractUserIdFromToken.js";
 
 export const getCart = async (req, res) => {
   try {
-    const token = req.headers.authorization;
-
-    if (!token) {
-      return res.status(401).json({
-        message: "Authorization token not found",
-      });
-    }
-
-    const userId = extractUserIdFromToken(token);
-
-    if (!userId) {
-      return res.status(401).json({
-        message: "Invalid authorization token",
-      });
-    }
+    const userId = req.userId;
 
     const user = await UserModel.findById(userId);
 
@@ -41,22 +26,7 @@ export const getCart = async (req, res) => {
 export const addToCart = async (req, res) => {
   try {
     const { itemId, size } = req.query;
-
-    const token = req.headers.authorization;
-
-    if (!token) {
-      return res.status(401).json({
-        message: "Authorization token not found",
-      });
-    }
-
-    const userId = extractUserIdFromToken(token);
-
-    if (!userId) {
-      return res.status(401).json({
-        message: "Invalid authorization token",
-      });
-    }
+    const userId = req.userId;
 
     const user = await UserModel.findById(userId);
     const product = await ProductModel.findById(itemId);
@@ -96,15 +66,7 @@ export const addToCart = async (req, res) => {
 export const removeFromCart = async (req, res) => {
   try {
     const { itemId, size } = req.query;
-    const token = req.headers.authorization;
-
-    if (!token) {
-      return res.status(401).json({
-        message: "Authorization token not found",
-      });
-    }
-
-    const userId = extractUserIdFromToken(token);
+    const userId = req.userId;
 
     const user = await UserModel.findById(userId);
 
@@ -119,6 +81,34 @@ export const removeFromCart = async (req, res) => {
     });
 
     res.status(200).json({ message: "Item removed from cart" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+export const clearCart = async (req, res) => {
+  try {
+    const userId = req.userId;
+
+    const user = await UserModel.findById(userId);
+    if (!user) {
+      res.status(400).json({
+        message: "User is not found",
+      });
+    }
+
+    try {
+      await CartModel.deleteMany({ user: userId });
+      return res.status(200).json({
+        message: "Cart cleared successfully",
+      });
+    } catch (error) {
+      return res.status(500).json({
+        message: "Failed to clear cart",
+        error: error.message,
+      });
+    }
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Server error" });

@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 import styles from './WishList.module.scss'
 
 //components
-import ProductCardExtended from '@/components/ProductCardExtended';
+import ProductCardExtended from '@/components/ProductCard';
 import ProductCardSkeleton from '@/components/Skeletons/ProductCardSkeleton';
 import ProfileLayout from '@/layout/ProfileLayout';
 

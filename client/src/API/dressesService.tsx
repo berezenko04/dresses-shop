@@ -5,7 +5,7 @@ import { TProductItem, IProducts } from '@/redux/products/types';
 import { TComment, IComments } from '@/redux/comments/types';
 
 
-const DEFAULT_LINK = '/api/products';
+const DEFAULT_URL = '/api/products';
 
 export const getProducts = async (
     order: string,
@@ -25,22 +25,22 @@ export const getProducts = async (
         sizes,
         priceRange
     });
-    const { data } = await axios.get<IProducts>(`${DEFAULT_LINK}?${params.toString()}`);
+    const { data } = await axios.get<IProducts>(`${DEFAULT_URL}?${params.toString()}`);
     return data;
 }
 
 export const getProduct = async (id: string) => {
-    const { data } = await axios.get<TProductItem>(`${DEFAULT_LINK}/${id}`);
+    const { data } = await axios.get<TProductItem>(`${DEFAULT_URL}/${id}`);
     return data;
 }
 
 export const getComments = async (id: string) => {
-    const { data } = await axios.get<IComments>(`${DEFAULT_LINK}/${id}/comments`);
+    const { data } = await axios.get<IComments>(`${DEFAULT_URL}/${id}/comments`);
     return data;
 }
 
 export const addToComments = async (itemId: string, comment: TComment) => {
-    const { data } = await axios.post(`${DEFAULT_LINK}/${itemId}/comments`, comment);
+    const { data } = await axios.post(`${DEFAULT_URL}/${itemId}/comments`, comment);
     return data;
 }
 

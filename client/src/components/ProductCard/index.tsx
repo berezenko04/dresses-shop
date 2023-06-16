@@ -5,7 +5,7 @@ import { LazyLoadImage } from 'react-lazy-load-image-component'
 import { useAppDispatch } from '@/redux/store';
 
 //styles
-import styles from './ProductCardExtended.module.scss'
+import styles from './ProductCard.module.scss'
 import 'react-lazy-load-image-component/src/effects/blur.css';
 
 //icons
@@ -20,7 +20,7 @@ import { wishListSelector } from '@/redux/wishList/selectors';
 import { updateFavorite } from '@/redux/wishList/asyncActions';
 
 
-interface ProductCardExtendedProps {
+interface IProductCardProps {
     _id: string,
     title: string,
     price: number,
@@ -29,7 +29,7 @@ interface ProductCardExtendedProps {
     colors: string[]
 }
 
-const ProductCardExtended: React.FC<ProductCardExtendedProps> = ({ _id, title, price, images, discount, colors }) => {
+const ProductCard: React.FC<IProductCardProps> = ({ _id, title, price, images, discount, colors }) => {
     const wishList = useSelector(wishListSelector);
     const dispatch = useAppDispatch();
     const isFavorite = wishList.find((obj) => obj._id === _id);
@@ -81,4 +81,4 @@ const ProductCardExtended: React.FC<ProductCardExtendedProps> = ({ _id, title, p
     return memoizedContent;
 }
 
-export default ProductCardExtended
+export default ProductCard

@@ -10,6 +10,7 @@ import WishListRoutes from "./routes/wishlist.js";
 import CartRoutes from "./routes/cart.js";
 import UserRoutes from "./routes/user.js";
 import ForgotPasswordRoutes from "./routes/forgotPassword.js";
+import OrderRoutes from "./routes/orders.js";
 
 const PORT = process.env.PORT || 3001;
 const db =
@@ -33,6 +34,7 @@ app.use("/user", UserRoutes);
 app.use("/api", APIProductsRoutes);
 app.use("/wishlist", WishListRoutes);
 app.use("/cart", CartRoutes);
+app.use("/orders", OrderRoutes);
 app.use("", ForgotPasswordRoutes);
 
 app.listen(PORT, (err) => {

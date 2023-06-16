@@ -9,7 +9,7 @@
 
     &__head {
         display: grid;
-        grid-template-columns: 72px 2fr 1fr 1fr 2fr 3fr 1fr;
+        grid-template-columns: 72px 1fr 2fr 1fr 2fr 3fr 1fr;
         padding: 8px 0;
 
         li {
@@ -90,7 +90,7 @@
         }
 
         &__order {
-            &__body__block {
+            &__body__items__block {
                 display: flex;
                 align-items: flex-start;
                 gap: 16px;

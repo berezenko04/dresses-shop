@@ -57,3 +57,45 @@ export const getComments = async (req, res) => {
     });
   }
 };
+
+export const likeComment = async (req, res) => {
+  try {
+    const { id } = req.query;
+
+    const userId = req.userId;
+
+    const user = await UserModel.findById(userId);
+    if (!user) {
+      res.status(400).json({
+        message: "User is not found",
+      });
+    }
+
+    const comment = await CommentModel.findById(id);
+
+    if (!comment) {
+      return res.status(404).send({ error: "Comment not found" });
+    }
+
+    const userLikedIndex = comment.likes.indexOf(userId);
+
+    if (userLikedIndex > -1) {
+      comment.likes.splice(userLikedIndex, 1);
+    } else {
+      comment.likes.push(userId);
+    }
+
+    const userDislikedIndex = comment.dislikes.indexOf(userId);
+    if (userDislikedIndex > -1) {
+      comment.dislikes.splice(userDislikedIndex, 1);
+    }
+
+    await comment.save();
+    res.send({ success: true });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      message: "Failed to receive product",
+    });
+  }
+};

@@ -7,7 +7,7 @@ import { useAppDispatch } from '@/redux/store'
 import styles from './Products.module.scss'
 
 //components
-import ProductCardExtended from '@/components/ProductCardExtended';
+import ProductCardExtended from '@/components/ProductCard';
 import Pagination from '@/components/Pagination';
 import ProductCardSkeleton from '@/components/Skeletons/ProductCardSkeleton';
 import Sort from '@/components/Sort';

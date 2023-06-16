@@ -1,5 +1,6 @@
-import { useState } from 'react'
+import { Fragment, useState } from 'react'
 import cn from 'classnames'
+import creditCardType from 'credit-card-type';
 
 //styles
 import styles from './OrderItem.module.scss'
@@ -9,8 +10,26 @@ import { ReactComponent as ArrowDownIcon } from '@/assets/icons/arrow-down.svg'
 import { ReactComponent as PrintIcon } from '@/assets/icons/print.svg'
 import { ReactComponent as DownloadIcon } from '@/assets/icons/upload.svg'
 
-const OrderItem: React.FC = () => {
+//redux
+import { TOrderItem } from '@/redux/orders/types'
+
+const OrderItem: React.FC<TOrderItem> = ({
+    orderId,
+    date,
+    products,
+    subTotal,
+    status,
+    discount,
+    shippingMethod,
+    shippingAddress,
+    paymentMethod,
+    trackingNumber,
+    shipmentCost
+}) => {
     const [isVisible, setIsVisible] = useState(false);
+
+    const creditType = creditCardType(paymentMethod)[0].niceType;
+    const shipmentPrice = shipmentCost || 0;
 
     return (
         <div className={styles.item}>
@@ -21,19 +40,19 @@ const OrderItem: React.FC = () => {
                     </button>
                 </li>
                 <li>
-                    <p>#74392</p>
+                    <p>#{orderId}</p>
                 </li>
                 <li>
-                    <p>06/11/2022</p>
+                    <p>{date}</p>
                 </li>
                 <li>
-                    <p>24</p>
+                    <p>{products.length}</p>
                 </li>
                 <li>
-                    <p>12,396.00 UAH</p>
+                    <p>{subTotal + shipmentPrice} UAH</p>
                 </li>
                 <li>
-                    <span>Shipped</span>
+                    <span>{status}</span>
                 </li>
                 <li>
                     <button>
@@ -64,22 +83,22 @@ const OrderItem: React.FC = () => {
                         <ul className={styles.item__main__info__body}>
                             <li>
                                 <p>
-                                    2118 Thornridge Cir. Syracuse, Connecticut 35624
+                                    {shippingAddress}
                                 </p>
                             </li>
                             <li>
                                 <p>
-                                    Express delivery (DHL Express)
+                                    {shippingMethod}
                                 </p>
                             </li>
                             <li>
                                 <p>
-                                    VISA **** 5642
+                                    {`${creditType} **** ${paymentMethod.slice(15, 19)}`}
                                 </p>
                             </li>
                             <li>
                                 <p>
-                                    ID2545345436RS
+                                    {trackingNumber}
                                 </p>
                             </li>
                         </ul>
@@ -100,48 +119,55 @@ const OrderItem: React.FC = () => {
                             </li>
                         </ul>
                         <ul className={styles.item__main__order__body}>
-                            <li>
-                                <div className={styles.item__main__order__body__block}>
-                                    <div className={styles.item__main__order__body__block__image}>
-                                        <img src={'/default-avatar.png'} alt="" />
-                                    </div>
-                                    <p>Helly</p>
-                                </div>
-                            </li>
-                            <li>
-                                <p>
-                                    1
-                                </p>
-                            </li>
-                            <li>
-                                <p>
-                                    2100 UAH
-                                </p>
-                            </li>
-                            <li>
-                                <p>
-                                    2000 UAH
-                                </p>
-                            </li>
+                            {products.map((product, index) => (
+                                <Fragment key={index}>
+                                    <li>
+                                        <div className={styles.item__main__order__body__items__block}>
+                                            <div className={styles.item__main__order__body__items__block__image}>
+                                                <img src={product.imageUrl} alt={product.title} />
+                                            </div>
+                                            <p>{product.title} ({product.size.toUpperCase()})</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <p>
+                                            {product.quantity}
+                                        </p>
+                                    </li>
+                                    <li>
+                                        <p>
+                                            {product.price} UAH
+                                        </p>
+                                    </li>
+                                    <li>
+                                        <p>
+                                            {
+                                                (product.price * product.quantity) -
+                                                (product.price * product.quantity * product.discount)
+                                            } UAH
+                                        </p>
+                                    </li>
+                                </Fragment>
+                            ))}
                         </ul>
                     </div>
                     <div className={styles.item__main__total}>
                         <ul>
                             <li>
                                 <p>Subtotal:</p>
-                                <p>2200 UAH</p>
+                                <p>{subTotal} UAH</p>
                             </li>
                             <li>
                                 <p>Discount:</p>
-                                <p>20%</p>
+                                <p>{discount * 100}%</p>
                             </li>
                             <li>
                                 <p>Shipment cost:</p>
-                                <p>1200 UAH</p>
+                                <p>{shipmentCost} UAH</p>
                             </li>
                             <li>
                                 <p>Grand Total:</p>
-                                <p>7100 UAH</p>
+                                <p>{(subTotal + shipmentPrice) - (subTotal * discount)} UAH</p>
                             </li>
                         </ul>
                     </div>

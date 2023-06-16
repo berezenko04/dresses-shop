@@ -7,8 +7,8 @@ import axios from "@/axios";
 import styles from "./RegistrationForm.module.scss";
 
 //components
-import AuthField from "../AuthField";
-import Button from "../Button";
+import AuthField from "../../AuthField";
+import Button from "../../Button";
 
 type TFormValues = {
   fullName: string;

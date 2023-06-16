@@ -2,14 +2,26 @@ import Cards, { Focused } from 'react-credit-cards'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { ChangeEvent, FocusEvent, useState } from 'react'
 import { number } from 'card-validator'
+import { useSelector } from 'react-redux'
+import { useAppDispatch } from '@/redux/store'
+import { toast } from 'react-toastify'
 
 //styles
 import styles from './CreditCardForm.module.scss'
 import 'react-credit-cards/es/styles-compiled.css'
 
 //components
-import AuthField from '../AuthField'
-import Button from '../Button'
+import AuthField from '../../AuthField'
+import Button from '../../Button'
+
+//redux
+import { cartSelector } from '@/redux/cart/selectors'
+import { makeOrder } from '@/redux/orders/asyncActions'
+
+//utils
+import { formatDate } from '@/utils/formatDate'
+import { clearCart } from '@/redux/cart/slice'
+
 
 
 interface IPaymentForm {
@@ -34,6 +46,9 @@ const CreditCardForm: React.FC = () => {
         const { name } = e.currentTarget;
         setFormValues({ ...formValues, focus: name as Focused });
     }
+
+    const dispatch = useAppDispatch();
+    const { totalPrice, cartItems } = useSelector(cartSelector);
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         let { name, value } = e.currentTarget;
@@ -77,11 +92,17 @@ const CreditCardForm: React.FC = () => {
     }
 
     const onSubmit: SubmitHandler<IPaymentForm> = (data) => {
-        console.log(data);
+        dispatch(makeOrder({
+            paymentMethod: data.cardNumber,
+            date: formatDate(new Date().toString()),
+            subTotal: totalPrice,
+            discount: 0,
+            products: cartItems,
+        }));
+        dispatch(clearCart());
+        window.scrollTo(0, 0);
+        toast.success('Your order has been accepted');
     }
-
-    console.log(formValues.cardNumber.length);
-
 
     return (
         <div className={styles.credit}>
@@ -178,7 +199,7 @@ const CreditCardForm: React.FC = () => {
                 </div>
                 <Button
                     theme='primary'
-                    size='lg'
+                    size='sm'
                     disabled={!isValid || !isExpiryValid(formValues.expiry) || !number(formValues.cardNumber).isValid}
                 >
                     Place order

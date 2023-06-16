@@ -9,8 +9,8 @@ import axios from '@/axios'
 import styles from './ResetPasswordForm.module.scss'
 
 //components
-import AuthField from '../AuthField'
-import Button from '../Button'
+import AuthField from '../../AuthField'
+import Button from '../../Button'
 
 //redux
 import { isAuthSelector } from '@/redux/user/selectors'

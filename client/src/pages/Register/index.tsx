@@ -1,7 +1,7 @@
 import AuthFormHead from '@/components/AuthFormHead'
 
 //components
-import RegistrationForm from '@/components/RegistrationForm'
+import RegistrationForm from '@/components/Forms/RegistrationForm'
 import AuthLayout from '@/layout/AuthLayout'
 
 const Register: React.FC = () => {

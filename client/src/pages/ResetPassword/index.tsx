@@ -1,6 +1,6 @@
 //components
 import AuthFormHead from "@/components/AuthFormHead"
-import ResetPasswordForm from "@/components/ResetPasswordForm"
+import ResetPasswordForm from "@/components/Forms/ResetPasswordForm"
 import AuthLayout from "@/layout/AuthLayout"
 
 

@@ -9,8 +9,8 @@ import styles from './LoginForm.module.scss'
 import 'react-toastify/dist/ReactToastify.css';
 
 //components
-import AuthField from '../AuthField'
-import Button from '../Button'
+import AuthField from '../../AuthField'
+import Button from '../../Button'
 
 //redux
 import { fetchUserData } from '@/redux/user/asyncActions'

@@ -27,7 +27,7 @@ const BreadCrumbs: React.FC = () => {
     }, [match])
 
     return (
-        <div className={styles.block}>
+        <div className={styles.block} >
             <div className="container">
                 <ul>
                     <li>
@@ -46,7 +46,7 @@ const BreadCrumbs: React.FC = () => {
                                         <span>
                                             {path}
                                         </span>
-                                    }           
+                                    }
                                     <ArrowRightIcon />
                                 </>
                                 :

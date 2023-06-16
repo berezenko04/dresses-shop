@@ -9,7 +9,7 @@ import CartItem from '@/components/CartItem';
 import ShippingInfo from '@/components/ShippingInfo';
 import CartEmptyState from '@/components/CartEmptyState';
 import TotalPrice from '@/components/TotalPrice';
-import CreditCardForm from '@/components/CreditCardForm';
+import CreditCardForm from '@/components/Forms/CreditCardForm';
 
 //redux
 import { cartSelector } from '@/redux/cart/selectors';
@@ -23,7 +23,6 @@ const Checkout: React.FC = () => {
     const [readableCart, setReadableCart] = useState(true);
     const cartEmpty = cartItems.length <= 0;
 
-
     return (
         <div className={styles.page}>
             <div className="container">
@@ -32,16 +31,20 @@ const Checkout: React.FC = () => {
                     <div className={styles.page__main}>
                         <div className={styles.page__main__left}>
                             <ShippingInfo editable />
-                            <div className={styles.page__main__left__promo}>
-                                <div className={styles.page__main__left__promo__head}>
-                                    <h4>Redeem promo code</h4>
-                                    <button><PlusIcon /></button>
+                            {!cartEmpty &&
+                                <div className={styles.page__main__left__promo}>
+                                    <div className={styles.page__main__left__promo__head}>
+                                        <h4>Redeem promo code</h4>
+                                        <button><PlusIcon /></button>
+                                    </div>
                                 </div>
-                            </div>
-                            <div className={styles.page__main__left__billing}>
-                                <h4>Billing Address</h4>
-                                <CreditCardForm />
-                            </div>
+                            }
+                            {!cartEmpty &&
+                                <div className={styles.page__main__left__billing}>
+                                    <h4>Billing Address</h4>
+                                    <CreditCardForm />
+                                </div>
+                            }
                         </div>
                         <div className={styles.page__main__cart}>
                             <div className={styles.page__main__cart__head}>
