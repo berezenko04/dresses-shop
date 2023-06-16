@@ -99,3 +99,36 @@ export const likeComment = async (req, res) => {
     });
   }
 };
+
+export const dislikeComment = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const userId = req.userId;
+    const comment = await Comment.findById(id);
+
+    if (!comment) {
+      return res.status(404).send({ error: "Comment not found" });
+    }
+
+    const userDislikedIndex = comment.dislikes.indexOf(userId);
+
+    if (userDislikedIndex > -1) {
+      comment.dislikes.splice(userDislikedIndex, 1);
+    } else {
+      const userLikedIndex = comment.likes.indexOf(userId);
+
+      if (userLikedIndex > -1) {
+        comment.likes.splice(userLikedIndex, 1);
+      }
+
+      comment.dislikes.push(userId);
+    }
+
+    await comment.save();
+
+    res.send({ success: true });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ error: "Server error" });
+  }
+};
