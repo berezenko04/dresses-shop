@@ -1,7 +1,5 @@
 import { Link, useLocation } from 'react-router-dom'
-import { useAppDispatch } from '@/redux/store';
-import { useSelector } from 'react-redux';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 //styles
 import styles from './BreadCrumbs.module.scss'
@@ -9,21 +7,24 @@ import styles from './BreadCrumbs.module.scss'
 //icons
 import { ReactComponent as ArrowRightIcon } from '@/assets/icons/arrow-right-small.svg'
 
-//redux
-import { fetchProduct } from '@/redux/products/asyncActions';
-import { productsSelector } from '@/redux/products/selectors';
+//Service
+import { getProduct } from '@/API/dressesService';
 
 
 const BreadCrumbs: React.FC = () => {
     const location = useLocation();
-    const dispatch = useAppDispatch();
-    const product = useSelector(productsSelector);
+    const [productTitle, setProductTitle] = useState<string>();
+
 
     const paths = location.pathname.split('/').filter((path) => (path !== 'Sandrela') && (path !== ''));
     const match = paths.length === 2 && paths.includes('dresses');
 
     useEffect(() => {
-        match && dispatch(fetchProduct(paths[1]));
+        const fetchProduct = async () => {
+            const data = await getProduct(paths[1]);
+            setProductTitle(data.title);
+        }
+        match && fetchProduct();
     }, [match])
 
     return (
@@ -50,7 +51,7 @@ const BreadCrumbs: React.FC = () => {
                                     <ArrowRightIcon />
                                 </>
                                 :
-                                <span>{match ? product[0]?.title : path}</span>
+                                <span>{match ? productTitle : path}</span>
                             }
                         </li>
                     ))}

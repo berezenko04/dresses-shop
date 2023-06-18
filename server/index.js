@@ -11,6 +11,7 @@ import CartRoutes from "./routes/cart.js";
 import UserRoutes from "./routes/user.js";
 import ForgotPasswordRoutes from "./routes/forgotPassword.js";
 import OrderRoutes from "./routes/orders.js";
+import ReviewsRoutes from "./routes/reviews.js";
 
 const PORT = process.env.PORT || 3001;
 const db =
@@ -35,6 +36,7 @@ app.use("/api", APIProductsRoutes);
 app.use("/wishlist", WishListRoutes);
 app.use("/cart", CartRoutes);
 app.use("/orders", OrderRoutes);
+app.use("/reviews", ReviewsRoutes);
 app.use("", ForgotPasswordRoutes);
 
 app.listen(PORT, (err) => {

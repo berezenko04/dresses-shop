@@ -2,7 +2,7 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { Status } from "../products/types";
 import { fetchComments } from "./asyncActions";
 import { IComments, ICommentsSliceState, IPostComment } from "./types";
-import { addToComments } from "@/API/dressesService";
+import { addToComments } from "@/API/reviewsService";
 
 
 const initialState: ICommentsSliceState = {
@@ -21,6 +21,9 @@ const CommentsSlice = createSlice({
             (async () => {
                 await addToComments(itemId, comment);
             })();
+        },
+        likeComment(state, action) {
+
         }
     },
     extraReducers: (builder) => {

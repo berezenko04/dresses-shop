@@ -2,7 +2,6 @@ import axios from '@/axios'
 
 //types
 import { TProductItem, IProducts } from '@/redux/products/types';
-import { TComment, IComments } from '@/redux/comments/types';
 
 
 const DEFAULT_URL = '/api/products';
@@ -31,16 +30,6 @@ export const getProducts = async (
 
 export const getProduct = async (id: string) => {
     const { data } = await axios.get<TProductItem>(`${DEFAULT_URL}/${id}`);
-    return data;
-}
-
-export const getComments = async (id: string) => {
-    const { data } = await axios.get<IComments>(`${DEFAULT_URL}/${id}/comments`);
-    return data;
-}
-
-export const addToComments = async (itemId: string, comment: TComment) => {
-    const { data } = await axios.post(`${DEFAULT_URL}/${itemId}/comments`, comment);
     return data;
 }
 

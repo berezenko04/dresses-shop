@@ -1,4 +1,4 @@
-import { getComments } from "@/API/dressesService";
+import { getComments } from "@/API/reviewsService";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 export const fetchComments = createAsyncThunk(
@@ -8,3 +8,10 @@ export const fetchComments = createAsyncThunk(
         return comments;
     }
 )
+
+// export const likeComment = createAsyncThunk(
+//     'comments/like',
+//     async (id: string) => {
+//         const comment = await 
+//     }
+// )

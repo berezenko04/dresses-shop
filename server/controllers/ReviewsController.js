@@ -1,7 +1,7 @@
 import CommentModel from "../models/comment.js";
 import ProductModel from "../models/product.js";
 
-export const createComment = async (req, res) => {
+export const createReview = async (req, res) => {
   try {
     const id = req.params.id;
     const product = await ProductModel.findById(id);
@@ -32,7 +32,7 @@ export const createComment = async (req, res) => {
   }
 };
 
-export const getComments = async (req, res) => {
+export const getReviews = async (req, res) => {
   try {
     const id = req.params.id;
 
@@ -58,7 +58,7 @@ export const getComments = async (req, res) => {
   }
 };
 
-export const likeComment = async (req, res) => {
+export const likeReview = async (req, res) => {
   try {
     const { id } = req.query;
 
@@ -91,7 +91,7 @@ export const likeComment = async (req, res) => {
     }
 
     await comment.save();
-    res.send({ success: true });
+    res.send(comment);
   } catch (err) {
     console.log(err);
     res.status(500).json({
@@ -100,7 +100,7 @@ export const likeComment = async (req, res) => {
   }
 };
 
-export const dislikeComment = async (req, res) => {
+export const dislikeReview = async (req, res) => {
   try {
     const { id } = req.params;
     const userId = req.userId;

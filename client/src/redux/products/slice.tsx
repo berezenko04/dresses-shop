@@ -1,7 +1,7 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit"
 
-import { Status, IProductSliceState, IProducts, TProductItem } from "./types"
-import { fetchProducts, fetchProduct } from "./asyncActions"
+import { Status, IProductSliceState, IProducts } from "./types"
+import { fetchProducts } from "./asyncActions"
 
 
 const initialState: IProductSliceState = {
@@ -15,9 +15,6 @@ const ProductsSlice = createSlice({
     name: 'products',
     initialState,
     reducers: {
-        resetProduct(action) {
-            return initialState;
-        }
     },
     extraReducers: (builder) => {
         builder.addCase(fetchProducts.pending, (state) => {
@@ -36,24 +33,7 @@ const ProductsSlice = createSlice({
             state.items = [];
             state.status = Status.ERROR;
         })
-
-        builder.addCase(fetchProduct.pending, (state) => {
-            state.items = [];
-            state.status = Status.LOADING
-        })
-
-        builder.addCase(fetchProduct.fulfilled, (state, action: PayloadAction<TProductItem>) => {
-            state.items.push(action.payload);
-            state.status = Status.SUCCESS;
-        })
-
-        builder.addCase(fetchProduct.rejected, (state) => {
-            state.items = [];
-            state.status = Status.ERROR;
-        })
     }
 })
-
-export const { resetProduct } = ProductsSlice.actions;
 
 export default ProductsSlice.reducer;
