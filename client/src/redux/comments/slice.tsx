@@ -1,7 +1,7 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { Status } from "../products/types";
-import { fetchComments } from "./asyncActions";
-import { IComments, ICommentsSliceState, IPostComment } from "./types";
+import { dislikeComment, fetchComments, likeComment } from "./asyncActions";
+import { IActionComment, IComments, ICommentsSliceState, IPostComment, TComment } from "./types";
 import { addToComments } from "@/API/reviewsService";
 
 
@@ -22,9 +22,6 @@ const CommentsSlice = createSlice({
                 await addToComments(itemId, comment);
             })();
         },
-        likeComment(state, action) {
-
-        }
     },
     extraReducers: (builder) => {
         builder.addCase(fetchComments.pending, (state) => {
@@ -42,6 +39,40 @@ const CommentsSlice = createSlice({
             state.items = [];
             state.status = Status.ERROR;
         })
+
+        builder.addCase(likeComment.fulfilled, (state, action: PayloadAction<IActionComment>) => {
+            const findComment = state.items.find((item) => item._id === action.payload.id);
+
+            if (findComment) {
+                if (findComment.likes.includes(action.payload.info)) {
+                    findComment.likes = findComment.likes.filter((id) => id !== action.payload.info);
+                } else {
+                    findComment.likes.push(action.payload.info);
+                }
+
+                if (findComment.dislikes.includes(action.payload.info)) {
+                    findComment.dislikes = findComment.dislikes.filter((id) => id !== action.payload.info);
+                }
+            }
+        });
+
+        builder.addCase(dislikeComment.fulfilled, (state, action: PayloadAction<IActionComment>) => {
+            const findComment = state.items.find((item) => item._id === action.payload.id);
+
+            if (findComment) {
+                if (findComment.dislikes.includes(action.payload.info)) {
+                    findComment.dislikes = findComment.dislikes.filter((id) => id !== action.payload.info);
+                } else {
+                    findComment.dislikes.push(action.payload.info);
+                }
+
+                if (findComment.likes.includes(action.payload.info)) {
+                    findComment.likes = findComment.likes.filter((id) => id !== action.payload.info);
+                }
+            }
+        })
+
+
     }
 })
 

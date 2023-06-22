@@ -1,7 +1,8 @@
 export type TComment = {
+    _id: string,
     text: string,
-    likes: number,
-    dislikes: number,
+    likes: string[],
+    dislikes: string[],
     rating: number,
     user: string,
     date: string
@@ -21,4 +22,9 @@ export interface ICommentsSliceState {
     items: TComment[],
     status: 'loading' | 'success' | 'error',
     length: number
+}
+
+export interface IActionComment {
+    id: string,
+    info: string
 }

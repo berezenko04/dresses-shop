@@ -31,10 +31,12 @@ const BreadCrumbs: React.FC = () => {
         <div className={styles.block} >
             <div className="container">
                 <ul>
-                    <li>
-                        <Link to={'/Sandrela'}>Home</Link>
-                        <ArrowRightIcon />
-                    </li>
+                    {location.pathname !== '/Sandrela' &&
+                        <li>
+                            <Link to={'/Sandrela'}>Home</Link>
+                            <ArrowRightIcon />
+                        </li>
+                    }
                     {paths.map((path, index) => (
                         <li key={index}>
                             {index !== paths.length - 1 ?

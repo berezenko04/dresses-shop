@@ -16,12 +16,16 @@ const CommentSchema = new mongoose.Schema({
     default: "",
   },
   likes: {
-    type: Number,
-    default: 0,
+    type: Array,
+    items: {
+      type: String,
+    }
   },
   dislikes: {
-    type: Number,
-    default: 0,
+    type: Array,
+    items: {
+      type: String,
+    }
   },
   rating: {
     type: Number,

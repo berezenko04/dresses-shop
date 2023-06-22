@@ -1,5 +1,6 @@
 import CommentModel from "../models/comment.js";
 import ProductModel from "../models/product.js";
+import UserModel from '../models/user.js'
 
 export const createReview = async (req, res) => {
   try {
@@ -60,8 +61,7 @@ export const getReviews = async (req, res) => {
 
 export const likeReview = async (req, res) => {
   try {
-    const { id } = req.query;
-
+    const { id } = req.params;
     const userId = req.userId;
 
     const user = await UserModel.findById(userId);
@@ -72,13 +72,11 @@ export const likeReview = async (req, res) => {
     }
 
     const comment = await CommentModel.findById(id);
-
     if (!comment) {
       return res.status(404).send({ error: "Comment not found" });
     }
 
     const userLikedIndex = comment.likes.indexOf(userId);
-
     if (userLikedIndex > -1) {
       comment.likes.splice(userLikedIndex, 1);
     } else {
@@ -91,7 +89,7 @@ export const likeReview = async (req, res) => {
     }
 
     await comment.save();
-    res.send(comment);
+    res.send(userId);
   } catch (err) {
     console.log(err);
     res.status(500).json({
@@ -104,7 +102,7 @@ export const dislikeReview = async (req, res) => {
   try {
     const { id } = req.params;
     const userId = req.userId;
-    const comment = await Comment.findById(id);
+    const comment = await CommentModel.findById(id);
 
     if (!comment) {
       return res.status(404).send({ error: "Comment not found" });
@@ -126,7 +124,7 @@ export const dislikeReview = async (req, res) => {
 
     await comment.save();
 
-    res.send({ success: true });
+    res.send(userId);
   } catch (error) {
     console.error(error);
     res.status(500).send({ error: "Server error" });

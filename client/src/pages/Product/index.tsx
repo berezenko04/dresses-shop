@@ -85,8 +85,8 @@ const Product: React.FC = () => {
                     rating,
                     user: user._id,
                     date: formatDate(new Date().toString()),
-                    likes: 0,
-                    dislikes: 0
+                    likes: [],
+                    dislikes: []
                 }
             }));
             setRating(0);

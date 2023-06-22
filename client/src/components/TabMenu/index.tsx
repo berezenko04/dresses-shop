@@ -30,7 +30,7 @@ const TabMenu: React.FC = () => {
         if (confirm('Are you sure you want to logout?')) {
             localStorage.removeItem('token');
             dispatch(fetchAuthMe());
-            navigate('/Sandrela/');
+            navigate('/Sandrela');
         }
     }
 

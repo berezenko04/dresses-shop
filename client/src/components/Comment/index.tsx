@@ -17,10 +17,15 @@ import { IUserData } from '@/redux/user/types'
 
 //API
 import { getUser } from '@/API/userService'
+import { useAppDispatch } from '@/redux/store';
+import { dislikeComment, likeComment } from '@/redux/comments/asyncActions';
 
-const Comment: React.FC<TComment> = ({ text, date, rating, likes, dislikes, user }) => {
+const Comment: React.FC<TComment> = ({ _id, text, date, rating, likes, dislikes, user }) => {
 
-    const [userData, setUserData] = useState<IUserData>();;
+    const [userData, setUserData] = useState<IUserData>();
+
+    const dispatch = useAppDispatch();
+    const userId = userData?._id || '';
 
     useEffect(() => {
         (async () => {
@@ -54,13 +59,19 @@ const Comment: React.FC<TComment> = ({ text, date, rating, likes, dislikes, user
             <div className={styles.comment__footer}>
                 <span>{date}</span>
                 <div className={styles.comment__footer__likes}>
-                    <button>
+                    <button
+                        onClick={() => dispatch(likeComment(_id))}
+                        className={likes.includes(userId) ? styles.active : ''}
+                    >
                         <LikeIcon />
-                        {likes}
+                        {likes.length !== 0 ? likes.length : 0}
                     </button>
-                    <button>
+                    <button
+                        onClick={() => dispatch(dislikeComment(_id))}
+                        className={dislikes.includes(userId) ? styles.active : ''}
+                    >
                         <DislikeIcon />
-                        {dislikes}
+                        {dislikes.length !== 0 ? dislikes.length : 0}
                     </button>
                 </div>
             </div>

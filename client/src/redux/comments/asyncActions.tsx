@@ -1,4 +1,4 @@
-import { getComments } from "@/API/reviewsService";
+import { dislikeReview, getComments, likeReview } from "@/API/reviewsService";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 export const fetchComments = createAsyncThunk(
@@ -9,9 +9,18 @@ export const fetchComments = createAsyncThunk(
     }
 )
 
-// export const likeComment = createAsyncThunk(
-//     'comments/like',
-//     async (id: string) => {
-//         const comment = await 
-//     }
-// )
+export const likeComment = createAsyncThunk(
+    'comments/like',
+    async (id: string) => {
+        const info = await likeReview(id);
+        return { info, id };
+    }
+)
+
+export const dislikeComment = createAsyncThunk(
+    'comments/dislike',
+    async (id: string) => {
+        const info = await dislikeReview(id);
+        return { info, id };
+    }
+)

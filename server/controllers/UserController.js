@@ -36,7 +36,7 @@ export const register = async (req, res) => {
       },
       "secret123",
       {
-        expiresIn: "30d",
+        expiresIn: "3d",
       }
     );
 

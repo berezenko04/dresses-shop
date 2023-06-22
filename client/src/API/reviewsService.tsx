@@ -13,3 +13,13 @@ export const addToComments = async (itemId: string, comment: TComment) => {
     const { data } = await axios.post(`${DEFAULT_URL}/post/${itemId}`, comment);
     return data;
 }
+
+export const likeReview = async (id: string) => {
+    const { data } = await axios.post(`${DEFAULT_URL}/like/${id}`);
+    return data;
+}
+
+export const dislikeReview = async (id: string) => {
+    const { data } = await axios.post(`${DEFAULT_URL}/dislike/${id}`);
+    return data;
+}

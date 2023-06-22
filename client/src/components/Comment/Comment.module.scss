@@ -72,6 +72,14 @@
             align-items: center;
             gap: 8px;
 
+            .active {
+                svg path {
+                    fill: $primary-500;
+                }
+
+                color: $primary-500 !important;
+            }
+
             button {
                 padding: 4px 8px;
                 display: flex;

@@ -43,7 +43,7 @@ const LoginForm: React.FC = () => {
     }
 
     if (isAuth) {
-        return <Navigate to={'/Sandrela/'} />;
+        return <Navigate to={'/Sandrela'} />;
     }
 
     return (
