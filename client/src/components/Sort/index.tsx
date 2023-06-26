@@ -70,7 +70,11 @@ const Sort: React.FC = () => {
     return (
         <aside className={styles.sort}>
             <Dropdown title='At a price' className={styles.sort__price}>
-                <MultiRangeSlider min={0} max={maxPrice} onChange={() => ('qq')} />
+                <MultiRangeSlider
+                    min={0}
+                    max={maxPrice}
+                    onChange={({ min, max }) => (setPriceRange(`${min}-${max}`))}
+                />
             </Dropdown>
             <Dropdown title='By size' className={styles.sort__sizes}>
                 <ul className={styles.sort__sizes__list}>

@@ -9,7 +9,7 @@ import { getTotalPrice } from "@/utils/getTotalPrice";
 const initialState: ICartState = {
     cartItems: [],
     totalPrice: 0,
-    status: Status.LOADING
+    status: Status.LOADING,
 }
 
 const CartSlice = createSlice({

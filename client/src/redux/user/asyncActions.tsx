@@ -16,7 +16,7 @@ export const fetchUserData = createAsyncThunk(
             return rejectWithValue({ error: errorResponse });
         }
     }
-)
+);
 
 export const fetchAuthMe = createAsyncThunk(
     '/auth/fetchAuthMe',

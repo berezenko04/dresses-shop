@@ -12,6 +12,7 @@ import styles from './ForgotPassword.module.scss'
 import AuthField from '../../components/AuthField'
 import Button from '../../components/Button'
 import AuthFormHead from "@/components/AuthFormHead"
+import Timer from "@/components/Timer"
 import AuthLayout from '@/layout/AuthLayout'
 
 //redux
@@ -19,7 +20,6 @@ import { authErrorSelector, isAuthSelector } from '@/redux/user/selectors'
 
 //icons
 import { ReactComponent as ArrowLeftIcon } from '@/assets/icons/arrow-left-small.svg'
-import Timer from "@/components/Timer"
 
 
 type TForgotPasswordValues = {

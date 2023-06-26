@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux'
 import { PayloadAction } from '@reduxjs/toolkit'
 import { Link, Navigate } from 'react-router-dom'
 import { toast } from 'react-toastify';
+import { useEffect, useState } from 'react';
 
 //styles
 import styles from './LoginForm.module.scss'
@@ -29,13 +30,17 @@ const LoginForm: React.FC = () => {
     const isAuth = useSelector(isAuthSelector);
     const dispatch = useAppDispatch();
 
+    useEffect(() => {
+        if (message) {
+            toast.error(message);
+        }
+    }, [message]);
+
     const onSubmit: SubmitHandler<TLoginFormValues> = async (data) => {
         try {
             const response = await dispatch(fetchUserData(data)) as PayloadAction<IFetchUserResponse>;
             if ('token' in response.payload) {
                 window.localStorage.setItem('token', response.payload.token as string);
-            } else {
-                toast.error(message);
             }
         } catch (error) {
             console.error(error);
