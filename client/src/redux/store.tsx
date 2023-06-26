@@ -6,7 +6,6 @@ import comments from './comments/slice'
 import user from './user/slice'
 import cart from './cart/slice'
 import wishList from './wishList/slice'
-import myReviews from './myReviews/slice'
 import orders from './orders/slice'
 
 export const store = configureStore({
@@ -16,7 +15,6 @@ export const store = configureStore({
         user,
         cart,
         wishList,
-        myReviews,
         orders
     }
 })

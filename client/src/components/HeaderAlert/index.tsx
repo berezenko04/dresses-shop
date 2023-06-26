@@ -16,7 +16,7 @@ const HeaderAlert: React.FC = () => {
 
     const handleClose = () => {
         setIsHidden(true);
-        Cookies.set('AlertClosed', 'true', { expires: 7 });
+        Cookies.set('AlertClosed', 'true', { expires: 7, path: '/' });
     }
 
     useEffect(() => {

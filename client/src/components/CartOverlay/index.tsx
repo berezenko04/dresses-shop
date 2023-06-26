@@ -52,7 +52,7 @@ const CartOverlay = forwardRef<HTMLDivElement, ICartOverlayProps>(({ handleOverl
             <CartItem cart={cartItem} key={index} />
           ))
           :
-          <CartEmptyState />
+          <CartEmptyState handleOverlay={handleOverlayClick} />
         }
       </div>
       {!cartEmpty && (
