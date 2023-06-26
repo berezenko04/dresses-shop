@@ -59,7 +59,7 @@ const Sort: React.FC = () => {
             dispatch(fetchProducts({
                 colors: selectedColors.join(','),
                 sizes: selectedSizes.join(','),
-                priceRange
+                priceRange,
             }));
         }, 300);
         delayedFetch();

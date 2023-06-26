@@ -55,8 +55,7 @@
             color: $grey-500;
         }
 
-        &__catalog,
-        &__search {
+        &__catalog {
             padding: 8px;
             display: flex;
             align-items: center;
@@ -65,20 +64,6 @@
             font-size: 16px;
             line-height: 24px;
             color: $grey-300;
-        }
-
-        &__search {
-            width: 100%;
-
-            input {
-                width: 100%;
-                font-size: 16px;
-                line-height: 24px;
-
-                &::placeholder {
-                    color: $grey-300;
-                }
-            }
         }
 
         &__auth {
@@ -105,27 +90,7 @@
                 justify-content: center;
             }
 
-            a:first-child {
-                position: relative;
-
-                span {
-                    width: 16px;
-                    height: 16px;
-                    background-color: $primary-500;
-                    border-radius: 50%;
-                    position: absolute;
-                    top: 2px;
-                    right: 2px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    font-weight: 500;
-                    font-size: 10px;
-                    line-height: 15px;
-                    color: $white;
-                }
-            }
-
+            a:first-child,
             button {
                 position: relative;
 

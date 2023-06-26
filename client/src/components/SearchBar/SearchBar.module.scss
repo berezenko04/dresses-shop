@@ -1,0 +1,27 @@
+@import '@/scss/variables.scss';
+
+.searchBar {
+    width: 100%;
+
+    &__field {
+        width: 100%;
+        padding: 8px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        border: 1px solid $grey-100;
+        font-size: 16px;
+        line-height: 24px;
+        color: $grey-300;
+
+        input {
+            width: 100%;
+            font-size: 16px;
+            line-height: 24px;
+
+            &::placeholder {
+                color: $grey-300;
+            }
+        }
+    }
+}

@@ -7,8 +7,6 @@ import styles from './DropdownFilter.module.scss'
 
 //icons
 import { ReactComponent as DropdownIcon } from '@/assets/icons/arrow-dropdown.svg'
-import { ReactComponent as ArrowDownwardIcon } from '@/assets/icons/arrow-downward.svg'
-import { ReactComponent as ArrowUpwardIcon } from '@/assets/icons/arrow-upward.svg'
 
 //redux
 import { fetchProducts } from '@/redux/products/asyncActions'
@@ -24,15 +22,15 @@ const DropdownFilter: React.FC = () => {
     const [isVisible, setIsVisible] = useState(false);
 
     const filters: TFilter[] = [
-        { orderBy: '_id', name: 'Popularity', order: 'desc' },
-        { orderBy: '_id', name: 'Popularity', order: 'asc' },
-        { orderBy: 'price', name: 'Price', order: 'desc' },
-        { orderBy: 'price', name: 'Price', order: 'asc' },
+        { orderBy: '_id', name: 'The most popular', order: 'desc' },
+        { orderBy: '_id', name: 'The less popular', order: 'asc' },
+        { orderBy: 'price', name: 'The most expensive', order: 'desc' },
+        { orderBy: 'price', name: 'The cheapest', order: 'asc' },
     ]
 
     const dispatch = useAppDispatch();
     const dropdownRef = useRef<HTMLDivElement | null>(null);
-    const [sortOrder, setSortOrder] = useState(filters[1]);
+    const [sortOrder, setSortOrder] = useState(filters[0]);
 
     const handleFilterClick = (item: TFilter) => {
         setSortOrder(item);
@@ -64,10 +62,7 @@ const DropdownFilter: React.FC = () => {
             <div className={styles.dropdown__head} onClick={() => setIsVisible(!isVisible)}>
                 <div className={styles.dropdown__head__order}>
                     <span>Sort By:</span>
-                    <span>
-                        {sortOrder.order === 'asc' ? <ArrowUpwardIcon /> : <ArrowDownwardIcon />}
-                        <span>{sortOrder.name}</span>
-                    </span>
+                    <span>{sortOrder.name}</span>
                     <DropdownIcon className={cn(styles.icon, isVisible && styles.icon__active)} />
                 </div>
                 <ul className={cn(styles.dropdown__main, isVisible && styles.dropdown__main__active)}>
@@ -78,7 +73,6 @@ const DropdownFilter: React.FC = () => {
                                 (sortOrder.orderBy === filter.orderBy && sortOrder.order === filter.order) && styles.dropdown__main__item__active)}
                         >
                             <button onClick={() => handleFilterClick(filters[index])}>
-                                {filter.order === 'asc' ? <ArrowUpwardIcon /> : <ArrowDownwardIcon />}
                                 {filter.name}
                             </button>
                         </li>

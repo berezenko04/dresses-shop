@@ -8,10 +8,10 @@ import styles from './Navbar.module.scss'
 //components
 import CartOverlay from '../CartOverlay'
 import Button from '../Button'
+import SearchBar from '../SearchBar'
 
 //icons
 import { ReactComponent as PhoneIcon } from '@/assets/icons/phone.svg'
-import { ReactComponent as SearchIcon } from '@/assets/icons/search.svg'
 import { ReactComponent as FavoriteIcon } from '@/assets/icons/heart.svg'
 import { ReactComponent as CartIcon } from '@/assets/icons/cart.svg'
 import { ReactComponent as PlatesIcon } from '@/assets/icons/grid-plates.svg'
@@ -23,6 +23,7 @@ import { fetchAuthMe } from '@/redux/user/asyncActions'
 import { cartSelector } from '@/redux/cart/selectors'
 import { wishListSelector } from '@/redux/wishList/selectors'
 import { fetchWishList } from '@/redux/wishList/asyncActions'
+
 
 
 const Navbar: React.FC = () => {
@@ -96,10 +97,7 @@ const Navbar: React.FC = () => {
                             <PlatesIcon />
                             Catalog
                         </Link>
-                        <div className={styles.navbar__bottom__search}>
-                            <SearchIcon />
-                            <input type="text" placeholder='Search something...' />
-                        </div>
+                        <SearchBar />
                         {isAuth ?
                             <div className={styles.navbar__bottom__user}>
                                 <Link to="/Sandrela/profile/wishlist">

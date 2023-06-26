@@ -10,17 +10,17 @@ import { ReactComponent as UAFlag } from '@/assets/icons/flag-UA.svg'
 import { ReactComponent as CloseIcon } from '@/assets/icons/close.svg'
 
 
-const SupportUkraine: React.FC = () => {
+const HeaderAlert: React.FC = () => {
     const [isHidden, setIsHidden] = useState(false);
 
 
     const handleClose = () => {
         setIsHidden(true);
-        Cookies.set('AlertSupportClosed', 'true', { expires: 7 });
+        Cookies.set('AlertClosed', 'true', { expires: 7 });
     }
 
     useEffect(() => {
-        const isClosed = Cookies.get('AlertSupportClosed');
+        const isClosed = Cookies.get('AlertClosed');
         if (isClosed) {
             setIsHidden(true);
         }
@@ -47,4 +47,4 @@ const SupportUkraine: React.FC = () => {
     )
 }
 
-export default SupportUkraine
+export default HeaderAlert
