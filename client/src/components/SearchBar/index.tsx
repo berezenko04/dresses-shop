@@ -13,7 +13,7 @@ import { ReactComponent as RemoveIcon } from '@/assets/icons/close.svg'
 //service
 import { getMatching } from '@/API/searchService';
 import { TProductItem } from '@/redux/products/types'
-    
+
 type TSearchHistory = {
     id: string,
     title: string
@@ -23,9 +23,10 @@ const SearchBar: React.FC = () => {
     const [searchQuery, setSearchQuery] = useState('');
     const [searchList, setSearchList] = useState<TProductItem[]>();
     const [searchHistory, setSearchHistory] = useState<TSearchHistory[]>();
-    const [isSearchFocused, setIsSearchFocused] = useState(false);
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
     const searchRef = useRef<HTMLInputElement | null>(null);
+    const dropdownRef = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {
         const storedHistory = Cookies.get('searchHistory');
@@ -35,20 +36,31 @@ const SearchBar: React.FC = () => {
         }
     }, []);
 
+    // active/disable dropdown on focus input
     useEffect(() => {
-        if (searchRef.current) {
-            searchRef.current.addEventListener('focus', () => setIsSearchFocused(true));
-            searchRef.current.addEventListener('blur', () => setIsSearchFocused(false));
-        }
-
-        return () => {
-            if (searchRef.current) {
-                searchRef.current.removeEventListener('focus', () => setIsSearchFocused(true));
-                searchRef.current.removeEventListener('blur', () => setIsSearchFocused(false));
+        const handleOutsideClick = (event: MouseEvent) => {
+            if (searchRef.current && !searchRef.current.contains(event.target)) {
+                setIsDropdownOpen(false);
             }
         };
-    }, [])
 
+        document.addEventListener('click', handleOutsideClick);
+
+        return () => {
+            document.removeEventListener('click', handleOutsideClick);
+        };
+    }, []);
+
+    const handleSearchFocus = () => {
+        setIsDropdownOpen(true);
+    };
+
+    const handleDropdownClick = (e: MouseEvent<HTMLDivElement, MouseEvent>) => {
+        e.stopPropagation();
+    };
+
+
+    //search
     const debouncedHandleSearch = debounce((searchQuery) => {
         (async () => {
             const data = await getMatching(searchQuery);
@@ -62,13 +74,42 @@ const SearchBar: React.FC = () => {
         debouncedHandleSearch(query);
     }
 
-    const handleClickLink = (title: string, id: string) => {
+    //clear search list
+    const handleClear = () => {
+        setSearchQuery('');
+        setSearchList([]);
+    }
+
+    //click link
+    const handleClickLink = (e: MouseEvent<HTMLAnchorElement>, title: string, id: string) => {
+        e.stopPropagation();
         setSearchQuery('');
         const searchHistory = Cookies.get('searchHistory') || '[]';
         const updatedHistory = JSON.parse(searchHistory);
-        updatedHistory.push({ id, title });
+        if (!updatedHistory.some((item: TSearchHistory) => item.id === id && item.title === title)) {
+            updatedHistory.push({ id, title });
+        }
         Cookies.set('searchHistory', JSON.stringify(updatedHistory), { expires: 7, path: '/' });
         setSearchHistory(updatedHistory);
+        setIsDropdownOpen(false);
+    }
+
+    //clear history
+    const handleClearHistory = () => {
+        Cookies.remove('searchHistory');
+        setSearchHistory([]);
+    }
+
+    //clear selected history item
+    const handleClearSelected = (title: string) => {
+        const searchHistory = Cookies.get('searchHistory') || '[]';
+        const updatedHistory = JSON.parse(searchHistory);
+        const index = updatedHistory.findIndex((item: TSearchHistory) => item.title === title);
+        if (index !== -1) {
+            updatedHistory.splice(index, 1);
+            Cookies.set('searchHistory', JSON.stringify(updatedHistory), { expires: 7, path: '/' });
+            setSearchHistory(updatedHistory);
+        }
     }
 
     return (
@@ -81,19 +122,21 @@ const SearchBar: React.FC = () => {
                     onChange={handleSearch}
                     value={searchQuery}
                     ref={searchRef}
+                    onFocus={handleSearchFocus}
                 />
-                {searchQuery && <button onClick={() => setSearchQuery('')}><RemoveIcon /></button>}
+                {searchQuery && <button onClick={handleClear}><RemoveIcon /></button>}
             </div>
-            {isSearchFocused &&
-                <div className={styles.searchBar__dropdown}>
+            {isDropdownOpen &&
+                <div className={styles.searchBar__dropdown} ref={dropdownRef} onClick={(e) => handleDropdownClick(e)}>
                     {searchList && searchList.length !== 0 &&
                         <div className={styles.searchBar__dropdown__block}>
                             <h4>Search results</h4>
+                            {searchList && searchList.length === 0 && <p>Your search did not match any results</p>}
                             <ul>
                                 {searchList && searchList.map((item, index) => (
                                     <li key={index}>
                                         <Link
-                                            onClick={() => handleClickLink(item.title, item._id)}
+                                            onClick={(e) => handleClickLink(e, item.title, item._id)}
                                             to={`/Sandrela/dresses/${item._id}`}
                                         >
                                             {item.title}
@@ -104,16 +147,25 @@ const SearchBar: React.FC = () => {
                         </div>
                     }
                     <div className={styles.searchBar__dropdown__block}>
-                        <h4>History search</h4>
+                        <div className={styles.searchBar__dropdown__block__header}>
+                            <h4>History search</h4>
+                            {searchHistory && searchHistory.length > 0 &&
+                                <button onClick={handleClearHistory}>Clear history</button>
+                            }
+                        </div>
+                        {searchHistory && searchHistory.length === 0 && <p>Search history is empty</p>}
                         <ul>
-                            {searchHistory && searchHistory.map((item, index) => (
+                            {searchHistory && searchHistory.slice(-4).map((item, index) => (
                                 <li key={index}>
                                     <Link
-                                        onClick={() => handleClickLink(item.title, item.id)}
+                                        onClick={(e) => handleClickLink(e, item.title, item.id)}
                                         to={`/Sandrela/dresses/${item.id}`}
                                     >
                                         {item.title}
                                     </Link>
+                                    <button onClick={() => handleClearSelected(item.title)}>
+                                        Delete
+                                    </button>
                                 </li>
                             ))}
                         </ul>

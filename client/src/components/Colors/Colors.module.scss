@@ -18,7 +18,7 @@
             display: none;
         }
 
-        input[type="radio"]:checked + label &__circle {
+        input[type="radio"]:checked+label &__circle {
             border-color: $grey-500;
         }
 
@@ -46,6 +46,10 @@
 
             .blue {
                 background-color: $blue;
+            }
+
+            .lactic {
+                background-color: $lactic;
             }
         }
 

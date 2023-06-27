@@ -25,7 +25,7 @@ const BreadCrumbs: React.FC = () => {
             setProductTitle(data.title);
         }
         match && fetchProduct();
-    }, [match])
+    }, [match, paths])
 
     return (
         <div className={styles.block} >

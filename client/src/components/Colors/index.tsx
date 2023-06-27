@@ -13,7 +13,8 @@ const Colors: React.FC<TColorsProps> = ({ colors }) => {
         return cn(styles.colors__item__circle__color, {
             [styles.white]: color === 'white',
             [styles.golden]: color === 'golden',
-            [styles.blue]: color === 'blue'
+            [styles.blue]: color === 'blue',
+            [styles.lactic]: color === 'lactic'
         })
     }
 

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { isMobile } from 'react-device-detect';
-// import { useAppDispatch } from '@/redux/store'
+import { useAppDispatch } from '@/redux/store'
 
 //styles
 import styles from './Products.module.scss'
@@ -18,27 +18,21 @@ import { ReactComponent as FilterIcon } from '@/assets/icons/filter.svg'
 
 //redux
 import { productsLengthSelector, productsSelector, productsStatusSelector } from '@/redux/products/selectors'
-// import { fetchProducts } from '@/redux/products/asyncActions'
+import { fetchProducts } from '@/redux/products/asyncActions'
 
 
 const Products: React.FC = () => {
     const [showFilters, setShowFilters] = useState(true);
-    const [page, setPage] = useState(1);
     const limit = isMobile ? 8 : 12;
-    // const dispatch = useAppDispatch();
+    const dispatch = useAppDispatch();
     const productsLength = useSelector(productsLengthSelector);
     const products = useSelector(productsSelector);
     const status = useSelector(productsStatusSelector);
     const pageCount = Math.ceil(productsLength / limit);
 
     const handlePageChange = (newPage: number) => {
-        setPage(newPage);
+        dispatch(fetchProducts({ page: newPage, limit }));
     }
-
-    // useEffect(() => {
-    //     dispatch(fetchProducts({ page, limit }));
-    // }, [page, limit])
-
 
     return (
         <div className="container">
