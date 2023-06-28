@@ -73,13 +73,15 @@ const Navbar: React.FC = () => {
             <div className={styles.navbar__top}>
                 <div className="container">
                     <div className={styles.navbar__top__wrapper}>
-                        <Link
-                            to="tel:+380956380963"
+                        <a
+                            href="tel:+380662284162"
+                            target='_blank'
+                            rel='noopener noreferrer'
                             className={styles.navbar__top__phone}
                         >
                             <PhoneIcon />
-                            +380956380963
-                        </Link>
+                            +380662284162
+                        </a>
                         <ul className={styles.navbar__top__info}>
                             {links.map((link, index) => (
                                 (index === 3 && isAuth) ? '' :

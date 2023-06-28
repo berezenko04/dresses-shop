@@ -59,21 +59,27 @@ const Footer: React.FC = () => {
                             <ul>
                                 <li>
                                     <a
+                                        target='_blank'
                                         href='mailto:romanberezenko8@gmail.com'
+                                        rel='noopener noreferrer'
                                     >
                                         romanberezenko8@gmail.com
                                     </a>
                                 </li>
                                 <li>
-                                    <Link
-                                        to='https://goo.gl/maps/fE8j27yjGURGzTst8'
+                                    <a
+                                        target='_blank'
+                                        href='https://goo.gl/maps/fE8j27yjGURGzTst8'
+                                        rel='noopener noreferrer'
                                     >
                                         Poltava city, Kovalya 5
-                                    </Link>
+                                    </a>
                                 </li>
                                 <li>
                                     <a
+                                        target='_blank'
                                         href='tel:380662284162'
+                                        rel='noopener noreferrer'
                                     >
                                         +380662284162
                                     </a>

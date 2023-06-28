@@ -25,6 +25,8 @@ const Sort: React.FC = () => {
     const [selectedSizes, setSelectedSizes] = useState<string[]>([]);
     const [priceRange, setPriceRange] = useState('');
 
+    const maxPrice = useSelector(productsMaxPriceSelector);
+
     const colors = [
         { name: 'blue', hex: '#82DBF8', lighten: false },
         { name: 'lactic', hex: '#FFF6EE', lighten: false },
@@ -32,8 +34,6 @@ const Sort: React.FC = () => {
         { name: 'golden', hex: '#FFD66C', lighten: false }
     ];
     const sizes = ["xxs", "xs", "s", "m", "l", "xl", "2xl", "3xl", "4xl"];
-
-    const maxPrice = useSelector(productsMaxPriceSelector);
 
     const handleCheckbox = (e: FormEvent<HTMLInputElement>, setSelectedValues: Function) => {
         const { value, checked } = e.currentTarget;
@@ -60,6 +60,7 @@ const Sort: React.FC = () => {
         setSelectedSizes([]);
         setPriceRange('');
     }
+
     useEffect(() => {
         const delayedFetch = debounce(() => {
             dispatch(fetchProducts({
