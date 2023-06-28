@@ -16,6 +16,7 @@ import { ReactComponent as CheckIcon } from '@/assets/icons/check.svg'
 //redux
 import { productsMaxPriceSelector } from '@/redux/products/selectors';
 import { fetchProducts } from '@/redux/products/asyncActions';
+import Button from '../Button';
 
 
 const Sort: React.FC = () => {
@@ -54,6 +55,11 @@ const Sort: React.FC = () => {
         handleCheckbox(e, setSelectedColors);
     };
 
+    const handleClearFilters = () => {
+        setSelectedColors([]);
+        setSelectedSizes([]);
+        setPriceRange('');
+    }
     useEffect(() => {
         const delayedFetch = debounce(() => {
             dispatch(fetchProducts({
@@ -117,6 +123,13 @@ const Sort: React.FC = () => {
                     ))}
                 </ul>
             </Dropdown>
+            <Button
+                size='sm'
+                theme='secondary'
+                onClick={handleClearFilters}
+            >
+                Clear Filters
+            </Button>
         </aside>
     )
 }

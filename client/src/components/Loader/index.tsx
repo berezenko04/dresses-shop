@@ -9,9 +9,11 @@ const Loader: React.FC = () => {
     const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
-        setTimeout(() => {
+        const timer = setTimeout(() => {
             setIsLoading(true);
-        }, 300);
+        }, 500);
+
+        return () => clearTimeout(timer);
     }, [])
 
     return (

@@ -51,3 +51,27 @@
         }
     }
 }
+
+@mixin Mobile {
+    @media screen and (max-width: 480px) {
+        @content;
+    }
+}
+
+@mixin SmallTablet {
+    @media screen and (max-width: 768px) {
+        @content;
+    }
+}
+
+@mixin Tablet {
+    @media screen and (max-width: 1024px) {
+        @content;
+    }
+}
+
+@mixin Laptop {
+    @media screen and (max-width: 1440px) {
+        @content;
+    }
+}

@@ -212,7 +212,7 @@ const Product: React.FC = () => {
                                                 <span>{5 - index}</span>
                                             </div>
                                             <div className={styles.page__reviews__rating__right__item__fill}>
-                                                <div style={{ width: `${(findRating(5 - index) * 100) / ratingsCount}%` }} />
+                                                <div style={{ width: `${ratingsCount !== 0 ? (findRating(5 - index) * 100) / ratingsCount : 0}%` }} />
                                             </div>
                                         </div>
                                     ))}

@@ -12,6 +12,7 @@ import Pagination from '@/components/Pagination';
 import ProductCardSkeleton from '@/components/Skeletons/ProductCardSkeleton';
 import Sort from '@/components/Sort';
 import DropdownFilter from '@/components/DropdownFilter';
+import ProductsEmptyState from '@/components/ProductsEmptyState';
 
 //icons
 import { ReactComponent as FilterIcon } from '@/assets/icons/filter.svg'
@@ -19,6 +20,7 @@ import { ReactComponent as FilterIcon } from '@/assets/icons/filter.svg'
 //redux
 import { productsLengthSelector, productsSelector, productsStatusSelector } from '@/redux/products/selectors'
 import { fetchProducts } from '@/redux/products/asyncActions'
+
 
 
 const Products: React.FC = () => {
@@ -51,20 +53,26 @@ const Products: React.FC = () => {
                     {showFilters &&
                         <Sort />
                     }
-                    <div className={styles.page__main__content}>
-                        {status === 'loading' ?
-                            [...Array(9)].map((_, index) => (
-                                <ProductCardSkeleton key={index} />
-                            ))
-                            :
-                            products.map((product, index) => (
-                                <ProductCardExtended
-                                    key={index}
-                                    {...product}
-                                />
-                            ))
-                        }
-                    </div>
+                    {products.length === 0 && status === 'success' ?
+                        <div className={styles.page__main__empty}>
+                            <ProductsEmptyState />
+                        </div>
+                        :
+                        <div className={styles.page__main__content}>
+                            {status === 'loading' ?
+                                [...Array(9)].map((_, index) => (
+                                    <ProductCardSkeleton key={index} />
+                                ))
+                                :
+                                products.map((product, index) => (
+                                    <ProductCardExtended
+                                        key={index}
+                                        {...product}
+                                    />
+                                ))
+                            }
+                        </div>
+                    }
                 </div>
                 {pageCount > 1 && <Pagination pageCount={pageCount} limit={limit} onPageChange={handlePageChange} />}
             </div>

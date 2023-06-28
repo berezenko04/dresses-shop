@@ -153,7 +153,7 @@ const SearchBar: React.FC = () => {
                                 <button onClick={handleClearHistory}>Clear history</button>
                             }
                         </div>
-                        {searchHistory && searchHistory.length === 0 && <p>Search history is empty</p>}
+                        {(!searchHistory || searchHistory.length === 0) && <p>Search history is empty</p>}
                         <ul>
                             {searchHistory && searchHistory.slice(-4).map((item, index) => (
                                 <li key={index}>
