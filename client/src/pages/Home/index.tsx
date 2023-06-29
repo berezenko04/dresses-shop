@@ -12,7 +12,6 @@ import 'swiper/css/navigation';
 
 //components
 import SectionBlock from '@/components/SectionBlock';
-import ProductCard from '@/components/ProductCardDefault';
 import Header from '@/components/Header';
 
 //redux

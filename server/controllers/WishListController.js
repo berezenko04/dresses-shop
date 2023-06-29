@@ -4,6 +4,8 @@ import WishListModel from "../models/wishList.js";
 
 export const getWishList = async (req, res) => {
   try {
+    const { limit = 9, page = 1 } = req.query;
+    const skip = (page - 1) * limit;
     const userId = req.userId;
     const user = await UserModel.findById(userId);
 
@@ -13,10 +15,14 @@ export const getWishList = async (req, res) => {
       });
     }
 
-    const wishList = await WishListModel.find({ user: userId }).populate("product");
+    const wishList = await WishListModel.find({ user: userId })
+      .populate("product")
+      .skip(skip)
+      .limit(limit);
     const products = wishList.map((item) => item.product);
+    const wishListLength = await WishListModel.find({ user: user }).countDocuments();
 
-    res.status(200).json(products);
+    res.status(200).json({ products, length: wishListLength });
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Server error" });
@@ -61,7 +67,7 @@ export const removeFromWishlist = async (req, res) => {
   try {
     const { itemId } = req.query;
     const userId = req.userId;
-    
+
     const user = await UserModel.findById(userId);
 
     if (!user) {

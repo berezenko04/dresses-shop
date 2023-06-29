@@ -6,7 +6,28 @@ import Switch from '@/components/Switch';
 import ProfileLayout from '@/layout/ProfileLayout';
 
 const Notifications: React.FC = () => {
-    const notificationsList = [{ title: 'test', subtitle: 'test' }];
+    const notificationsList = [
+        {
+            title: 'Special offers and promotions',
+            subtitle: 'Receive notifications about our special offers, promotions, and discounts'
+        },
+        {
+            title: 'New product arrivals',
+            subtitle: 'Be the first to know about new product arrivals in our store'
+        },
+        {
+            title: 'Order tracking',
+            subtitle: 'Enable notifications for updates on your orders'
+        },
+        {
+            title: 'News and updates',
+            subtitle: 'Subscribe to our news notifications and stay up to date with the latest happenings in our store'
+        },
+        {
+            title: 'Recommendations and personalized offers',
+            subtitle: 'Enable these notifications and enjoy an individualized shopping experience'
+        }
+    ];
 
     return (
         <div className={styles.notifications}>

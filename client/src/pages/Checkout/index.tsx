@@ -55,15 +55,18 @@ const Checkout: React.FC = () => {
                                     </button>
                                 }
                             </div>
-                            <div className={styles.page__main__cart__items}>
-                                {!cartEmpty ?
-                                    cartItems.map((item, index) => (
+                            {!cartEmpty ?
+                                <div className={styles.page__main__cart__items}>
+                                    {cartItems.map((item, index) => (
                                         <CartItem readable={readableCart} cart={item} key={index} />
-                                    ))
-                                    :
+                                    ))}
+                                </div>
+                                :
+                                <div className={styles.page__main__cart__empty}>
                                     <CartEmptyState />
-                                }
-                            </div>
+                                </div>
+                            }
+
                             {!cartEmpty &&
                                 <TotalPrice discount={0} />
                             }

@@ -1,4 +1,4 @@
-import { ChangeEvent, useState, useEffect, useRef } from 'react'
+import { ChangeEvent, useState, useEffect, useRef, MouseEvent } from 'react'
 import { debounce } from 'lodash'
 import { Link } from 'react-router-dom'
 import Cookies from 'js-cookie'
@@ -38,8 +38,8 @@ const SearchBar: React.FC = () => {
 
     // active/disable dropdown on focus input
     useEffect(() => {
-        const handleOutsideClick = (event: MouseEvent) => {
-            if (searchRef.current && !searchRef.current.contains(event.target)) {
+        const handleOutsideClick: EventListener = (e) => {
+            if (searchRef.current && !searchRef.current.contains(e.target as Node)) {
                 setIsDropdownOpen(false);
             }
         };
@@ -55,7 +55,7 @@ const SearchBar: React.FC = () => {
         setIsDropdownOpen(true);
     };
 
-    const handleDropdownClick = (e: MouseEvent<HTMLDivElement, MouseEvent>) => {
+    const handleDropdownClick = (e: MouseEvent<HTMLDivElement>) => {
         e.stopPropagation();
     };
 

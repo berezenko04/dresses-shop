@@ -11,7 +11,11 @@ export const removeFromWishList = async (itemId: string) => {
     await axios.delete(`${DEFAULT_URL}/delete?itemId=${itemId}`);
 }
 
-export const getWishList = async () => {
-    const { data } = await axios.get(`${DEFAULT_URL}/get`);
+export const getWishList = async (page: number, limit: number) => {
+    const params = new URLSearchParams({
+        page: page.toString(),
+        limit: limit.toString()
+    })
+    const { data } = await axios.get(`${DEFAULT_URL}/get?${params.toString()}`);
     return data;
 }

@@ -15,7 +15,8 @@ export interface IUserData {
     token: string,
     sex: string,
     address: string,
-    cart: TCartItem[]
+    cart: TCartItem[],
+    iat: string
 }
 
 export interface IFetchUserResponse {

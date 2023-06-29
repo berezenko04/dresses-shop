@@ -74,7 +74,7 @@ const Products: React.FC = () => {
                         </div>
                     }
                 </div>
-                {pageCount > 1 && <Pagination pageCount={pageCount} limit={limit} onPageChange={handlePageChange} />}
+                <Pagination pageCount={pageCount} limit={limit} onPageChange={handlePageChange} />
             </div>
         </div >
     )

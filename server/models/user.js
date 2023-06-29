@@ -31,20 +31,10 @@ const UserSchema = new mongoose.Schema(
       type: String,
       default: "",
     },
-    userLikes: {
-      type: Array,
-      items: {
-        type: String,
-        required: true
-      }
+    iat: {
+      type: String,
+      default: "",
     },
-    userDislikes: {
-      type: Array,
-      items: {
-        type: String,
-        required: true
-      }
-    }
   },
   {
     timestamps: true,

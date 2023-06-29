@@ -60,6 +60,13 @@
         @include CustomScroll;
     }
 
+    &__empty {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: 1;
+    }
+
     &__checkout {
         display: flex;
         flex-direction: column;

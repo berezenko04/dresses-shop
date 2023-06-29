@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { useEffect, useState, useRef } from 'react'
+import cn from 'classnames'
 
 //styles
 import styles from './Navbar.module.scss'
@@ -27,6 +28,7 @@ import { fetchWishList } from '@/redux/wishList/asyncActions'
 
 
 const Navbar: React.FC = () => {
+    const [isScrolled, setIsScrolled] = useState(false);
     const links = [
         { name: 'Find a Store', href: '' },
         { name: 'Help', href: '' },
@@ -45,7 +47,24 @@ const Navbar: React.FC = () => {
 
     useEffect(() => {
         dispatch(fetchAuthMe());
-        dispatch(fetchWishList());
+        dispatch(fetchWishList({}));
+    }, [])
+
+    useEffect(() => {
+        const handleScroll = () => {
+            const scrolledY = window.scrollY;
+            if (scrolledY > 100) {
+                setIsScrolled(true);
+            } else {
+                setIsScrolled(false);
+            }
+        }
+
+        window.addEventListener('scroll', handleScroll);
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        }
     }, [])
 
 
@@ -69,7 +88,7 @@ const Navbar: React.FC = () => {
     }
 
     return (
-        <nav className={styles.navbar}>
+        <nav className={cn(styles.navbar, isScrolled && styles.shadow)}>
             <div className={styles.navbar__top}>
                 <div className="container">
                     <div className={styles.navbar__top__wrapper}>
@@ -97,7 +116,7 @@ const Navbar: React.FC = () => {
                         <Link to="/Sandrela" className={styles.navbar__bottom__logo}>Sandrela</Link>
                         <Link to='/Sandrela/dresses' className={styles.navbar__bottom__catalog}>
                             <PlatesIcon />
-                            Catalog
+                            <span>Catalog</span>
                         </Link>
                         <SearchBar />
                         {isAuth ?

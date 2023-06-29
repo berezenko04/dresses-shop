@@ -2,7 +2,13 @@ import { Status } from "../products/types";
 
 export interface IWishListState {
     items: TWishListItem[],
-    status: Status.LOADING | Status.SUCCESS | Status.ERROR
+    status: Status.LOADING | Status.SUCCESS | Status.ERROR,
+    length: number
+}
+
+export interface IWishList {
+    products: TWishListItem[],
+    length: number
 }
 
 export type TWishListItem = {
@@ -12,4 +18,9 @@ export type TWishListItem = {
     discount: number,
     images: string[],
     colors: string[]
+}
+
+export type TFetchWishList = {
+    page?: number,
+    limit?: number
 }

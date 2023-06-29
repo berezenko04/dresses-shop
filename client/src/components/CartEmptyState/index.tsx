@@ -10,10 +10,10 @@ import Button from '../Button'
 import { ReactComponent as CartIcon } from '@/assets/icons/cart-add.svg'
 
 type TCartEmptyStateProps = {
-    handleOverlay: () => void
+    handleOverlay?: () => void
 }
 
-const CartEmptyState: React.FC<TCartEmptyStateProps> = ({ handleOverlay }) => {
+const CartEmptyState: React.FC<TCartEmptyStateProps> = ({ handleOverlay = () => {}}) => {
     return (
         <div className={styles.empty}>
             <CartIcon />

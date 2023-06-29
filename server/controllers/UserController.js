@@ -4,6 +4,7 @@ import nodemailer from "nodemailer";
 import sharp from "sharp";
 import crypto from "crypto";
 import fs from "fs";
+import moment from "moment";
 
 //models
 import UserModel from "../models/user.js";
@@ -70,6 +71,10 @@ export const login = async (req, res) => {
       });
     }
 
+    if (isValidPass) {
+      user.iat = moment().toDate();
+    }
+
     const token = jwt.sign(
       {
         _id: user._id,
@@ -81,6 +86,7 @@ export const login = async (req, res) => {
     );
 
     const { passwordHash, ...userData } = user._doc;
+    await user.save();
 
     res.json({
       ...userData,

@@ -1,12 +1,14 @@
 import { addToWishList, getWishList, removeFromWishList } from "@/API/wishListService";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { addToWishListSuccess, removeFromWishListSuccess } from "./slice";
-import { IWishListState } from "./types";
+import { IWishListState, TFetchWishList } from "./types";
+import { } from 'react-redux'
 
 export const fetchWishList = createAsyncThunk(
     'wishlist/fetchWishList',
-    async () => {
-        const wishlist = await getWishList();
+    async (args: TFetchWishList) => {
+        const { page = 1, limit = 0 } = args;
+        const wishlist = await getWishList(page, limit);
         return wishlist;
     }
 )

@@ -12,11 +12,15 @@ import { ReactComponent as TabletIcon } from '@/assets/icons/tablet.svg'
 //utils
 import { formatDate } from '@/utils/formatDate'
 import { getGeo } from '@/API/userService'
+import { useSelector } from 'react-redux'
+import { userDataSelector } from '@/redux/user/selectors'
 
 
 const DeviceInfo: React.FC = () => {
     const [country, setCountry] = useState('');
     const [city, setCity] = useState('');
+    const user = useSelector(userDataSelector);
+
 
     useEffect(() => {
         (async () => {
@@ -31,7 +35,7 @@ const DeviceInfo: React.FC = () => {
             {isMobile ? <MobileIcon /> : isTablet ? <TabletIcon /> : <DesktopIcon />}
             <div className={styles.info__device}>
                 <h4>{`${osName} ${osVersion}${country && city && `, ${country} ${city}`}`}</h4>
-                <p>Session started on {formatDate(new Date().toString())}</p>
+                <p>Session started on {user && formatDate(user.iat)}</p>
             </div>
         </div>
     )

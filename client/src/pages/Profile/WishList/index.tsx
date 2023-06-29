@@ -1,6 +1,7 @@
 import { useSelector } from 'react-redux';
 import { useAppDispatch } from '@/redux/store';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { isMobile } from 'react-device-detect';
 
 //styles
 import styles from './WishList.module.scss'
@@ -9,26 +10,36 @@ import styles from './WishList.module.scss'
 import ProductCardExtended from '@/components/ProductCard';
 import ProductCardSkeleton from '@/components/Skeletons/ProductCardSkeleton';
 import ProfileLayout from '@/layout/ProfileLayout';
+import Pagination from '@/components/Pagination';
 
 //redux
-import { wishListSelector, wishListStatusSelector } from '@/redux/wishList/selectors';
+import { wishListLengthSelector, wishListSelector, wishListStatusSelector } from '@/redux/wishList/selectors';
 import { fetchWishList } from '@/redux/wishList/asyncActions';
 
 
+
 const WishList: React.FC = () => {
+    const [page, setPage] = useState(1);
     const wishList = useSelector(wishListSelector);
     const dispatch = useAppDispatch();
     const status = useSelector(wishListStatusSelector);
+    const wishListCount = useSelector(wishListLengthSelector);
+    const limit = isMobile ? 6 : 9;
+    const pageCount = Math.ceil(wishListCount / limit);
+
+    const handlePageChange = (newPage: number) => {
+        setPage(newPage);
+    }
 
     useEffect(() => {
-        dispatch(fetchWishList());
-    }, [])
+        dispatch(fetchWishList({ page, limit }));
+    }, [page])
 
     return (
         <div className={styles.wishlist}>
             <ProfileLayout>
                 <div className={styles.wishlist__wrapper}>
-                    <h3>Wish List ({wishList.length})</h3>
+                    <h3>Wish List ({wishListCount})</h3>
                     <div className={styles.wishlist__main}>
                         {status === 'success' ?
                             wishList.map((item, index) => (
@@ -40,6 +51,7 @@ const WishList: React.FC = () => {
                             ))
                         }
                     </div>
+                    <Pagination limit={limit} pageCount={pageCount} onPageChange={handlePageChange} />
                 </div>
             </ProfileLayout>
         </div>

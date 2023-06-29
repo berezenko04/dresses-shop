@@ -46,15 +46,17 @@ const CartOverlay = forwardRef<HTMLDivElement, ICartOverlayProps>(({ handleOverl
           <CloseIcon />
         </button>
       </div>
-      <div className={styles.overlay__items}>
-        {!cartEmpty ?
-          cartItems && cartItems.map((cartItem, index) => (
+      {!cartEmpty ?
+        <div className={styles.overlay__items}>
+          {cartItems && cartItems.map((cartItem, index) => (
             <CartItem cart={cartItem} key={index} />
-          ))
-          :
+          ))}
+        </div>
+        :
+        <div className={styles.overlay__empty}>
           <CartEmptyState handleOverlay={handleOverlayClick} />
-        }
-      </div>
+        </div>
+      }
       {!cartEmpty && (
         <div className={styles.overlay__checkout}>
           <TotalPrice discount={0} />

@@ -95,6 +95,13 @@
 
                 @include CustomScroll;
             }
+
+            &__empty {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex: 1;
+            }
         }
     }
 }
