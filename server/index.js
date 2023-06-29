@@ -2,6 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 import bodyParser from "body-parser";
+import dotenv from "dotenv";
 
 //routes
 import AuthRoutes from "./routes/auth.js";
@@ -14,9 +15,10 @@ import OrderRoutes from "./routes/orders.js";
 import ReviewsRoutes from "./routes/reviews.js";
 import SearchRoutes from "./routes/search.js";
 
-const PORT = process.env.PORT || 3001;
-const db =
-  "mongodb+srv://luxurypluxury:28082004r@wedding.fwhc0ye.mongodb.net/wedding?retryWrites=true&w=majority";
+dotenv.config();
+
+const PORT = process.env.PORT;
+const db = `${process.env.DB}`;
 
 mongoose
   .connect(db)
