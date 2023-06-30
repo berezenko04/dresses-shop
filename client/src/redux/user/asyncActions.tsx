@@ -1,9 +1,10 @@
 import { getAuthMe, getUserData, updateUserData } from "@/API/userService";
 import { TLoginFormValues } from "@/components/Forms/LoginForm";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { IUserData, IUserSliceState } from "./types";
+import { IUserData } from "./types";
 import { updateUser } from "./slice";
 import { toast } from "react-toastify";
+import { RootState } from "../store";
 
 export const fetchUserData = createAsyncThunk(
     '/auth/fetchUserData',
@@ -29,7 +30,7 @@ export const fetchAuthMe = createAsyncThunk(
 export const updateUserAsync = createAsyncThunk(
     'user/updateUser',
     async (payload: Partial<IUserData>, { dispatch, getState }) => {
-        const { data } = getState().user as IUserSliceState;
+        const { data } = (getState() as RootState).user;
 
         if (data) {
             try {

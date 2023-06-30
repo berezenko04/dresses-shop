@@ -83,7 +83,7 @@ const Account: React.FC = () => {
                             </div>
                             <div className={styles.account__edit__profile}>
                                 <h4>Profile information</h4>
-                                <form action="" className={styles.account__edit__profile__form} onSubmit={handleSubmit(onSubmit)}>
+                                <form className={styles.account__edit__profile__form} onSubmit={handleSubmit(onSubmit)}>
                                     <AuthField
                                         type='text'
                                         title='First Name'
@@ -93,6 +93,10 @@ const Account: React.FC = () => {
                                             required: true,
                                             minLength: 3,
                                             maxLength: 50,
+                                            pattern: {
+                                                value: /^[a-zA-Zа-яА-Я]+$/,
+                                                message: "Invalid name."
+                                            }
                                         })}
                                     />
                                     <AuthField
@@ -104,6 +108,10 @@ const Account: React.FC = () => {
                                             required: true,
                                             minLength: 3,
                                             maxLength: 50,
+                                            pattern: {
+                                                value: /^[a-zA-Zа-яА-Я]+$/,
+                                                message: "Invalid last name."
+                                            }
                                         })}
                                     />
                                     <AuthField
@@ -111,6 +119,7 @@ const Account: React.FC = () => {
                                         title='Email'
                                         defaultValue={data?.email}
                                         error={Boolean(errors.email)}
+                                        readOnly
                                         {...register("email", {
                                             required: true,
                                             minLength: 3,

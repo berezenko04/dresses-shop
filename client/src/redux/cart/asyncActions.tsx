@@ -1,8 +1,9 @@
 import { addToCart, getCart, removeFromCart } from "@/API/cartService";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { addInCart, deleteFromCart } from "./slice";
-import { TCartItemInfo, ICartState } from "./types";
+import { TCartItemInfo } from "./types";
 import { toast } from "react-toastify";
+import { RootState } from "../store";
 
 export const fetchCart = createAsyncThunk(
     'cart/fetchCart',
@@ -15,11 +16,11 @@ export const fetchCart = createAsyncThunk(
 export const addToCartAsync = createAsyncThunk(
     'cart/addToCart',
     async (payload: TCartItemInfo, { dispatch, getState }) => {
-        const { cartItems } = getState().cart as ICartState;
+        const { cartItems } = (getState() as RootState).cart;
         const { id, size } = payload;
         const findItem = cartItems.find((obj) => (obj.id === id) && (obj.size === size));
         if (!findItem) {
-            const data = await addToCart(id, size); 
+            const data = await addToCart(id, size);
             dispatch(addInCart(data));
         } else {
             toast.error('Item already in cart');

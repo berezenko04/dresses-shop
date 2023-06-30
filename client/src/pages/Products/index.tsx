@@ -36,6 +36,10 @@ const Products: React.FC = () => {
         dispatch(fetchProducts({ page: newPage, limit }));
     }
 
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [])
+
     return (
         <div className="container">
             <div className={styles.page}>

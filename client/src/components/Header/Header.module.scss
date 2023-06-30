@@ -4,47 +4,23 @@
     margin-top: -60px;
 
     &__wrapper {
-        position: relative;
-    }
-
-    &__image {
+        background: linear-gradient(0deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.2) 100%),
+            url("@/assets/img/header.jpg");
         height: 650px;
-        overflow: hidden;
-
-        img {
-            object-fit: cover;
-            object-position: center;
-            width: 100%;
-            height: 100%;
-        }
-
-        &::after {
-            content: '';
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            top: 0;
-            left: 0;
-            background: linear-gradient(0deg, rgba(0, 0, 0, 0.20) 0%, rgba(0, 0, 0, 0.20) 100%);
-        }
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        padding-top: 70px;
     }
 
-    &__text {
-        padding-top: 72px;
-        position: absolute;
-        top: 0;
-        left: 0;
-
-        h1 {
-            font-size: 80px;
-            font-family: Placid Armor;
-            font-style: normal;
-            font-weight: 500;
-            line-height: 130%;
-            letter-spacing: -2px;
-            text-transform: uppercase;
-            text-align: center;
-            color: $grey-50;
-        }
+    h1 {
+        font-size: 76px;
+        font-family: "Placid Armor", serif;
+        font-weight: 500;
+        line-height: 130%;
+        letter-spacing: -2px;
+        text-transform: uppercase;
+        color: $grey-50;
+        text-align: center;
     }
 }

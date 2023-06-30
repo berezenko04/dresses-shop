@@ -10,6 +10,13 @@ const initialState: IUserSliceState = {
     message: null
 }
 
+interface IErrorPayload {
+    error: {
+        message: string;
+        // другие свойства ошибки
+    }
+}
+
 const UserSlice = createSlice({
     name: 'auth',
     initialState,
@@ -39,10 +46,10 @@ const UserSlice = createSlice({
             state.status = Status.SUCCESS;
         })
 
-        builder.addCase(fetchUserData.rejected, (state, action) => {
+        builder.addCase(fetchUserData.rejected, (state, action: PayloadAction<unknown>) => {
             state.data = null;
             state.status = Status.ERROR;
-            state.message = action.payload.error.message;
+            state.message = (action.payload as IErrorPayload).error.message;
         })
 
         builder.addCase(fetchAuthMe.pending, (state) => {

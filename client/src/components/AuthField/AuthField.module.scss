@@ -51,6 +51,10 @@
                 -webkit-appearance: none;
                 margin: 0;
             }
+
+            &:read-only {
+                background-color: $grey-50;
+            }
         }
 
         svg {

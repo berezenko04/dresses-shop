@@ -1,5 +1,5 @@
 export type TComment = {
-    _id: string,
+    _id?: string,
     text: string,
     likes: string[],
     dislikes: string[],

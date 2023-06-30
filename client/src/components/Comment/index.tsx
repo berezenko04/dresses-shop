@@ -60,14 +60,14 @@ const Comment: React.FC<TComment> = ({ _id, text, date, rating, likes, dislikes,
                 <span>{date}</span>
                 <div className={styles.comment__footer__likes}>
                     <button
-                        onClick={() => dispatch(likeComment(_id))}
+                        onClick={() => _id && dispatch(likeComment(_id))}
                         className={likes.includes(userId) ? styles.active : ''}
                     >
                         <LikeIcon />
                         {likes.length !== 0 ? likes.length : 0}
                     </button>
                     <button
-                        onClick={() => dispatch(dislikeComment(_id))}
+                        onClick={() => _id && dispatch(dislikeComment(_id))}
                         className={dislikes.includes(userId) ? styles.active : ''}
                     >
                         <DislikeIcon />

@@ -7,6 +7,11 @@
 
     &__image {
         height: 535px;
+    }
+
+    a span {
+        display: block !important;
+        height: 100%;
         width: 100%;
 
         img {

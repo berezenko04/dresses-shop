@@ -109,12 +109,14 @@ const Home: React.FC = () => {
             </SectionBlock>
             <SwiperBlock title={'Dresses'} products={products} />
             <section className={styles.page__companies}>
-                <div className={styles.page__companies__wrapper}>
-                    {companies.map((company, index) => (
-                        <a href="#" target='_blank' rel='noopener noreferrer'>
-                            <img key={index} src={company} alt="company" />
-                        </a>
-                    ))}
+                <div className="container">
+                    <div className={styles.page__companies__wrapper}>
+                        {companies.map((company, index) => (
+                            <a href="#" target='_blank' rel='noopener noreferrer' key={index}>
+                                <img src={company} alt="company" />
+                            </a>
+                        ))}
+                    </div>
                 </div>
             </section>
         </div>

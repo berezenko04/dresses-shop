@@ -40,8 +40,6 @@ const Settings: React.FC = () => {
         }
     }
 
-    console.log(new Date().toString());
-
     const onSubmit: SubmitHandler<IPasswordForm> = async (data) => {
         try {
             await axios.post("/change-password", data);
