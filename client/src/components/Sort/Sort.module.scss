@@ -18,6 +18,7 @@
             width: 14px !important;
             height: 14px !important;
         }
+
         .range-slider__range {
             background: $primary-500 !important;
         }
@@ -33,7 +34,7 @@
                 input[type="checkbox"] {
                     display: none;
 
-                    &:checked + label {
+                    &:checked+label {
                         border-color: $primary-500;
                     }
                 }
@@ -64,7 +65,7 @@
             input[type="checkbox"] {
                 display: none;
 
-                &:checked + label svg {
+                &:checked+label svg {
                     display: flex;
                 }
             }

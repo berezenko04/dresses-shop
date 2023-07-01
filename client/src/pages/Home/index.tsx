@@ -20,17 +20,17 @@ import { productsSelector } from '@/redux/products/selectors'
 import { ReactComponent as ArrowDiagonalIcon } from '@/assets/icons/arrow-diagonal.svg'
 
 //images
-import DressesImage from '@/assets/img/dresses.jpg'
-import SuitsImage from '@/assets/img/suits.jpg'
-import AccessoriesImage from '@/assets/img/accessories.jpg'
-import ForHerImage from '@/assets/img/for-her.jpg'
-import ForHimImage from '@/assets/img/for-him.jpg'
-import TailoringImage from '@/assets/img/tailoring.jpg'
-import BusinessLogo from '@/assets/img/logos/business-insider.png'
-import ForbesLogo from '@/assets/img/logos/forbes.png'
-import WashingtonLogo from '@/assets/img/logos/washington-post.png'
-import AmazonLogo from '@/assets/img/logos/amazon.png'
-import SquareLogo from '@/assets/img/logos/square.png'
+import DressesImage from '@/assets/img/dresses.webp'
+import SuitsImage from '@/assets/img/suits.webp'
+import AccessoriesImage from '@/assets/img/accessories.webp'
+import ForHerImage from '@/assets/img/for-her.webp'
+import ForHimImage from '@/assets/img/for-him.webp'
+import TailoringImage from '@/assets/img/tailoring.webp'
+import BusinessLogo from '@/assets/img/logos/business-insider.webp'
+import ForbesLogo from '@/assets/img/logos/forbes.webp'
+import WashingtonLogo from '@/assets/img/logos/washington-post.webp'
+import AmazonLogo from '@/assets/img/logos/amazon.webp'
+import SquareLogo from '@/assets/img/logos/square.webp'
 
 
 
