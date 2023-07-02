@@ -22,6 +22,50 @@
         .range-slider__range {
             background: $primary-500 !important;
         }
+
+        .multi-range-slider {
+            box-shadow: none;
+            border: none;
+            padding: 0;
+            border-radius: none;
+            height: 8px;
+            max-width: 232px;
+            width: 100%;
+
+            .bar {
+                &-left,
+                &-right,
+                &-inner {
+                    box-shadow: none;
+                    border-radius: 0;
+                }
+
+                &-inner {
+                    background-color: orange;
+                    border: none;
+                }
+            }
+
+            .thumb {
+                box-shadow: none;
+
+                &::before {
+                    width: 14px;
+                    height: 14px;
+                    box-shadow: none;
+                    border: none;
+                    background-color: orange;
+                    margin: -3px;
+                }
+            }
+
+            .ruler,
+            .labels,
+            .max-caption,
+            .min-caption {
+                display: none;
+            }
+        }
     }
 
     &__sizes {
@@ -34,7 +78,7 @@
                 input[type="checkbox"] {
                     display: none;
 
-                    &:checked+label {
+                    &:checked + label {
                         border-color: $primary-500;
                     }
                 }
@@ -65,7 +109,7 @@
             input[type="checkbox"] {
                 display: none;
 
-                &:checked+label svg {
+                &:checked + label svg {
                     display: flex;
                 }
             }

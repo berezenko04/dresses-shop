@@ -5,7 +5,7 @@ import styles from './AuthLayout.module.scss'
 import 'react-toastify/dist/ReactToastify.css';
 
 //images
-import WeddingImage from '@/assets/img/register.jpg'
+import WeddingImage from '@/assets/img/register.webp'
 
 type TAuthLayoutProps = {
     children: React.ReactNode

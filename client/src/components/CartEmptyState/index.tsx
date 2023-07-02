@@ -21,7 +21,7 @@ const CartEmptyState: React.FC<TCartEmptyStateProps> = ({ handleOverlay = () => 
                 <p>You haven't added anything to your cart yet</p>
                 <p>Add an item to your shopping cart and it will appear in this list.</p>
             </div>
-            <Link to={'/Sandrela/dresses'} onClick={() => handleOverlay()}>
+            <Link to={'/dresses'} onClick={() => handleOverlay()}>
                 <Button size='sm' theme='primary'>Go shopping</Button>
             </Link>
         </div>

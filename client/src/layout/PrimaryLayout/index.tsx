@@ -17,7 +17,7 @@ const PrimaryLayout: React.FC = () => {
         <>
             <SupportUkraine />
             <Navbar />
-            {location.pathname !== '/Sandrela' && <BreadCrumbs />}
+            {location.pathname !== '/' && <BreadCrumbs />}
             <main style={{ paddingTop: '60px', paddingBottom: '60px' }}>
                 <Outlet />
                 <ToastContainer

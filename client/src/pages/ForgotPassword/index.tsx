@@ -101,14 +101,14 @@ const ForgotPassword: React.FC = () => {
             }
 
             {!user ?
-                <Link to="/Sandrela/login">
+                <Link to="/login">
                     <Button size='sm' theme='tertiary-link' type='button'>
                         <ArrowLeftIcon />
                         Back to login
                     </Button>
                 </Link>
                 :
-                <Link to="/Sandrela/profile/settings">
+                <Link to="/profile/settings">
                     <Button size='sm' theme='tertiary-link' type='button'>
                         <ArrowLeftIcon />
                         Back to settings

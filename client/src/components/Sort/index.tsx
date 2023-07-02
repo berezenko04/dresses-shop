@@ -8,6 +8,7 @@ import styles from './Sort.module.scss'
 
 //components
 import Dropdown from '../Dropdown';
+import Button from '../Button';
 import MultiRangeSlider from '../MultiRangeSlider';
 
 //icons
@@ -16,7 +17,7 @@ import { ReactComponent as CheckIcon } from '@/assets/icons/check.svg'
 //redux
 import { productsMaxPriceSelector } from '@/redux/products/selectors';
 import { fetchProducts } from '@/redux/products/asyncActions';
-import Button from '../Button';
+
 
 
 const Sort: React.FC = () => {
@@ -24,12 +25,14 @@ const Sort: React.FC = () => {
     const [selectedColors, setSelectedColors] = useState<string[]>([]);
     const [selectedSizes, setSelectedSizes] = useState<string[]>([]);
     const [priceRange, setPriceRange] = useState('');
+    const [sliderVisible, setSliderVisible] = useState(false);
+    const [sliderReset, setSliderReset] = useState(false);
 
     const maxPrice = useSelector(productsMaxPriceSelector);
 
     const colors = [
         { name: 'blue', hex: '#82DBF8', lighten: false },
-        { name: 'lactic', hex: '#FFF6EE', lighten: false },
+        { name: 'lactic', hex: '#FFF6EE', lighten: true },
         { name: 'white', hex: '#ffffff', lighten: true },
         { name: 'golden', hex: '#FFD66C', lighten: false }
     ];
@@ -59,20 +62,26 @@ const Sort: React.FC = () => {
         setSelectedColors([]);
         setSelectedSizes([]);
         setPriceRange('');
+        setSliderReset(true);
     }
 
     useEffect(() => {
+        if (!sliderVisible) {
+            return;
+        }
+
         const delayedFetch = debounce(() => {
             dispatch(fetchProducts({
                 colors: selectedColors.join(','),
                 sizes: selectedSizes.join(','),
                 priceRange,
             }));
+            setSliderReset(false);
         }, 300);
         delayedFetch();
 
         return delayedFetch.cancel;
-    }, [selectedColors, selectedSizes, priceRange]);
+    }, [selectedColors, selectedSizes, priceRange, sliderVisible]);
 
     return (
         <aside className={styles.sort}>
@@ -80,7 +89,9 @@ const Sort: React.FC = () => {
                 <MultiRangeSlider
                     min={0}
                     max={maxPrice}
+                    onSliderVisible={() => setSliderVisible(true)}
                     onChange={({ min, max }) => (setPriceRange(`${min}-${max}`))}
+                    reset={sliderReset}
                 />
             </Dropdown>
             <Dropdown title='By size' className={styles.sort__sizes}>

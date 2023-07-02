@@ -10,7 +10,7 @@ import { TProductItem } from '@/redux/products/types'
 
 
 const ProductCardSmall: React.FC<TProductItem> = ({ _id, title, price, images, discount }) => {
-    const link = `/Sandrela/dresses/${_id}`;
+    const link = `/dresses/${_id}`;
 
     return (
         <article className={styles.card}>

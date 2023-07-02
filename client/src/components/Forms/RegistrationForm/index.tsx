@@ -41,7 +41,7 @@ const RegistrationForm: React.FC = () => {
       }
 
       await axios.post("/auth/register", newData);
-      navigate("/Sandrela/login");
+      navigate("/login");
     } catch (err: any) {
       setError(err?.response.data.message);
     }
@@ -146,7 +146,7 @@ const RegistrationForm: React.FC = () => {
         Create Account
       </Button>
       <p>
-        Already have account? <Link to="/Sandrela/login">Log in</Link>
+        Already have account? <Link to="/login">Log in</Link>
       </p>
     </form>
   );

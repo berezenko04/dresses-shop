@@ -154,7 +154,7 @@ const Product: React.FC = () => {
                                     <div className={styles.page__product__right__sizes}>
                                         <div className={styles.page__product__right__sizes__head}>
                                             <p className='regular-uppercase'>Select Size</p>
-                                            <Link to="">Size Guide</Link>
+                                            <Link to="#">Size Guide</Link>
                                         </div>
                                         <ul className={styles.page__product__right__sizes__list}>
                                             {product.sizes.map((size, index) => (

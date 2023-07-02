@@ -18,11 +18,11 @@ const ShippingInfo: React.FC<TShippingInfoProps> = ({ editable = false }) => {
         <div className={styles.shipping}>
             <div className={styles.shipping__head}>
                 <h4>Shipping Address</h4>
-                {editable && <Link to={'/Sandrela/profile/shipping'}>Edit</Link>}
+                {editable && <Link to={'/profile/shipping'}>Edit</Link>}
             </div>
             <ul className={styles.shipping__body}>
                 <li>{`${data?.name} ${data?.lastName}`}</li>
-                <li>{data?.address ? data.address : <Link to={'/Sandrela/profile/shipping'}>Set your shipping address</Link>}</li>
+                <li>{data?.address ? data.address : <Link to={'/profile/shipping'}>Set your shipping address</Link>}</li>
                 <li>{data?.email}</li>
             </ul>
         </div>

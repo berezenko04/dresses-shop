@@ -30,9 +30,9 @@ import { fetchWishList } from '@/redux/wishList/asyncActions'
 const Navbar: React.FC = () => {
     const [isScrolled, setIsScrolled] = useState(false);
     const links = [
-        { name: 'Find a Store', href: '' },
-        { name: 'Help', href: '' },
-        { name: 'Join us', href: '' },
+        'Find a Store',
+        'Help',
+        'Join us'
     ];
 
     const dispatch = useAppDispatch();
@@ -104,7 +104,7 @@ const Navbar: React.FC = () => {
                         <ul className={styles.navbar__top__info}>
                             {links.map((link, index) => (
                                 (index === 3 && isAuth) ? '' :
-                                    <li key={index}><Link to={link.href}>{link.name}</Link></li>
+                                    <li key={index}><Link to={'#'}>{link}</Link></li>
                             ))}
                         </ul>
                     </div>
@@ -113,15 +113,15 @@ const Navbar: React.FC = () => {
             <div className={styles.navbar__bottom}>
                 <div className="container">
                     <div className={styles.navbar__bottom__wrapper}>
-                        <Link to="/Sandrela" className={styles.navbar__bottom__logo}>Sandrela</Link>
-                        <Link to='/Sandrela/dresses' className={styles.navbar__bottom__catalog}>
+                        <Link to="/" className={styles.navbar__bottom__logo}>Sandrela</Link>
+                        <Link to='/dresses' className={styles.navbar__bottom__catalog}>
                             <PlatesIcon />
                             <span>Catalog</span>
                         </Link>
                         <SearchBar />
                         {isAuth ?
                             <div className={styles.navbar__bottom__user}>
-                                <Link to="/Sandrela/profile/wishlist">
+                                <Link to="/profile/wishlist">
                                     <FavoriteIcon />
                                     {wishList.length > 0 && <span>{wishList.length}</span>}
                                 </Link>
@@ -131,19 +131,19 @@ const Navbar: React.FC = () => {
                                 </button>
                                 <Link
                                     className={styles.navbar__bottom__user__avatar}
-                                    to={`/Sandrela/profile/account`}
+                                    to={`/profile/account`}
                                 >
                                     <img src={data?.avatarUrl} alt="" />
                                 </Link>
                             </div>
                             :
                             <div className={styles.navbar__bottom__auth}>
-                                <Link to={'/Sandrela/register'}>
+                                <Link to={'/register'}>
                                     <Button theme='secondary' size='sm'>
                                         Sign Up
                                     </Button>
                                 </Link>
-                                <Link to={'/Sandrela/login'}>
+                                <Link to={'/login'}>
                                     <Button theme='primary' size='sm'>
                                         Log in
                                     </Button>

@@ -48,7 +48,7 @@ const LoginForm: React.FC = () => {
     }
 
     if (isAuth) {
-        return <Navigate to={'/Sandrela'} />;
+        return <Navigate to={'/'} />;
     }
 
     return (
@@ -79,12 +79,12 @@ const LoginForm: React.FC = () => {
                     {errors.password?.type === 'minLength' && <span>Password must be at least 8 characters.</span>}
                     {errors.password?.type === 'maxLength' && <span>Password must be less than 32 characters.</span>}
                 </div>
-                <Link className={styles.form__forgot} to={'/Sandrela/forgot-password'}>
+                <Link className={styles.form__forgot} to={'/forgot-password'}>
                     Forgot Password?
                 </Link>
             </div>
             <Button size='sm' theme='primary' type="submit">Login</Button>
-            <p>Don`t have an account? <Link to="/Sandrela/register">Register</Link></p>
+            <p>Don`t have an account? <Link to="/register">Register</Link></p>
         </form>
     );
 }

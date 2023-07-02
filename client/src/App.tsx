@@ -51,7 +51,7 @@ function App() {
     <div className="App">
       <Suspense fallback={<Loader />}>
         <Routes>
-          <Route path={'Sandrela/'} element={<PrimaryLayout />}>
+          <Route path={'/'} element={<PrimaryLayout />}>
             <Route path={''} element={<Home />} />
             <Route path={'*'} element={<Error404 />} />
             <Route path={'dresses'} element={<Products />} />
@@ -70,12 +70,12 @@ function App() {
           </Route>
           {!token && (
             <>
-              <Route path={'Sandrela/register'} element={<Register />} />
-              <Route path={'Sandrela/login'} element={<Login />} />
+              <Route path={'/register'} element={<Register />} />
+              <Route path={'/login'} element={<Login />} />
             </>
           )}
-          <Route path={'Sandrela/forgot-password'} element={<ForgotPassword />} />
-          <Route path={'Sandrela/reset-password/:id/:token/'} element={<ResetPassword />} />
+          <Route path={'/forgot-password'} element={<ForgotPassword />} />
+          <Route path={'/reset-password/:id/:token/'} element={<ResetPassword />} />
         </Routes>
       </Suspense>
     </div>

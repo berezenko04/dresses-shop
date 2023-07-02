@@ -123,7 +123,7 @@ const Settings: React.FC = () => {
                             </div>
                             <div className={styles.settings__passwordForm__buttons}>
                                 <Button type='submit' theme='primary' size='sm'>Change Password</Button>
-                                <Link to='/Sandrela/forgot-password'>
+                                <Link to='/forgot-password'>
                                     <Button type='button' theme='tertiary' size='sm'>Forgot Password</Button>
                                 </Link>
                             </div>

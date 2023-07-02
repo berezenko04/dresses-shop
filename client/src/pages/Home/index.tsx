@@ -65,7 +65,7 @@ const Home: React.FC = () => {
                     {categories.map((category, index) => (
                         <div className={styles.page__categories__item} key={index}>
                             <img src={category.imageUrl} alt={category.title} />
-                            <Link to={'/Sandrela/dresses'}>
+                            <Link to={'/dresses'}>
                                 {category.title}
                                 <ArrowDiagonalIcon />
                             </Link>
@@ -78,14 +78,14 @@ const Home: React.FC = () => {
                 <div className={styles.page__clothing}>
                     <div className={styles.page__clothing__item}>
                         <img src={ForHerImage} alt={'for her'} />
-                        <Link to={'/Sandrela/dresses'}>
+                        <Link to={'/dresses'}>
                             For Her
                             <ArrowDiagonalIcon />
                         </Link>
                     </div>
                     <div className={styles.page__clothing__item}>
                         <img src={ForHimImage} alt={'for him'} />
-                        <Link to={'/Sandrela/dresses'}>
+                        <Link to={'/dresses'}>
                             For Him
                             <ArrowDiagonalIcon />
                         </Link>
@@ -98,7 +98,7 @@ const Home: React.FC = () => {
                     <div className={styles.page__tailoring__left}>
                         <h2>Bridal shop with the possibility of individual tailoring</h2>
                         <p>Bridal shop with the possibility of individual tailoring</p>
-                        <Link to={'/Sandrela/dresses'}>
+                        <Link to={'/dresses'}>
                             <Button theme='primary' size='sm'>Buy now</Button>
                         </Link>
                     </div>

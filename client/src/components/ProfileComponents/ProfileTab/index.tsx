@@ -14,7 +14,7 @@ interface IProfileTabProps {
 
 const ProfileTab: React.FC<IProfileTabProps> = ({ title, icon, active, href }) => {
     return (
-        <Link to={`/Sandrela/profile/${href}`} className={cn(styles.tab, active && styles.tab__active)}>
+        <Link to={`/profile/${href}`} className={cn(styles.tab, active && styles.tab__active)}>
             {icon}
             <span>{title}</span>
         </Link>

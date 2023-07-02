@@ -41,7 +41,7 @@ const ResetPasswordForm: React.FC = () => {
                 localStorage.removeItem('token');
             }
             dispatch(fetchAuthMe());
-            navigate('/Sandrela/login');
+            navigate('/login');
         } catch (err: AxiosResponse | any) {
             toast.error(err?.response?.data.message);
         }
@@ -96,7 +96,7 @@ const ResetPasswordForm: React.FC = () => {
                 </div>
                 <Button size='sm' theme='primary' type="submit">Reset Password</Button>
                 {!user &&
-                    <Link to="/Sandrela/login">
+                    <Link to="/login">
                         <Button size='sm' theme='tertiary-link' type='button'>
                             <ArrowLeftIcon />
                             Back to login

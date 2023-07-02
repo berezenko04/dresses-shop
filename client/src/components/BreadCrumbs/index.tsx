@@ -31,9 +31,9 @@ const BreadCrumbs: React.FC = () => {
         <div className={styles.block} >
             <div className="container">
                 <ul>
-                    {location.pathname !== '/Sandrela' &&
+                    {location.pathname !== '/' &&
                         <li>
-                            <Link to={'/Sandrela'}>Home</Link>
+                            <Link to={'/'}>Home</Link>
                             <ArrowRightIcon />
                         </li>
                     }
@@ -42,7 +42,7 @@ const BreadCrumbs: React.FC = () => {
                             {index !== paths.length - 1 ?
                                 <>
                                     {path !== 'profile' ?
-                                        <Link to={`/Sandrela/${paths.slice(0, index + 1).join('/')}`}>
+                                        <Link to={`/${paths.slice(0, index + 1).join('/')}`}>
                                             {path}
                                         </Link>
                                         :

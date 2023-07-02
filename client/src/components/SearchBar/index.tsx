@@ -137,7 +137,7 @@ const SearchBar: React.FC = () => {
                                     <li key={index}>
                                         <Link
                                             onClick={(e) => handleClickLink(e, item.title, item._id)}
-                                            to={`/Sandrela/dresses/${item._id}`}
+                                            to={`/dresses/${item._id}`}
                                         >
                                             {item.title}
                                         </Link>
@@ -159,7 +159,7 @@ const SearchBar: React.FC = () => {
                                 <li key={index}>
                                     <Link
                                         onClick={(e) => handleClickLink(e, item.title, item.id)}
-                                        to={`/Sandrela/dresses/${item.id}`}
+                                        to={`/dresses/${item.id}`}
                                     >
                                         {item.title}
                                     </Link>

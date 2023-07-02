@@ -50,7 +50,7 @@ const SwiperBlock: React.FC<ISwiperBlockProps> = ({ products, title }) => {
                     </button>
                 </div>
             </div>
-            <div style={{ marginRight: '-60px' }}>
+            <div>
                 <Swiper
                     spaceBetween={32}
                     slidesPerView={3.2}

@@ -60,7 +60,7 @@ const CartOverlay = forwardRef<HTMLDivElement, ICartOverlayProps>(({ handleOverl
       {!cartEmpty && (
         <div className={styles.overlay__checkout}>
           <TotalPrice discount={0} />
-          <Link to="/Sandrela/checkout">
+          <Link to="/checkout">
             <Button theme="primary" size="sm" onClick={handleOverlayClick}>
               Checkout
             </Button>

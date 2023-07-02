@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState, useRef, memo } from "react";
+import React, { useCallback, useEffect, useState, useRef } from "react";
 import cn from 'classnames'
 
 //styles
@@ -8,10 +8,12 @@ import styles from "./MultiRangeSlider.module.scss";
 type TMultiRangeSliderProps = {
     min: number,
     max: number,
-    onChange: (props: { min: number, max: number }) => void
+    onChange: (props: { min: number, max: number }) => void,
+    onSliderVisible?: () => void,
+    reset: boolean
 }
 
-const MultiRangeSlider: React.FC<TMultiRangeSliderProps> = memo(({ min, max, onChange }) => {
+const MultiRangeSlider: React.FC<TMultiRangeSliderProps> = ({ min, max, onChange, onSliderVisible, reset }) => {
     const [minVal, setMinVal] = useState(min);
     const [maxVal, setMaxVal] = useState(max);
     const minValRef = useRef(min);
@@ -22,6 +24,15 @@ const MultiRangeSlider: React.FC<TMultiRangeSliderProps> = memo(({ min, max, onC
         (value: number) => Math.round(((value - min) / (max - min)) * 100),
         [min, max]
     );
+
+    useEffect(() => {
+        if (reset) {
+            setMinVal(min);
+            setMaxVal(max);
+            minValRef.current = min;
+            maxValRef.current = max;
+        }
+    }, [reset])
 
     useEffect(() => {
         const minPercent = getPercent(minVal);
@@ -45,6 +56,12 @@ const MultiRangeSlider: React.FC<TMultiRangeSliderProps> = memo(({ min, max, onC
     useEffect(() => {
         onChange({ min: minVal, max: maxVal });
     }, [minVal, maxVal, onChange]);
+
+    useEffect(() => {
+        if (onSliderVisible) {
+            onSliderVisible();
+        }
+    }, [onSliderVisible]);
 
     return (
         <div className={styles.multiRange}>
@@ -86,6 +103,6 @@ const MultiRangeSlider: React.FC<TMultiRangeSliderProps> = memo(({ min, max, onC
             </div>
         </div>
     );
-});
+};
 
 export default MultiRangeSlider;

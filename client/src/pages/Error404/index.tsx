@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import styles from './Error404.module.scss'
 
 //images
-import ErrorImage from '@/assets/img/404.png'
+import ErrorImage from '@/assets/img/404.webp'
 import { ReactComponent as ArrowLeftIcon } from '@/assets/icons/arrow-left.svg'
 
 //components
@@ -36,7 +36,7 @@ const Error404: React.FC = () => {
                                 <ArrowLeftIcon />
                                 Go back
                             </Button>
-                            <Link to={'/Sandrela/'}>
+                            <Link to={'/'}>
                                 <Button theme='primary' size='lg'>
                                     Go to the main page
                                 </Button>
