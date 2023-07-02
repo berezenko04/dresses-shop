@@ -167,6 +167,7 @@ export const getUser = async (req, res) => {
 
 export const uploadAvatar = async (req, res) => {
   try {
+    const userId = req.userId;
     const tempFilePath = req.file.path;
     const originalName = req.file.originalname;
 
@@ -175,6 +176,16 @@ export const uploadAvatar = async (req, res) => {
       .update(originalName + Date.now())
       .digest("hex");
     const destinationPath = `uploads/${hash}.webp`;
+
+    const user = await UserModel.findById(userId);
+    const previousAvatarUrl = user.avatarUrl;
+
+    if (previousAvatarUrl) {
+      const previousAvatarPath = `uploads/${previousAvatarUrl.split("/").pop()}`;
+      if (fs.existsSync(previousAvatarPath)) {
+        fs.unlinkSync(previousAvatarPath);
+      }
+    }
 
     await sharp(tempFilePath).resize(200, 200, { fit: "inside" }).toFile(destinationPath);
 
@@ -185,7 +196,7 @@ export const uploadAvatar = async (req, res) => {
     });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Ошибка при загрузке и обработке изображения" });
+    res.status(500).json({ error: "Error while uploading image" });
   }
 };
 

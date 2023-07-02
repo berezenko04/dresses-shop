@@ -58,7 +58,7 @@ const Account: React.FC = () => {
 
     const handleVisible = () => {
         setIsUploadVisible(!isUploadVisible);
-        setEditable(!editable);
+        editable && setEditable(false);
         document.body.classList.toggle('overlay-opened');
     }
 

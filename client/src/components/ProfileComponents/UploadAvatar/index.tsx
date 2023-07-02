@@ -60,7 +60,6 @@ const UploadAvatar = forwardRef<HTMLDivElement, TUploadAvatarProps>(({ handleVis
     const handleDeletePhoto = async () => {
         dispatch(updateUserAsync({ avatarUrl: '/default-avatar.png' }));
         handleVisible();
-        toast.success('Avatar removed succesfully');
     }
 
 
