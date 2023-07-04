@@ -1,4 +1,4 @@
-import Cards, { Focused } from 'react-credit-cards'
+import Cards, { Focused } from 'react-credit-cards-2'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { ChangeEvent, FocusEvent, useState } from 'react'
 import { number } from 'card-validator'
@@ -8,7 +8,7 @@ import { toast } from 'react-toastify'
 
 //styles
 import styles from './CreditCardForm.module.scss'
-import 'react-credit-cards/es/styles-compiled.css'
+import 'react-credit-cards-2/dist/es/styles-compiled.css'
 
 //components
 import AuthField from '../../AuthField'

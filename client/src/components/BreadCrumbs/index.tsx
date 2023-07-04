@@ -28,7 +28,7 @@ const BreadCrumbs: React.FC = () => {
     }, [match, paths])
 
     return (
-        <div className={styles.block} >
+        <div className={styles.crumbs} >
             <div className="container">
                 <ul>
                     {location.pathname !== '/' &&

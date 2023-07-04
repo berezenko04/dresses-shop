@@ -15,6 +15,7 @@ import Pagination from '@/components/Pagination';
 //redux
 import { wishListLengthSelector, wishListSelector, wishListStatusSelector } from '@/redux/wishList/selectors';
 import { fetchWishList } from '@/redux/wishList/asyncActions';
+import CartEmptyState from '@/components/CartEmptyState';
 
 
 
@@ -40,17 +41,22 @@ const WishList: React.FC = () => {
             <ProfileLayout>
                 <div className={styles.wishlist__wrapper}>
                     <h3>Wish List ({wishListCount})</h3>
-                    <div className={styles.wishlist__main}>
-                        {status === 'success' ?
-                            wishList.map((item, index) => (
-                                <ProductCardExtended {...item} key={index} />
-                            ))
-                            :
-                            [...Array(6)].map((_, index) => (
-                                <ProductCardSkeleton key={index} />
-                            ))
-                        }
-                    </div>
+                    {!wishList.length && status === 'success' ?
+                        <div className={styles.wishList__main__empty}>
+                            <CartEmptyState />
+                        </div>
+                        :
+                        <div className={styles.wishlist__main}>
+                            {status === 'success' ?
+                                wishList.map((item, index) => (
+                                    <ProductCardExtended {...item} key={index} />
+                                ))
+                                :
+                                [...Array(6)].map((_, index) => (
+                                    <ProductCardSkeleton key={index} />
+                                ))}
+                        </div>
+                    }
                     <Pagination limit={limit} pageCount={pageCount} onPageChange={handlePageChange} />
                 </div>
             </ProfileLayout>

@@ -57,7 +57,7 @@ const Products: React.FC = () => {
                     {showFilters &&
                         <Sort />
                     }
-                    {products.length === 0 && status === 'success' ?
+                    {!products.length && status === 'success' ?
                         <div className={styles.page__main__empty}>
                             <ProductsEmptyState />
                         </div>

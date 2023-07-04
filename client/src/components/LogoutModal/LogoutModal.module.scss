@@ -1,0 +1,33 @@
+@import "@/scss/variables.scss";
+
+.modal {
+    position: absolute;
+    background-color: $white;
+    padding: 24px;
+    width: 580px;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+
+    &__heading {
+        font-weight: 500;
+        font-size: 20px;
+        line-height: 30px;
+        text-transform: uppercase;
+        text-align: center;
+        color: $grey-700;
+    }
+
+    &__wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+    }
+
+    &__buttons {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+}

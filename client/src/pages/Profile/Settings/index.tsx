@@ -1,5 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { useAppDispatch } from '@/redux/store'
+import { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import axios from '@/axios'
 import { toast } from 'react-toastify'
@@ -12,6 +13,7 @@ import Button from '@/components/Button'
 import AuthField from '@/components/AuthField'
 import DeviceInfo from '@/components/ProfileComponents/DeviceInfo'
 import ProfileLayout from '@/layout/ProfileLayout'
+import LogoutModal from '@/components/LogoutModal'
 
 //icons
 import { ReactComponent as TrashIcon } from '@/assets/icons/trash.svg'
@@ -28,17 +30,11 @@ interface IPasswordForm {
 
 
 const Settings: React.FC = () => {
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const { register, handleSubmit, formState: { errors }, watch } = useForm<IPasswordForm>();
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
-    const handleLogout = () => {
-        if (confirm('Are you sure you want to logout?')) {
-            localStorage.removeItem('token');
-            dispatch(fetchAuthMe());
-            navigate('/Sandrela');
-        }
-    }
 
     const onSubmit: SubmitHandler<IPasswordForm> = async (data) => {
         try {
@@ -62,7 +58,7 @@ const Settings: React.FC = () => {
                             <h4>Current Device</h4>
                             <div className={styles.settings__security__current}>
                                 <DeviceInfo />
-                                <button onClick={handleLogout}>
+                                <button onClick={() => setIsModalOpen(true)}>
                                     <TrashIcon />
                                 </button>
                             </div>
@@ -129,6 +125,7 @@ const Settings: React.FC = () => {
                             </div>
                         </form>
                     </div>
+                    <LogoutModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
                 </div>
             </ProfileLayout>
         </div>

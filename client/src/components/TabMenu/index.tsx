@@ -1,11 +1,12 @@
-import { useLocation, useNavigate } from 'react-router-dom'
-import { useAppDispatch } from '@/redux/store'
+import { useLocation } from 'react-router-dom'
+import { useState } from 'react'
 
 //styles
 import styles from './TabMenu.module.scss'
 
 //components
 import ProfileTab from '../ProfileComponents/ProfileTab'
+import LogoutModal from '../LogoutModal'
 
 //icons
 import { ReactComponent as UserIcon } from '@/assets/icons/user.svg'
@@ -17,22 +18,12 @@ import { ReactComponent as HouseIcon } from '@/assets/icons/house.svg'
 import { ReactComponent as NotificationsIcon } from '@/assets/icons/notifications.svg'
 import { ReactComponent as LogoutIcon } from '@/assets/icons/logout.svg'
 
-//redux
-import { fetchAuthMe } from '@/redux/user/asyncActions'
-
 
 const TabMenu: React.FC = () => {
-    const dispatch = useAppDispatch();
-    const location = useLocation();
-    const navigate = useNavigate();
 
-    const handleLogout = () => {
-        if (confirm('Are you sure you want to logout?')) {
-            localStorage.removeItem('token');
-            dispatch(fetchAuthMe());
-            navigate('/');
-        }
-    }
+    const location = useLocation();
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const tabs = [
         { title: 'Account', icon: <UserIcon />, href: 'account' },
@@ -55,10 +46,11 @@ const TabMenu: React.FC = () => {
                     active={location.pathname.includes(tab.href)}
                 />
             ))}
-            <button onClick={handleLogout}>
+            <button onClick={() => setIsModalOpen(true)}>
                 <LogoutIcon />
                 <span>Logout</span>
             </button>
+            <LogoutModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
         </div>
     )
 }
