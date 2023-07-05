@@ -15,8 +15,16 @@
         font-size: 20px;
         line-height: 30px;
         text-transform: uppercase;
+        color: $grey-700 !important;
+    }
+
+    p {
+        color: $grey-500;
         text-align: center;
-        color: $grey-700;
+
+        span {
+            font-weight: 700;
+        }
     }
 
     &__wrapper {

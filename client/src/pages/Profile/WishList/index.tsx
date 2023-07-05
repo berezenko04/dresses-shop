@@ -11,11 +11,11 @@ import ProductCardExtended from '@/components/ProductCard';
 import ProductCardSkeleton from '@/components/Skeletons/ProductCardSkeleton';
 import ProfileLayout from '@/layout/ProfileLayout';
 import Pagination from '@/components/Pagination';
+import EmptyState from '@/components/EmptyState';
 
 //redux
 import { wishListLengthSelector, wishListSelector, wishListStatusSelector } from '@/redux/wishList/selectors';
 import { fetchWishList } from '@/redux/wishList/asyncActions';
-import CartEmptyState from '@/components/CartEmptyState';
 
 
 
@@ -43,7 +43,10 @@ const WishList: React.FC = () => {
                     <h3>Wish List ({wishListCount})</h3>
                     {!wishList.length && status === 'success' ?
                         <div className={styles.wishList__main__empty}>
-                            <CartEmptyState />
+                            <EmptyState
+                                title={"You haven't added anything to your wishlist yet"}
+                                text={'Your wishlist is empty. Start adding items you love!'}
+                            />
                         </div>
                         :
                         <div className={styles.wishlist__main}>

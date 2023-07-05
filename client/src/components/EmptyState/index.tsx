@@ -1,21 +1,26 @@
 //styles
-import styles from './ProductsEmptyState.module.scss'
+import styles from './EmptyState.module.scss'
 
 //icons
 import { ReactComponent as EmptyIcon } from '@/assets/icons/products-empty.svg'
 
-const ProductsEmptyState: React.FC = () => {
+type EmptyStateProps = {
+    title: string,
+    text: string
+}
+
+const EmptyState: React.FC<EmptyStateProps> = ({ title, text }) => {
     return (
         <div className={styles.state}>
             <div className={styles.state__wrapper}>
                 <EmptyIcon />
                 <div className={styles.state__text}>
-                    <h4>Nothing found for your request</h4>
-                    <p>Your search did not match any results. Try clearing the filters or entering other data</p>
+                    <h4>{title}</h4>
+                    <p>{text}</p>
                 </div>
             </div>
         </div>
     )
 }
 
-export default ProductsEmptyState
+export default EmptyState

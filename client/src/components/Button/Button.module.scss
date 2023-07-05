@@ -17,6 +17,10 @@
         box-shadow: 0px 0px 0px 4px rgba(217, 81, 81, 0.3);
     }
 
+    &:disabled {
+        cursor: default;
+    }
+
     svg {
         width: 24px;
         height: 24px;
@@ -102,6 +106,10 @@
             background-color: $grey-50;
             color: $grey-200;
             border: transparent;
+
+            svg path {
+                fill: $grey-200;
+            }
         }
     }
 

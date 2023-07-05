@@ -20,11 +20,12 @@ import { ordersSelector } from '@/redux/orders/selectors'
 //Service
 import { exportCSV } from '@/API/ordersService'
 import { toast } from 'react-toastify'
+import EmptyState from '@/components/EmptyState'
 
 
 const MyOrders: React.FC = () => {
     const dispatch = useAppDispatch();
-    const { orders } = useSelector(ordersSelector);
+    const { orders, status, length } = useSelector(ordersSelector);
 
     useEffect(() => {
         dispatch(fetchOrders());
@@ -50,28 +51,37 @@ const MyOrders: React.FC = () => {
             <ProfileLayout>
                 <div className={styles.orders__wrapper}>
                     <div className={styles.orders__head}>
-                        <h3>Orders</h3>
-                        <Button theme='tertiary' size='sm' onClick={handleExport}>
+                        <h3>Orders ({length})</h3>
+                        <Button disabled={!length} theme='tertiary' size='sm' onClick={handleExport}>
                             Download CSV
                             <UploadIcon />
                         </Button>
                     </div>
-                    <div className={styles.orders__main}>
-                        <div className={styles.orders__main__head}>
-                            <div />
-                            <p>Order Id</p>
-                            <p>Date</p>
-                            <p>Items</p>
-                            <p>Total Amount</p>
-                            <p>Status</p>
-                            <p>Action</p>
+                    {!length && status === 'success' ?
+                        <div className={styles.orders__empty}>
+                            <EmptyState
+                                title={"You haven't made any purchases yet"}
+                                text={"Start exploring our products and add items to your cart to begin building your purchase history"}
+                            />
                         </div>
-                        <div className={styles.orders__main__content}>
-                            {orders.map((order, index) => (
-                                <OrderItem {...order} key={index} />
-                            ))}
+                        :
+                        <div className={styles.orders__main}>
+                            <div className={styles.orders__main__head}>
+                                <div />
+                                <p>Order Id</p>
+                                <p>Date</p>
+                                <p>Items</p>
+                                <p>Total Amount</p>
+                                <p>Status</p>
+                                <p>Action</p>
+                            </div>
+                            <div className={styles.orders__main__content}>
+                                {orders.map((order, index) => (
+                                    <OrderItem {...order} key={index} />
+                                ))}
+                            </div>
                         </div>
-                    </div>
+                    }
                 </div>
             </ProfileLayout>
         </div>

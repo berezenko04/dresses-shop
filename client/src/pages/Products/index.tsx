@@ -12,7 +12,7 @@ import Pagination from '@/components/Pagination';
 import ProductCardSkeleton from '@/components/Skeletons/ProductCardSkeleton';
 import Sort from '@/components/Sort';
 import DropdownFilter from '@/components/DropdownFilter';
-import ProductsEmptyState from '@/components/ProductsEmptyState';
+import EmptyState from '@/components/EmptyState';
 
 //icons
 import { ReactComponent as FilterIcon } from '@/assets/icons/filter.svg'
@@ -59,7 +59,10 @@ const Products: React.FC = () => {
                     }
                     {!products.length && status === 'success' ?
                         <div className={styles.page__main__empty}>
-                            <ProductsEmptyState />
+                            <EmptyState
+                                title={'Nothing found for your request'}
+                                text={'Your search did not match any results. Try clearing the filters or entering other data'}
+                            />
                         </div>
                         :
                         <div className={styles.page__main__content}>

@@ -183,13 +183,27 @@ export const uploadAvatar = async (req, res) => {
     if (previousAvatarUrl) {
       const previousAvatarPath = `uploads/${previousAvatarUrl.split("/").pop()}`;
       if (fs.existsSync(previousAvatarPath)) {
-        fs.unlinkSync(previousAvatarPath);
+        fs.unlink(previousAvatarPath, (error) => {
+          if (error) {
+            console.error(`Error while deleting previous avatar: ${error}`);
+          }
+        });
       }
     }
 
-    await sharp(tempFilePath).resize(200, 200, { fit: "inside" }).toFile(destinationPath);
-
-    fs.unlinkSync(tempFilePath);
+    await sharp(tempFilePath)
+      .resize(200, 200, { fit: "inside" })
+      .toFile(destinationPath, (err, info) => {
+        if (err) {
+          console.error(`Error while resizing image: ${err}`);
+        } else {
+          fs.unlink(tempFilePath, (error) => {
+            if (error) {
+              console.error(`Error while deleting temporary file: ${error}`);
+            }
+          });
+        }
+      });
 
     res.json({
       url: `http://localhost:3001/${destinationPath}`,

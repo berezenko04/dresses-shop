@@ -17,12 +17,11 @@ import Button from '../../Button'
 //redux
 import { cartSelector } from '@/redux/cart/selectors'
 import { makeOrder } from '@/redux/orders/asyncActions'
+import { clearCart } from '@/redux/cart/slice'
+import { userDataSelector } from '@/redux/user/selectors'
 
 //utils
 import { formatDate } from '@/utils/formatDate'
-import { clearCart } from '@/redux/cart/slice'
-
-
 
 interface IPaymentForm {
     fullName: string,
@@ -34,6 +33,7 @@ interface IPaymentForm {
 
 const CreditCardForm: React.FC = () => {
     const { register, handleSubmit, formState: { errors, isValid } } = useForm<IPaymentForm>();
+    const user = useSelector(userDataSelector);
     const [formValues, setFormValues] = useState<IPaymentForm>({
         fullName: '',
         cardNumber: '',
@@ -92,16 +92,20 @@ const CreditCardForm: React.FC = () => {
     }
 
     const onSubmit: SubmitHandler<IPaymentForm> = (data) => {
-        dispatch(makeOrder({
-            paymentMethod: data.cardNumber,
-            date: formatDate(new Date().toString()),
-            subTotal: totalPrice,
-            discount: 0,
-            products: cartItems,
-        }));
-        dispatch(clearCart());
-        window.scrollTo(0, 0);
-        toast.success('Your order has been accepted');
+        if (user?.address) {
+            dispatch(makeOrder({
+                paymentMethod: data.cardNumber,
+                date: formatDate(new Date().toString()),
+                subTotal: totalPrice,
+                discount: 0,
+                products: cartItems,
+            }));
+            dispatch(clearCart());
+            window.scrollTo(0, 0);
+            toast.success('Your order has been accepted');
+        } else {
+            toast.error('Please set your shipping address');
+        }
     }
 
     return (

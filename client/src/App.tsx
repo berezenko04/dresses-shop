@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useAppDispatch } from "./redux/store";
 import loadable from '@loadable/component'
 import pMinDelay from 'p-min-delay'
+import { useSelector } from "react-redux";
 
 //styles
 import "./scss/main.scss";
@@ -13,6 +14,7 @@ import Loader from "./components/Loader";
 
 //redux
 import { fetchAuthMe } from "./redux/user/asyncActions";
+import { isAuthSelector } from "./redux/user/selectors";
 
 const delay = 400;
 
@@ -72,6 +74,7 @@ const Checkout = loadable(() => pMinDelay(import('./pages/Checkout'), delay), {
 
 function App() {
   const dispatch = useAppDispatch();
+  const isAuth = useSelector(isAuthSelector);
 
   useEffect(() => {
     dispatch(fetchAuthMe());
@@ -88,8 +91,8 @@ function App() {
           <Route path={'dresses'} element={<Products />} />
           <Route path={'dresses/:id'} element={<Product />} />
           <Route path={'order-success'} element={<OrderSuccess />} />
-          {token && <Route path={'checkout'} element={<Checkout />} />}
-          {token && <Route path={'profile/'}>
+          {isAuth && <Route path={'checkout'} element={<Checkout />} />}
+          {isAuth && <Route path={'profile/'}>
             <Route path={'account'} element={<Account />} />
             <Route path={'wishlist'} element={<WishList />} />
             <Route path={'settings'} element={<Settings />} />

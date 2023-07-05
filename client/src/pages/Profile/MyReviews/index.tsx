@@ -15,6 +15,7 @@ import { TComment } from '@/redux/comments/types'
 
 //service
 import { getUserReviews } from '@/API/userService'
+import EmptyState from '@/components/EmptyState'
 
 const MyReviews: React.FC = () => {
     const [isLoading, setIsLoading] = useState(true);
@@ -43,19 +44,29 @@ const MyReviews: React.FC = () => {
             <ProfileLayout>
                 <div className={styles.reviews__wrapper}>
                     <h3>My reviews ({count})</h3>
-                    <div className={styles.reviews__main}>
-                        {!isLoading ?
-                            reviews && reviews.map((review, index) => (
-                                <div className={styles.reviews__main__item} key={index} >
-                                    <Comment {...review} />
-                                </div>
-                            ))
-                            :
-                            [...Array(5)].map((_, index) => (
-                                <CommentSkeleton key={index} />
-                            ))
-                        }
-                    </div>
+                    {reviews && !reviews.length && !isLoading ?
+                        <div className={styles.reviews__empty}>
+                            <EmptyState
+                                title={"You don't have any reviews"}
+                                text={"You haven't written any reviews yet. Your feedback can help others make informed decisions"}
+                            />
+                        </div>
+                        :
+                        <div className={styles.reviews__main}>
+                            {!isLoading ?
+                                reviews && reviews.map((review, index) => (
+                                    <div className={styles.reviews__main__item} key={index} >
+                                        <Comment {...review} />
+                                    </div>
+                                ))
+                                :
+                                [...Array(5)].map((_, index) => (
+                                    <CommentSkeleton key={index} />
+                                ))
+                            }
+                        </div>
+                    }
+
                     <Pagination pageCount={pageCount} limit={limit} onPageChange={handlePageChange} />
                 </div>
             </ProfileLayout>
