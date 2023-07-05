@@ -88,73 +88,75 @@ const Navbar: React.FC = () => {
     }
 
     return (
-        <nav className={cn(styles.navbar, isScrolled && styles.shadow)}>
-            <div className={styles.navbar__top}>
-                <div className="container">
-                    <div className={styles.navbar__top__wrapper}>
-                        <a
-                            href="tel:+380662284162"
-                            target='_blank'
-                            rel='noopener noreferrer'
-                            className={styles.navbar__top__phone}
-                        >
-                            <PhoneIcon />
-                            +380662284162
-                        </a>
-                        <ul className={styles.navbar__top__info}>
-                            {links.map((link, index) => (
-                                (index === 3 && isAuth) ? '' :
-                                    <li key={index}><Link to={'#'}>{link}</Link></li>
-                            ))}
-                        </ul>
+        <>
+            <nav className={cn(styles.navbar, isScrolled && styles.shadow)}>
+                <div className={styles.navbar__top}>
+                    <div className="container">
+                        <div className={styles.navbar__top__wrapper}>
+                            <a
+                                href="tel:+380662284162"
+                                target='_blank'
+                                rel='noopener noreferrer'
+                                className={styles.navbar__top__phone}
+                            >
+                                <PhoneIcon />
+                                +380662284162
+                            </a>
+                            <ul className={styles.navbar__top__info}>
+                                {links.map((link, index) => (
+                                    (index === 3 && isAuth) ? '' :
+                                        <li key={index}><Link to={'#'}>{link}</Link></li>
+                                ))}
+                            </ul>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div className={styles.navbar__bottom}>
-                <div className="container">
-                    <div className={styles.navbar__bottom__wrapper}>
-                        <Link to="/" className={styles.navbar__bottom__logo}>Sandrela</Link>
-                        <Link to='/dresses' className={styles.navbar__bottom__catalog}>
-                            <PlatesIcon />
-                            <span>Catalog</span>
-                        </Link>
-                        <SearchBar />
-                        {isAuth ?
-                            <div className={styles.navbar__bottom__user}>
-                                <Link to="/profile/wishlist">
-                                    <FavoriteIcon />
-                                    {wishList.length > 0 && <span>{wishList.length}</span>}
-                                </Link>
-                                <button onClick={handleOverlayClick}>
-                                    <CartIcon />
-                                    {cartItems.length > 0 && <span>{cartItems.length}</span>}
-                                </button>
-                                <Link
-                                    className={styles.navbar__bottom__user__avatar}
-                                    to={`/profile/account`}
-                                >
-                                    <img src={data?.avatarUrl} alt="" />
-                                </Link>
-                            </div>
-                            :
-                            <div className={styles.navbar__bottom__auth}>
-                                <Link to={'/register'}>
-                                    <Button theme='secondary' size='sm'>
-                                        Sign Up
-                                    </Button>
-                                </Link>
-                                <Link to={'/login'}>
-                                    <Button theme='primary' size='sm'>
-                                        Log in
-                                    </Button>
-                                </Link>
-                            </div>
-                        }
+                <div className={styles.navbar__bottom}>
+                    <div className="container">
+                        <div className={styles.navbar__bottom__wrapper}>
+                            <Link to="/" className={styles.navbar__bottom__logo}>Sandrela</Link>
+                            <Link to='/dresses' className={styles.navbar__bottom__catalog}>
+                                <PlatesIcon />
+                                <span>Catalog</span>
+                            </Link>
+                            <SearchBar />
+                            {isAuth ?
+                                <div className={styles.navbar__bottom__user}>
+                                    <Link to="/profile/wishlist">
+                                        <FavoriteIcon />
+                                        {wishList.length > 0 && <span>{wishList.length}</span>}
+                                    </Link>
+                                    <button onClick={handleOverlayClick}>
+                                        <CartIcon />
+                                        {cartItems.length > 0 && <span>{cartItems.length}</span>}
+                                    </button>
+                                    <Link
+                                        className={styles.navbar__bottom__user__avatar}
+                                        to={`/profile/account`}
+                                    >
+                                        <img src={data?.avatarUrl} alt="" />
+                                    </Link>
+                                </div>
+                                :
+                                <div className={styles.navbar__bottom__auth}>
+                                    <Link to={'/register'}>
+                                        <Button theme='secondary' size='sm'>
+                                            Sign Up
+                                        </Button>
+                                    </Link>
+                                    <Link to={'/login'}>
+                                        <Button theme='primary' size='sm'>
+                                            Log in
+                                        </Button>
+                                    </Link>
+                                </div>
+                            }
+                        </div>
                     </div>
                 </div>
-            </div>
+            </nav>
             <CartOverlay isOpened={isOpened} ref={overlayRef} handleOverlayClick={handleOverlayClick} />
-        </nav>
+        </>
     )
 }
 

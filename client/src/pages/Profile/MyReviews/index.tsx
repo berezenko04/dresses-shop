@@ -34,9 +34,9 @@ const MyReviews: React.FC = () => {
             const data = await getUserReviews(page, limit);
             setReviews(data.comments);
             setCount(data.length);
+            setIsLoading(false);
         })();
-        setIsLoading(false);
-    }, [reviews]);
+    }, [page, limit]);
 
     return (
         <div className={styles.reviews}>

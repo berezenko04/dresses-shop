@@ -53,7 +53,7 @@ const BreadCrumbs: React.FC = () => {
                                     <ArrowRightIcon />
                                 </>
                                 :
-                                <span>{match ? productTitle : path}</span>
+                                <span>{match ? productTitle : path.replaceAll('-', ' ')}</span>
                             }
                         </li>
                     ))}

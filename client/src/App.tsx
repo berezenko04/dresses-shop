@@ -1,45 +1,77 @@
 import { Routes, Route } from "react-router-dom"
-import { useEffect, lazy, Suspense } from "react";
+import { useEffect } from "react";
 import { useAppDispatch } from "./redux/store";
-import { useSelector } from "react-redux";
+import loadable from '@loadable/component'
+import pMinDelay from 'p-min-delay'
 
 //styles
 import "./scss/main.scss";
 
-//layout
-import PrimaryLayout from "./layout/PrimaryLayout";
-
 //components
+import PrimaryLayout from "./layout/PrimaryLayout";
 import Loader from "./components/Loader";
-
-//pages
-const Home = lazy(() => import("./pages/Home"))
-const Error404 = lazy(() => import("./pages/Error404"));
-const Products = lazy(() => import("./pages/Products"));
-const Product = lazy(() => import("./pages/Product"));
-
-const Register = lazy(() => import("./pages/Register"));
-const Login = lazy(() => import("./pages/Login"));
-const ForgotPassword = lazy(() => import("./pages/ForgotPassword"));
-const ResetPassword = lazy(() => import("./pages/ResetPassword"))
-
-const Account = lazy(() => import("./pages/Profile/Account"));
-const WishList = lazy(() => import("./pages/Profile/WishList"));
-const Settings = lazy(() => import("./pages/Profile/Settings"));
-const MyReviews = lazy(() => import("./pages/Profile/MyReviews"));
-const Notifications = lazy(() => import("./pages/Profile/Notifications"));
-const MyOrders = lazy(() => import("./pages/Profile/MyOrders"));
-const Shipping = lazy(() => import("./pages/Profile/Shipping"));
-const Checkout = lazy(() => import("./pages/Checkout"));
 
 //redux
 import { fetchAuthMe } from "./redux/user/asyncActions";
-import { isAuthSelector } from "./redux/user/selectors";
+
+const delay = 400;
+
+//pages
+const Home = loadable(() => pMinDelay(import('./pages/Home'), delay), {
+  fallback: <Loader />,
+});
+const Error404 = loadable(() => pMinDelay(import('./pages/Error404'), delay), {
+  fallback: <Loader />,
+});
+const Products = loadable(() => pMinDelay(import('./pages/Products'), delay), {
+  fallback: <Loader />,
+});
+const Product = loadable(() => pMinDelay(import('./pages/Product'), delay), {
+  fallback: <Loader />,
+});
+const OrderSuccess = loadable(() => pMinDelay(import('./pages/OrderSuccess'), delay), {
+  fallback: <Loader />,
+});
+const Register = loadable(() => pMinDelay(import('./pages/Register'), delay), {
+  fallback: <Loader />,
+});
+const Login = loadable(() => pMinDelay(import('./pages/Login'), delay), {
+  fallback: <Loader />,
+});
+const ForgotPassword = loadable(() => pMinDelay(import('./pages/ForgotPassword'), delay), {
+  fallback: <Loader />,
+});
+const ResetPassword = loadable(() => pMinDelay(import('./pages/ResetPassword'), delay), {
+  fallback: <Loader />,
+});
+const Account = loadable(() => pMinDelay(import('./pages/Profile/Account'), delay), {
+  fallback: <Loader />,
+});
+const WishList = loadable(() => pMinDelay(import('./pages/Profile/WishList'), delay), {
+  fallback: <Loader />,
+});
+const Settings = loadable(() => pMinDelay(import('./pages/Profile/Settings'), delay), {
+  fallback: <Loader />,
+});
+const MyReviews = loadable(() => pMinDelay(import('./pages/Profile/MyReviews'), delay), {
+  fallback: <Loader />,
+});
+const Notifications = loadable(() => pMinDelay(import('./pages/Profile/Notifications'), delay), {
+  fallback: <Loader />,
+});
+const MyOrders = loadable(() => pMinDelay(import('./pages/Profile/MyOrders'), delay), {
+  fallback: <Loader />,
+});
+const Shipping = loadable(() => pMinDelay(import('./pages/Profile/Shipping'), delay), {
+  fallback: <Loader />,
+});
+const Checkout = loadable(() => pMinDelay(import('./pages/Checkout'), delay), {
+  fallback: <Loader />,
+});
 
 
 function App() {
   const dispatch = useAppDispatch();
-  const isAuth = useSelector(isAuthSelector);
 
   useEffect(() => {
     dispatch(fetchAuthMe());
@@ -49,35 +81,34 @@ function App() {
 
   return (
     <div className="App">
-      <Suspense fallback={<Loader />}>
-        <Routes>
-          <Route path={'/'} element={<PrimaryLayout />}>
-            <Route path={''} element={<Home />} />
-            <Route path={'*'} element={<Error404 />} />
-            <Route path={'dresses'} element={<Products />} />
-            <Route path={'dresses/:id'} element={<Product />} />
-            {isAuth && <Route path={'checkout'} element={<Checkout />} />}
-            {isAuth && <Route path={'profile/'}>
-              <Route path={'account'} element={<Account />} />
-              <Route path={'wishlist'} element={<WishList />} />
-              <Route path={'settings'} element={<Settings />} />
-              <Route path={'reviews'} element={<MyReviews />} />
-              <Route path={'orders'} element={<MyOrders />} />
-              <Route path={'notifications'} element={<Notifications />} />
-              <Route path={'shipping'} element={<Shipping />} />
-            </Route>
-            }
+      <Routes>
+        <Route path={'/'} element={<PrimaryLayout />}>
+          <Route path={''} element={<Home />} />
+          <Route path={'*'} element={<Error404 />} />
+          <Route path={'dresses'} element={<Products />} />
+          <Route path={'dresses/:id'} element={<Product />} />
+          <Route path={'order-success'} element={<OrderSuccess />} />
+          {token && <Route path={'checkout'} element={<Checkout />} />}
+          {token && <Route path={'profile/'}>
+            <Route path={'account'} element={<Account />} />
+            <Route path={'wishlist'} element={<WishList />} />
+            <Route path={'settings'} element={<Settings />} />
+            <Route path={'reviews'} element={<MyReviews />} />
+            <Route path={'orders'} element={<MyOrders />} />
+            <Route path={'notifications'} element={<Notifications />} />
+            <Route path={'shipping'} element={<Shipping />} />
           </Route>
-          {!token && (
-            <>
-              <Route path={'/register'} element={<Register />} />
-              <Route path={'/login'} element={<Login />} />
-            </>
-          )}
-          <Route path={'/forgot-password'} element={<ForgotPassword />} />
-          <Route path={'/reset-password/:id/:token/'} element={<ResetPassword />} />
-        </Routes>
-      </Suspense>
+          }
+        </Route>
+        {!token && (
+          <>
+            <Route path={'/register'} element={<Register />} />
+            <Route path={'/login'} element={<Login />} />
+          </>
+        )}
+        <Route path={'/forgot-password'} element={<ForgotPassword />} />
+        <Route path={'/reset-password/:id/:token/'} element={<ResetPassword />} />
+      </Routes>
     </div>
   )
 }

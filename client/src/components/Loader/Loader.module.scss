@@ -10,6 +10,8 @@
     align-items: center;
     justify-content: center;
     background-color: $white;
+    opacity: 0;
+    animation: fadeIn 0.2s ease-in-out forwards;
 
     &__wrapper {
         display: flex;
@@ -19,6 +21,15 @@
 
         svg circle {
             stroke: $primary-500;
+        }
+    }
+
+    @keyframes fadeIn {
+        0% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
         }
     }
 }
