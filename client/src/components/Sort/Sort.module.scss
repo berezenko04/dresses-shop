@@ -4,7 +4,6 @@
     display: flex;
     flex-direction: column;
     gap: 16px;
-    max-width: 232px;
     width: 100%;
 
     :global {
@@ -33,6 +32,7 @@
             width: 100%;
 
             .bar {
+
                 &-left,
                 &-right,
                 &-inner {
@@ -78,7 +78,7 @@
                 input[type="checkbox"] {
                     display: none;
 
-                    &:checked + label {
+                    &:checked+label {
                         border-color: $primary-500;
                     }
                 }
@@ -109,7 +109,7 @@
             input[type="checkbox"] {
                 display: none;
 
-                &:checked + label svg {
+                &:checked+label svg {
                     display: flex;
                 }
             }

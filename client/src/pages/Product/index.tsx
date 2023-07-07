@@ -1,7 +1,6 @@
 import { useParams, Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { toast } from 'react-toastify';
 import cn from 'classnames'
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 
@@ -15,34 +14,29 @@ import Colors from '@/components/Colors';
 import Comment from '@/components/Comment';
 import Button from '@/components/Button';
 import CommentSkeleton from '@/components/Skeletons/CommentSkeleton';
+import PostComment from '@/components/PostComment';
 
 //redux
 import { useAppDispatch } from '@/redux/store';
 import { fetchComments } from '@/redux/comments/asyncActions';
 import { commentsItemsSelector, commentsStatusSelector } from '@/redux/comments/selectors';
-import { userDataSelector } from '@/redux/user/selectors';
 import { wishListSelector } from '@/redux/wishList/selectors';
 import { updateFavorite } from '@/redux/wishList/asyncActions';
 import { addToCartAsync } from '@/redux/cart/asyncActions';
 import { TProductItem } from '@/redux/products/types';
+import { isAuthSelector } from '@/redux/user/selectors';
 
 //icons
 import { ReactComponent as FavoriteIcon } from '@/assets/icons/heart.svg'
 import { ReactComponent as FavoriteActiveIcon } from '@/assets/icons/heart-filled.svg'
 import { ReactComponent as StarActiveIcon } from '@/assets/icons/star.svg'
-import { ReactComponent as StarIcon } from '@/assets/icons/star-empty.svg'
 
-//API
-import { createComment } from '@/redux/comments/slice';
-
-//utils
-import { formatDate } from '@/utils/formatDate';
+//service
 import { getProduct } from '@/API/dressesService';
+import { toast } from 'react-toastify';
 
 
 const Product: React.FC = () => {
-    const [comment, setComment] = useState("");
-    const [rating, setRating] = useState(0);
     const [selectedSize, setSelectedSize] = useState('xxs');
     const [imageIndex, setImageIndex] = useState(0);
     const [product, setProduct] = useState<TProductItem>();
@@ -54,8 +48,8 @@ const Product: React.FC = () => {
     const wishList = useSelector(wishListSelector);
     const isFavorite = wishList.find((obj) => obj._id === id);
     const status = useSelector(commentsStatusSelector);
-    const user = useSelector(userDataSelector);
     const comments = useSelector(commentsItemsSelector);
+    const isAuth = useSelector(isAuthSelector);
 
     const isAvailable = product?.stock;
 
@@ -75,24 +69,11 @@ const Product: React.FC = () => {
         setIsLoading(false);
     }, [id]);
 
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        if (user?._id && id) {
-            dispatch(createComment({
-                itemId: id,
-                comment: {
-                    text: comment,
-                    rating,
-                    user: user._id,
-                    date: formatDate(new Date().toString()),
-                    likes: [],
-                    dislikes: []
-                }
-            }));
-            setRating(0);
-            setComment('');
+    const handleAddToCart = () => {
+        if (isAuth) {
+            product && dispatch(addToCartAsync({ id: product._id, size: selectedSize }))
         } else {
-            toast.error('An error occured');
+            toast.error("Please login!");
         }
     }
 
@@ -176,7 +157,7 @@ const Product: React.FC = () => {
                                         <Button
                                             size='lg'
                                             theme='primary'
-                                            onClick={() => dispatch(addToCartAsync({ id: product._id, size: selectedSize }))}
+                                            onClick={handleAddToCart}
                                             disabled={!isAvailable}
                                         >
                                             {isAvailable ? 'Add to bag' : 'Out of stock'}
@@ -219,27 +200,7 @@ const Product: React.FC = () => {
                                 </div>
                             </div>
                             <div className={styles.page__reviews__comments}>
-                                <h3>Comments ({comments.filter((comment) => comment.text.length > 0).length})</h3>
-                                <p>Review this product</p>
-                                <form className={styles.page__reviews__comments__send} method='POST' onSubmit={(e) => handleSubmit(e)}>
-                                    <div className={styles.page__reviews__comments__send__rating}>
-                                        {[...Array(5)].map((_, index) => (
-                                            <button key={index} type='button' onClick={() => setRating(index + 1)}>
-                                                {index < rating ? <StarActiveIcon /> : <StarIcon />}
-                                            </button>
-                                        ))}
-                                    </div>
-                                    <textarea
-                                        name="comment"
-                                        id="comment"
-                                        placeholder='Enter your comment...'
-                                        onChange={(e) => setComment(e.target.value)}
-                                        value={comment}
-                                    />
-                                    <div className={styles.page__reviews__comments__send__bottom}>
-                                        <button type='submit' disabled={!rating && !comment}>Send</button>
-                                    </div>
-                                </form>
+                                <PostComment id={id} />
                                 <div className={styles.page__reviews__comments__list}>
                                     {status === 'success' ?
                                         comments.map((comment, index) => (

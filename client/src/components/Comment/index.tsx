@@ -1,7 +1,12 @@
 import { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
+import { useAppDispatch } from '@/redux/store';
 
 //styles
 import styles from './Comment.module.scss'
+
+//components
+import CommentSkeleton from '../Skeletons/CommentSkeleton'
 
 //icons
 import { ReactComponent as StarActiveIcon } from '@/assets/icons/star.svg'
@@ -12,20 +17,21 @@ import { ReactComponent as DislikeIcon } from '@/assets/icons/dislike.svg'
 //redux
 import { TComment } from '@/redux/comments/types';
 import { IUserData } from '@/redux/user/types'
-import { useAppDispatch } from '@/redux/store';
 import { dislikeComment, likeComment } from '@/redux/comments/asyncActions';
+import { isAuthSelector, userDataSelector } from '@/redux/user/selectors'
 
 //API
 import { getUser } from '@/API/userService'
-import CommentSkeleton from '../Skeletons/CommentSkeleton'
+import { toast } from 'react-toastify';
 
 
 const Comment: React.FC<TComment> = ({ _id, text, date, rating, likes, dislikes, user }) => {
 
     const [userData, setUserData] = useState<IUserData>();
-
     const dispatch = useAppDispatch();
-    const userId = userData?._id || '';
+    const isAuth = useSelector(isAuthSelector);
+    const userId = useSelector(userDataSelector)?._id;
+
     const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
@@ -36,6 +42,16 @@ const Comment: React.FC<TComment> = ({ _id, text, date, rating, likes, dislikes,
             setIsLoading(false);
         })();
     }, [])
+
+    const handleAction = (variant: 'like' | 'dislike') => {
+        if (isAuth) {
+            if (_id) {
+                variant === 'like' ? dispatch(likeComment(_id)) : dispatch(dislikeComment(_id));
+            }
+        } else {
+            toast.error("Please login!");
+        }
+    }
 
     return (
         <>
@@ -66,15 +82,15 @@ const Comment: React.FC<TComment> = ({ _id, text, date, rating, likes, dislikes,
                         <span>{date}</span>
                         <div className={styles.comment__footer__likes}>
                             <button
-                                onClick={() => _id && dispatch(likeComment(_id))}
-                                className={likes.includes(userId) ? styles.active : ''}
+                                onClick={() => handleAction("like")}
+                                className={userId && likes.includes(userId) ? styles.active : ''}
                             >
                                 <LikeIcon />
                                 {likes.length !== 0 ? likes.length : 0}
                             </button>
                             <button
-                                onClick={() => _id && dispatch(dislikeComment(_id))}
-                                className={dislikes.includes(userId) ? styles.active : ''}
+                                onClick={() => handleAction("dislike")}
+                                className={userId && dislikes.includes(userId) ? styles.active : ''}
                             >
                                 <DislikeIcon />
                                 {dislikes.length !== 0 ? dislikes.length : 0}

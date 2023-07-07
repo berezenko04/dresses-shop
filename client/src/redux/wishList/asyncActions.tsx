@@ -3,6 +3,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { addToWishListSuccess, removeFromWishListSuccess } from "./slice";
 import { TFetchWishList } from "./types";
 import { RootState } from "../store";
+import { toast } from "react-toastify";
 
 export const fetchWishList = createAsyncThunk(
     'wishlist/fetchWishList',
@@ -16,15 +17,19 @@ export const fetchWishList = createAsyncThunk(
 export const updateFavorite = createAsyncThunk(
     'wishlist/update',
     async (itemId: string, { dispatch, getState }) => {
-        const { items } = (getState() as RootState).wishList;
-        const findItem = items.find((obj) => obj._id === itemId);
+        if (localStorage.getItem('token')) {
+            const { items } = (getState() as RootState).wishList;
+            const findItem = items.find((obj) => obj._id === itemId);
 
-        if (findItem) {
-            await removeFromWishList(itemId);
-            dispatch(removeFromWishListSuccess(itemId));
+            if (findItem) {
+                await removeFromWishList(itemId);
+                dispatch(removeFromWishListSuccess(itemId));
+            } else {
+                const data = await addToWishList(itemId);
+                dispatch(addToWishListSuccess(data));
+            }
         } else {
-            const data = await addToWishList(itemId);
-            dispatch(addToWishListSuccess(data));
+            toast.error("Please login!");
         }
     }
 );

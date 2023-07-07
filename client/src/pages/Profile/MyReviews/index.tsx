@@ -61,7 +61,7 @@ const MyReviews: React.FC = () => {
                                 ))
                                 :
                                 [...Array(5)].map((_, index) => (
-                                    <CommentSkeleton key={index} />
+                                    <CommentSkeleton key={index} /> 
                                 ))
                             }
                         </div>

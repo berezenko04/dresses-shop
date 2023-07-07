@@ -34,7 +34,7 @@ const ProductCard: React.FC<IProductCardProps> = ({ _id, title, price, images, d
     const dispatch = useAppDispatch();
     const isFavorite = wishList.find((obj) => obj._id === _id);
 
-    const productLink = `/dresses/${_id}`; 
+    const productLink = `/dresses/${_id}`;
 
     const memoizedContent = useMemo(() => {
         return (
@@ -74,11 +74,11 @@ const ProductCard: React.FC<IProductCardProps> = ({ _id, title, price, images, d
                         <CardPrice price={price} discount={discount} />
                     </div>
                 </div>
-            </article>
+            </article >
         );
     }, [isFavorite, _id, title, price, images, discount, colors]);
 
-    return memoizedContent;
+return memoizedContent;
 }
 
 export default ProductCard
