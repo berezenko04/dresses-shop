@@ -1,6 +1,7 @@
 import { useSelector } from 'react-redux'
 import { useAppDispatch } from '@/redux/store'
 import { useEffect } from 'react'
+import { toast } from 'react-toastify'
 
 //styles
 import styles from './MyOrders.module.scss'
@@ -9,6 +10,8 @@ import styles from './MyOrders.module.scss'
 import ProfileLayout from '@/layout/ProfileLayout'
 import Button from '@/components/Button'
 import OrderItem from '@/components/OrderItem'
+import EmptyState from '@/components/EmptyState'
+import OrderItemSkeleton from '@/components/Skeletons/OrderItemSkeleton'
 
 //icons
 import { ReactComponent as UploadIcon } from '@/assets/icons/upload.svg'
@@ -19,8 +22,8 @@ import { ordersSelector } from '@/redux/orders/selectors'
 
 //Service
 import { exportCSV } from '@/API/ordersService'
-import { toast } from 'react-toastify'
-import EmptyState from '@/components/EmptyState'
+
+
 
 
 const MyOrders: React.FC = () => {
@@ -76,9 +79,14 @@ const MyOrders: React.FC = () => {
                                 <p>Action</p>
                             </div>
                             <div className={styles.orders__main__content}>
-                                {orders.map((order, index) => (
-                                    <OrderItem {...order} key={index} />
-                                ))}
+                                {status === 'success' ?
+                                    orders.map((order, index) => (
+                                        <OrderItem {...order} key={index} />
+                                    )) :
+                                    [...Array(6)].map((_, index) => (
+                                        <OrderItemSkeleton key={index} />
+                                    ))
+                                }
                             </div>
                         </div>
                     }

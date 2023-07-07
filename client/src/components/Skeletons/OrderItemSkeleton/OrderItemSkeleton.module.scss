@@ -1,0 +1,38 @@
+@import "@/scss/variables.scss";
+@import "@/scss/mixins.scss";
+
+.item {
+    padding: 8px 16px;
+    display: grid;
+    grid-template-columns: 72px 1fr 2fr 1fr 2fr 3fr 1fr;
+    align-items: center;
+
+    div {
+        background-color: lightgray;
+        height: 20px;
+        margin: 24px 16px;
+        border-radius: 8px;
+        position: relative;
+        overflow: hidden;
+
+        @include Skeleton;
+        @include LoadAnimation;
+
+        &:nth-child(1),
+        &:nth-child(7) {
+            height: 40px;
+        }
+
+        &:nth-child(2),
+        &:nth-child(3),
+        &:nth-child(4),
+        &:nth-child(5) {
+            height: 25px;
+        }
+
+        &:nth-child(6) {
+            width: 82px;
+            height: 33px;
+        }
+    }
+}
