@@ -43,6 +43,10 @@
             align-items: center;
             gap: 24px;
         }
+
+        @include SmallTablet {
+            display: none;
+        }
     }
 
     &__bottom {

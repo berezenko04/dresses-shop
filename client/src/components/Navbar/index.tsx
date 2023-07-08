@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { useEffect, useState, useRef } from 'react'
 import cn from 'classnames'
+import { debounce } from 'lodash'
 
 //styles
 import styles from './Navbar.module.scss'
@@ -51,14 +52,14 @@ const Navbar: React.FC = () => {
     }, [])
 
     useEffect(() => {
-        const handleScroll = () => {
+        const handleScroll = debounce(() => {
             const scrolledY = window.scrollY;
             if (scrolledY > 100) {
                 setIsScrolled(true);
             } else {
                 setIsScrolled(false);
             }
-        }
+        }, 100);
 
         window.addEventListener('scroll', handleScroll);
 
@@ -146,7 +147,7 @@ const Navbar: React.FC = () => {
                                     </Link>
                                     <Link to={'/login'}>
                                         <Button theme='primary' size='sm'>
-                                            Log in
+                                            Login
                                         </Button>
                                     </Link>
                                 </div>
@@ -154,7 +155,7 @@ const Navbar: React.FC = () => {
                         </div>
                     </div>
                 </div>
-            </nav>
+            </nav >
             <CartOverlay isOpened={isOpened} ref={overlayRef} handleOverlayClick={handleOverlayClick} />
         </>
     )
