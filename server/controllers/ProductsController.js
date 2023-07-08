@@ -30,6 +30,12 @@ export const getProducts = async (req, res) => {
       .skip(skip)
       .limit(parseInt(limit));
 
+    products.sort((a, b) => {
+      const discountedPriceA = a.discountedPrice || a.price;
+      const discountedPriceB = b.discountedPrice || b.price;
+      return sortOrder * (discountedPriceA - discountedPriceB);
+    });
+
     const productsLength = await ProductModel.find(filter)
       .find(filter)
       .sort({ [sortField]: sortOrder })
@@ -51,6 +57,7 @@ export const getProducts = async (req, res) => {
     });
   }
 };
+
 
 export const getProduct = async (req, res) => {
   try {

@@ -3,6 +3,7 @@
 .searchBar {
     width: 100%;
     position: relative;
+    min-width: 320px;
 
     &__field {
         width: 100%;

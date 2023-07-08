@@ -115,12 +115,14 @@ const Navbar: React.FC = () => {
                 <div className={styles.navbar__bottom}>
                     <div className="container">
                         <div className={styles.navbar__bottom__wrapper}>
-                            <Link to="/" className={styles.navbar__bottom__logo}>Sandrela</Link>
-                            <Link to='/dresses' className={styles.navbar__bottom__catalog}>
-                                <PlatesIcon />
-                                <span>Catalog</span>
-                            </Link>
-                            <SearchBar />
+                            <Link to="/" className={styles.navbar__logo}>Sandrela</Link>
+                            <div className={styles.navbar__bottom__center}>
+                                <Link to='/dresses' className={styles.navbar__bottom__center__catalog}>
+                                    <PlatesIcon />
+                                    <span>Catalog</span>
+                                </Link>
+                                <SearchBar />
+                            </div>
                             {isAuth ?
                                 <div className={styles.navbar__bottom__user}>
                                     <Link to="/profile/wishlist">

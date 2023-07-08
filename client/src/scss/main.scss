@@ -1,5 +1,6 @@
 @import "./variables.scss";
 @import "./reset.scss";
+@import "./mixins.scss";
 
 @font-face {
     font-family: "Placid Armor";
@@ -36,6 +37,18 @@ body {
     width: 100%;
     margin: 0 auto;
     padding: 0 64px;
+
+    @include Laptop {
+        padding: 0 48px;
+    }
+
+    @include Tablet {
+        padding: 0 32px;
+    }
+
+    @include SmallTablet {
+        padding: 0 16px;
+    }
 }
 
 .medium-uppercase {
