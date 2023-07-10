@@ -3,6 +3,9 @@ import { Link } from 'react-router-dom';
 //styles
 import styles from './Footer.module.scss'
 
+//components
+import Logo from '../Logo';
+
 //icons
 import { ReactComponent as FacebookIcon } from '@/assets/icons/socials/facebook.svg'
 import { ReactComponent as TwitterIcon } from '@/assets/icons/socials/twitter.svg'
@@ -29,7 +32,7 @@ const Footer: React.FC = () => {
                 <div className={styles.footer__wrapper}>
                     <div className={styles.footer__main}>
                         <div className={styles.footer__main__info}>
-                            <h2>Sandrela</h2>
+                            <Logo variant='light' />
                             <div className={styles.footer__main__info__socials}>
                                 {socials.map((social, index) => (
                                     <Link to='#' key={index}>{social}</Link>

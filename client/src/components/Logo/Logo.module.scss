@@ -1,0 +1,19 @@
+@import '@/scss/variables.scss';
+
+.logo {
+    font-family: "Placid Armor", serif;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 29px;
+    letter-spacing: -0.08em;
+    text-transform: uppercase;
+
+
+    &__dark {
+        color: $grey-500 !important;
+    }
+
+    &__light {
+        color: $white !important;
+    }
+}
