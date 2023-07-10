@@ -1,5 +1,5 @@
 import ReactPaginate from 'react-paginate'
-import { Fragment } from 'react'
+import { Fragment, useEffect } from 'react'
 
 //styles
 import styles from './Pagination.module.scss'

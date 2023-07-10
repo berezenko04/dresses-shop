@@ -34,7 +34,7 @@ const CartItem: React.FC<TCartItemProps> = ({ cart, readable = false }) => {
     return (
         <article className={styles.item}>
             <div className={styles.item__image}>
-                <img src={imageUrl} alt={title} />
+                    <img src={imageUrl} alt={title} />
             </div>
             <div className={styles.item__content}>
                 <div className={styles.item__content__main}>

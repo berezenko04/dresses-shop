@@ -10,9 +10,9 @@ import styles from './Products.module.scss'
 import ProductCardExtended from '@/components/ProductCard';
 import Pagination from '@/components/Pagination';
 import ProductCardSkeleton from '@/components/Skeletons/ProductCardSkeleton';
-import Sort from '@/components/Sort';
-import DropdownFilter from '@/components/DropdownFilter';
+import Filters from '@/components/Filters';
 import EmptyState from '@/components/EmptyState';
+import DropdownSort from '@/components/DropdownSort';
 
 //icons
 import { ReactComponent as FilterIcon } from '@/assets/icons/filter.svg'
@@ -20,6 +20,8 @@ import { ReactComponent as FilterIcon } from '@/assets/icons/filter.svg'
 //redux
 import { productsLengthSelector, productsSelector, productsStatusSelector } from '@/redux/products/selectors'
 import { fetchProducts } from '@/redux/products/asyncActions'
+
+
 
 
 
@@ -50,13 +52,13 @@ const Products: React.FC = () => {
                             {showFilters ? 'Hide filters' : 'Show filters'}
                             <FilterIcon />
                         </button>
-                        <DropdownFilter />
+                        <DropdownSort onSort={handlePageChange} />
                     </div>
                 </div>
                 <div className={styles.page__main}>
                     <div className={styles.page__sort}
                         style={!showFilters ? { display: 'none' } : { display: 'flex' }}>
-                        <Sort />
+                        <Filters />
                     </div>
                     {!products.length && status === 'success' ?
                         <div className={styles.page__main__empty}>
@@ -84,7 +86,7 @@ const Products: React.FC = () => {
                 </div>
                 <Pagination pageCount={pageCount} limit={limit} onPageChange={handlePageChange} />
             </div>
-        </div >
+        </div>
     )
 }
 

@@ -4,7 +4,7 @@ import { FormEvent, useEffect, useState } from 'react'
 import { debounce } from 'lodash'
 
 //styles
-import styles from './Sort.module.scss'
+import styles from './Filters.module.scss'
 
 //components
 import Dropdown from '../Dropdown';
@@ -20,7 +20,7 @@ import { fetchProducts } from '@/redux/products/asyncActions';
 
 
 
-const Sort: React.FC = () => {
+const Filters: React.FC = () => {
     const dispatch = useAppDispatch();
     const [selectedColors, setSelectedColors] = useState<string[]>([]);
     const [selectedSizes, setSelectedSizes] = useState<string[]>([]);
@@ -146,4 +146,4 @@ const Sort: React.FC = () => {
     )
 }
 
-export default Sort
+export default Filters

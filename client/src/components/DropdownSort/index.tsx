@@ -3,7 +3,7 @@ import cn from 'classnames'
 import { useAppDispatch } from '@/redux/store'
 
 //styles
-import styles from './DropdownFilter.module.scss'
+import styles from './DropdownSort.module.scss'
 
 //icons
 import { ReactComponent as DropdownIcon } from '@/assets/icons/arrow-dropdown.svg'
@@ -18,7 +18,11 @@ type TFilter = {
     name: string
 }
 
-const DropdownFilter: React.FC = () => {
+type DropdownSortProps = {
+    onSort: (arg: number) => void
+}
+
+const DropdownSort: React.FC<DropdownSortProps> = ({ onSort }) => {
     const [isVisible, setIsVisible] = useState(false);
 
     const filters: TFilter[] = [
@@ -35,6 +39,7 @@ const DropdownFilter: React.FC = () => {
     const handleFilterClick = (item: TFilter) => {
         setSortOrder(item);
         setIsVisible(false);
+        onSort(1);
     }
 
     useEffect(() => {
@@ -83,4 +88,4 @@ const DropdownFilter: React.FC = () => {
     )
 }
 
-export default DropdownFilter
+export default DropdownSort

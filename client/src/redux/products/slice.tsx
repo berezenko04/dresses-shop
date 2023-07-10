@@ -8,14 +8,13 @@ const initialState: IProductSliceState = {
     items: [],
     status: Status.LOADING,
     length: 0,
-    maxPrice: 0
+    maxPrice: 0,
 }
 
 const ProductsSlice = createSlice({
     name: 'products',
     initialState,
-    reducers: {
-    },
+    reducers: {},
     extraReducers: (builder) => {
         builder.addCase(fetchProducts.pending, (state) => {
             state.items = [];
