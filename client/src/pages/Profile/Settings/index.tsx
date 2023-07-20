@@ -14,6 +14,7 @@ import AuthField from '@/components/AuthField'
 import DeviceInfo from '@/components/ProfileComponents/DeviceInfo'
 import ProfileLayout from '@/layout/ProfileLayout'
 import LogoutModal from '@/components/LogoutModal'
+import MetaHead from '@/components/MetaHead'
 
 //icons
 import { ReactComponent as TrashIcon } from '@/assets/icons/trash.svg'
@@ -50,6 +51,10 @@ const Settings: React.FC = () => {
 
     return (
         <div className={styles.settings}>
+            <MetaHead
+                title='Settings'
+                desc='View and manage your account settings at Sandrela.'
+            />
             <ProfileLayout>
                 <div className={styles.settings__wrapper}>
                     <div className={styles.settings__block}>

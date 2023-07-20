@@ -12,6 +12,7 @@ import UploadAvatar from '@/components/ProfileComponents/UploadAvatar'
 import Button from '@/components/Button'
 import Radio from '@/components/Radio'
 import ProfileLayout from '@/layout/ProfileLayout'
+import MetaHead from '@/components/MetaHead'
 
 //icons
 import { ReactComponent as EditIcon } from '@/assets/icons/edit.svg'
@@ -19,6 +20,7 @@ import { ReactComponent as EditIcon } from '@/assets/icons/edit.svg'
 //redux
 import { userDataSelector } from '@/redux/user/selectors'
 import { updateUserAsync } from '@/redux/user/asyncActions'
+
 
 
 interface IEditFormValues {
@@ -64,6 +66,10 @@ const Account: React.FC = () => {
 
     return (
         <div className={styles.account}>
+            <MetaHead
+                title='Account Info'
+                desc='Manage your account information at Sandrela and experience the wonder of our enchanting and extraordinary products and services.'
+            />
             <ProfileLayout>
                 <>
                     {isUploadVisible &&

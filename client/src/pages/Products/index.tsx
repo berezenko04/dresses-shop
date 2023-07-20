@@ -13,6 +13,7 @@ import ProductCardSkeleton from '@/components/Skeletons/ProductCardSkeleton';
 import Filters from '@/components/Filters';
 import EmptyState from '@/components/EmptyState';
 import DropdownSort from '@/components/DropdownSort';
+import MetaHead from '@/components/MetaHead';
 
 //icons
 import { ReactComponent as FilterIcon } from '@/assets/icons/filter.svg'
@@ -20,8 +21,6 @@ import { ReactComponent as FilterIcon } from '@/assets/icons/filter.svg'
 //redux
 import { productsLengthSelector, productsSelector, productsStatusSelector } from '@/redux/products/selectors'
 import { fetchProducts } from '@/redux/products/asyncActions'
-
-
 
 
 
@@ -44,6 +43,10 @@ const Products: React.FC = () => {
 
     return (
         <div className="container">
+            <MetaHead
+                title='Dresses'
+                desc='Discover the enchanting and extraordinary products offered by Sandrela. '
+            />
             <div className={styles.page}>
                 <div className={styles.page__head}>
                     <h3>Dresses ({productsLength ? productsLength : 0})</h3>

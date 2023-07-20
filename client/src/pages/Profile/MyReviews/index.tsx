@@ -9,13 +9,14 @@ import Comment from '@/components/Comment'
 import ProfileLayout from '@/layout/ProfileLayout'
 import CommentSkeleton from '@/components/Skeletons/CommentSkeleton'
 import Pagination from '@/components/Pagination'
+import EmptyState from '@/components/EmptyState'
+import MetaHead from '@/components/MetaHead'
 
 //redux
 import { TComment } from '@/redux/comments/types'
 
 //service
 import { getUserReviews } from '@/API/userService'
-import EmptyState from '@/components/EmptyState'
 
 const MyReviews: React.FC = () => {
     const [isLoading, setIsLoading] = useState(true);
@@ -41,6 +42,10 @@ const MyReviews: React.FC = () => {
 
     return (
         <div className={styles.reviews}>
+            <MetaHead
+                title='My Reviews'
+                desc='View and manage your reviews at Sandrela.'
+            />
             <ProfileLayout>
                 <div className={styles.reviews__wrapper}>
                     <h3>My reviews ({count})</h3>
@@ -61,7 +66,7 @@ const MyReviews: React.FC = () => {
                                 ))
                                 :
                                 [...Array(5)].map((_, index) => (
-                                    <CommentSkeleton key={index} /> 
+                                    <CommentSkeleton key={index} />
                                 ))
                             }
                         </div>

@@ -10,12 +10,14 @@ import ShippingInfo from '@/components/ShippingInfo';
 import CartEmptyState from '@/components/CartEmptyState';
 import TotalPrice from '@/components/TotalPrice';
 import CreditCardForm from '@/components/Forms/CreditCardForm';
+import MetaHead from '@/components/MetaHead';
 
 //redux
 import { cartSelector } from '@/redux/cart/selectors';
 
 //icons
 import { ReactComponent as PlusIcon } from '@/assets/icons/plus.svg'
+
 
 
 const Checkout: React.FC = () => {
@@ -25,6 +27,10 @@ const Checkout: React.FC = () => {
 
     return (
         <div className={styles.page}>
+            <MetaHead
+                title='Checkout'
+                desc="Complete your purchase and experience the wonder of Sandrela's enchanting and extraordinary products and services."
+            />
             <div className="container">
                 <div className={styles.page__wrapper}>
                     <h3>Checkout</h3>

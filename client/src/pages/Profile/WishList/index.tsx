@@ -12,11 +12,11 @@ import ProductCardSkeleton from '@/components/Skeletons/ProductCardSkeleton';
 import ProfileLayout from '@/layout/ProfileLayout';
 import Pagination from '@/components/Pagination';
 import EmptyState from '@/components/EmptyState';
+import MetaHead from '@/components/MetaHead';
 
 //redux
 import { wishListLengthSelector, wishListSelector, wishListStatusSelector } from '@/redux/wishList/selectors';
 import { fetchWishList } from '@/redux/wishList/asyncActions';
-
 
 
 const WishList: React.FC = () => {
@@ -38,6 +38,10 @@ const WishList: React.FC = () => {
 
     return (
         <div className={styles.wishlist}>
+            <MetaHead
+                title='Wishlist'
+                desc='Explore and manage your wishlist at Sandrela. View your favorite enchanting and extraordinary products and services while experiencing the wonder of our offerings.'
+            />
             <ProfileLayout>
                 <div className={styles.wishlist__wrapper}>
                     <h3>Wish List ({wishListCount})</h3>
