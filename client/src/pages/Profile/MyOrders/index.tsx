@@ -12,6 +12,7 @@ import Button from '@/components/Button'
 import OrderItem from '@/components/OrderItem'
 import EmptyState from '@/components/EmptyState'
 import OrderItemSkeleton from '@/components/Skeletons/OrderItemSkeleton'
+import MetaHead from '@/components/MetaHead'
 
 //icons
 import { ReactComponent as UploadIcon } from '@/assets/icons/upload.svg'
@@ -20,10 +21,8 @@ import { ReactComponent as UploadIcon } from '@/assets/icons/upload.svg'
 import { fetchOrders } from '@/redux/orders/asyncActions'
 import { ordersSelector } from '@/redux/orders/selectors'
 
-//Service
+//service
 import { exportCSV } from '@/API/ordersService'
-
-
 
 
 const MyOrders: React.FC = () => {
@@ -51,6 +50,10 @@ const MyOrders: React.FC = () => {
 
     return (
         <div className={styles.orders}>
+            <MetaHead
+                title='My Orders'
+                desc='View and manage your orders at Sandrela.'
+            />
             <ProfileLayout>
                 <div className={styles.orders__wrapper}>
                     <div className={styles.orders__head}>

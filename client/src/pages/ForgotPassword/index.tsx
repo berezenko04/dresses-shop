@@ -13,6 +13,7 @@ import AuthField from '../../components/AuthField'
 import Button from '../../components/Button'
 import AuthFormHead from "@/components/AuthFormHead"
 import Timer from "@/components/Timer"
+import MetaHead from "@/components/MetaHead"
 import AuthLayout from '@/layout/AuthLayout'
 
 //redux
@@ -57,6 +58,10 @@ const ForgotPassword: React.FC = () => {
 
     return (
         <AuthLayout>
+            <MetaHead
+                title='Forgot Password'
+                desc="Forgot your password? No worries! Follow the steps to reset your password and continue to experience the wonder of Sandrela's enchanting and extraordinary products and services."
+            />
             {!verified ?
                 <AuthFormHead
                     title="Forgot password?"

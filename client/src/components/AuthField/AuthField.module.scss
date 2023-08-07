@@ -31,6 +31,7 @@
             line-height: 24px;
             border: 1px solid $grey-100;
             transition: all 0.25s ease-in-out;
+            border-radius: 0;
 
             &:focus {
                 border-color: $primary-500;

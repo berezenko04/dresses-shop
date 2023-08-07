@@ -4,6 +4,8 @@ import styles from './Notifications.module.scss'
 //components
 import Switch from '@/components/Switch';
 import ProfileLayout from '@/layout/ProfileLayout';
+import MetaHead from '@/components/MetaHead';
+
 
 const Notifications: React.FC = () => {
     const notificationsList = [
@@ -31,6 +33,10 @@ const Notifications: React.FC = () => {
 
     return (
         <div className={styles.notifications}>
+            <MetaHead
+                title='Notifications'
+                desc='View and manage your notifications at Sandrela.'
+            />
             <ProfileLayout>
                 <div className={styles.notifications__wrapper}>
                     <h3>Notifications</h3>

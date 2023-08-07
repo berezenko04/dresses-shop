@@ -1,14 +1,22 @@
 @import "@/scss/variables.scss";
+@import "@/scss/mixins.scss";
 
 .page {
     height: 100vh;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 32px;
     background-color: $bg-grey-100;
+
+    @include Tablet {
+        grid-template-columns: 1fr;
+    }
 
     &__left {
         position: relative;
+
+        @include Tablet {
+            display: none;
+        }
 
         &::after {
             content: "";
@@ -40,6 +48,7 @@
             position: absolute;
             display: flex;
             flex-direction: column;
+            padding: 0 32px;
             gap: 24px;
             bottom: 72px;
             z-index: 1;
@@ -62,7 +71,6 @@
                 font-size: 20px;
                 line-height: 30px;
                 color: $white;
-                text-align: center;
             }
         }
     }
@@ -73,5 +81,14 @@
         align-items: center;
         justify-content: center;
         gap: 32px;
+        padding: 32px;
+
+        @include SmallTablet {
+            gap: 16px;
+        }
+
+        @include Mobile {
+            padding: 16px;
+        }
     }
 }

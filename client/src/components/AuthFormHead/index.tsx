@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 //styles
 import styles from './AuthFormHead.module.scss'
 
@@ -12,14 +14,14 @@ type TAuthFormHeadProps = {
 const AuthFormHead: React.FC<TAuthFormHeadProps> = ({ title, text }) => {
     return (
         <div className={styles.head}>
-            <div className={styles.head__logo}>
+            <Link to={'/'} className={styles.head__logo}>
                 <LogoIcon />
-            </div>
+            </Link>
             <div className={styles.head__text}>
                 <h2>{title}</h2>
                 <p>{text}</p>
             </div>
-        </div>
+        </div >
     )
 }
 

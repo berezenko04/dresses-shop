@@ -5,11 +5,13 @@ import styles from './Error404.module.scss'
 
 //images
 import ErrorImage from '@/assets/img/404.webp'
+
+//icons
 import { ReactComponent as ArrowLeftIcon } from '@/assets/icons/arrow-left.svg'
 
 //components
 import Button from '@/components/Button'
-
+import MetaHead from '@/components/MetaHead'
 
 
 const Error404: React.FC = () => {
@@ -17,6 +19,10 @@ const Error404: React.FC = () => {
 
     return (
         <div className={styles.page}>
+            <MetaHead
+                title='Error 404'
+                desc="Error 404. Not found"
+            />
             <div className='container'>
                 <div className={styles.page__wrapper}>
                     <div className={styles.page__left}>

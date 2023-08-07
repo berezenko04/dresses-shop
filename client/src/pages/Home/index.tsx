@@ -11,6 +11,7 @@ import SectionBlock from '@/components/SectionBlock'
 import Header from '@/components/Header'
 import Button from '@/components/Button'
 import SwiperBlock from '@/components/SwiperBlock'
+import MetaHead from '@/components/MetaHead'
 
 //redux
 import { fetchProducts } from '@/redux/products/asyncActions'
@@ -31,7 +32,6 @@ import ForbesLogo from '@/assets/img/logos/forbes.webp'
 import WashingtonLogo from '@/assets/img/logos/washington-post.webp'
 import AmazonLogo from '@/assets/img/logos/amazon.webp'
 import SquareLogo from '@/assets/img/logos/square.webp'
-
 
 
 const Home: React.FC = () => {
@@ -58,6 +58,10 @@ const Home: React.FC = () => {
 
     return (
         <div className={styles.page}>
+            <MetaHead
+                title='Homepage'
+                desc="Welcome to Sandrela's homepage! Discover our latest products and services, designed to make your life magical and extraordinary. Join us on a journey of enchantment and elegance. Experience the wonder of Sandrela today!"
+            />
             <Header />
             <SectionBlock>
                 <h2>Our Categories</h2>

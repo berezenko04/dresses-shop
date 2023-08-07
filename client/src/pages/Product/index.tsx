@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import cn from 'classnames'
 import { LazyLoadImage } from 'react-lazy-load-image-component';
+import { toast } from 'react-toastify';
 
 //styles
 import styles from './Product.module.scss'
@@ -15,6 +16,7 @@ import Comment from '@/components/Comment';
 import Button from '@/components/Button';
 import CommentSkeleton from '@/components/Skeletons/CommentSkeleton';
 import PostComment from '@/components/PostComment';
+import MetaHead from '@/components/MetaHead';
 
 //redux
 import { useAppDispatch } from '@/redux/store';
@@ -33,7 +35,6 @@ import { ReactComponent as StarActiveIcon } from '@/assets/icons/star.svg'
 
 //service
 import { getProduct } from '@/API/dressesService';
-import { toast } from 'react-toastify';
 
 
 const Product: React.FC = () => {
@@ -41,7 +42,6 @@ const Product: React.FC = () => {
     const [imageIndex, setImageIndex] = useState(0);
     const [product, setProduct] = useState<TProductItem>();
     const [isLoading, setIsLoading] = useState(false);
-
 
     const { id } = useParams();
     const dispatch = useAppDispatch();
@@ -82,10 +82,14 @@ const Product: React.FC = () => {
     }
 
     return (
-        <div className={styles.page} >
+        <div className={styles.page}>
             <div className="container">
                 {(!isLoading && product) &&
                     <div className={styles.page__wrapper}>
+                        <MetaHead
+                            title={product.title}
+                            desc={product.desc}
+                        />
                         <div className={styles.page__product}>
                             <div className={styles.page__product__left}>
                                 <div className={styles.page__product__left__images}>

@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { useEffect, useState, useRef } from 'react'
 import cn from 'classnames'
-import { debounce } from 'lodash'
+import { debounce, set } from 'lodash'
 
 //styles
 import styles from './Navbar.module.scss'
@@ -11,12 +11,14 @@ import styles from './Navbar.module.scss'
 import CartOverlay from '../CartOverlay'
 import Button from '../Button'
 import SearchBar from '../SearchBar'
+import NavbarOpened from '../NavbarOpened'
 
 //icons
 import { ReactComponent as PhoneIcon } from '@/assets/icons/phone.svg'
 import { ReactComponent as FavoriteIcon } from '@/assets/icons/heart.svg'
 import { ReactComponent as CartIcon } from '@/assets/icons/cart.svg'
 import { ReactComponent as PlatesIcon } from '@/assets/icons/grid-plates.svg'
+import { ReactComponent as MenuIcon } from '@/assets/icons/burger.svg'
 
 //redyx
 import { userDataSelector, isAuthSelector } from '@/redux/user/selectors'
@@ -25,11 +27,12 @@ import { fetchAuthMe } from '@/redux/user/asyncActions'
 import { cartSelector } from '@/redux/cart/selectors'
 import { wishListSelector } from '@/redux/wishList/selectors'
 import { fetchWishList } from '@/redux/wishList/asyncActions'
-
+import Logo from '../Logo'
 
 
 const Navbar: React.FC = () => {
     const [isScrolled, setIsScrolled] = useState(false);
+    const [isMenuOpened, setIsMenuOpened] = useState(false);
     const links = [
         'Find a Store',
         'Help',
@@ -68,7 +71,6 @@ const Navbar: React.FC = () => {
         }
     }, [])
 
-
     useEffect(() => {
         const handleClickOutside = (e: MouseEvent) => {
             if (overlayRef.current && !overlayRef.current.contains(e.target as HTMLElement) && isOpened) {
@@ -91,6 +93,12 @@ const Navbar: React.FC = () => {
     return (
         <>
             <nav className={cn(styles.navbar, isScrolled && styles.shadow)}>
+                {isMenuOpened &&
+                    <NavbarOpened
+                        setIsMenuOpened={setIsMenuOpened}
+                        handleOverlayClick={handleOverlayClick}
+                    />
+                }
                 <div className={styles.navbar__top}>
                     <div className="container">
                         <div className={styles.navbar__top__wrapper}>
@@ -115,12 +123,12 @@ const Navbar: React.FC = () => {
                 <div className={styles.navbar__bottom}>
                     <div className="container">
                         <div className={styles.navbar__bottom__wrapper}>
-                            <Link to="/" className={styles.navbar__logo}>Sandrela</Link>
-                            <div className={styles.navbar__bottom__center}>
-                                <Link to='/dresses' className={styles.navbar__bottom__center__catalog}>
-                                    <PlatesIcon />
-                                    <span>Catalog</span>
-                                </Link>
+                            <Logo variant='dark' />
+                            <Link to='/dresses' className={styles.navbar__bottom__catalog}>
+                                <PlatesIcon />
+                                <span>Catalog</span>
+                            </Link>
+                            <div className={styles.navbar__bottom__searchbar}>
                                 <SearchBar />
                             </div>
                             {isAuth ?
@@ -129,7 +137,10 @@ const Navbar: React.FC = () => {
                                         <FavoriteIcon />
                                         {wishList.length > 0 && <span>{wishList.length}</span>}
                                     </Link>
-                                    <button onClick={handleOverlayClick}>
+                                    <button
+                                        onClick={handleOverlayClick}
+                                        className={styles.navbar__bottom__user__cart}
+                                    >
                                         <CartIcon />
                                         {cartItems.length > 0 && <span>{cartItems.length}</span>}
                                     </button>
@@ -139,6 +150,12 @@ const Navbar: React.FC = () => {
                                     >
                                         <img src={data?.avatarUrl} alt="" />
                                     </Link>
+                                    <button
+                                        className={styles.navbar__bottom__user__burger}
+                                        onClick={() => setIsMenuOpened(!isMenuOpened)}
+                                    >
+                                        <MenuIcon />
+                                    </button>
                                 </div>
                                 :
                                 <div className={styles.navbar__bottom__auth}>
@@ -152,6 +169,12 @@ const Navbar: React.FC = () => {
                                             Login
                                         </Button>
                                     </Link>
+                                    <button
+                                        className={styles.navbar__bottom__user__burger}
+                                        onClick={() => setIsMenuOpened(!isMenuOpened)}
+                                    >
+                                        <MenuIcon />
+                                    </button>
                                 </div>
                             }
                         </div>

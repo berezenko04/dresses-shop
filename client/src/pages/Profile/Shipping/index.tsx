@@ -10,9 +10,11 @@ import Button from '@/components/Button'
 import AuthField from '@/components/AuthField'
 import ShippingInfo from '@/components/ShippingInfo'
 import ProfileLayout from '@/layout/ProfileLayout'
+import MetaHead from '@/components/MetaHead'
 
 //redux
 import { updateUserAsync } from '@/redux/user/asyncActions'
+
 
 type TShippingFormValues = {
     country: string,
@@ -36,6 +38,10 @@ const Shipping: React.FC = () => {
     }
     return (
         <div className={styles.shipping}>
+            <MetaHead
+                title='Shipping'
+                desc='Learn about our shipping options at Sandrela. View and manage your orders while experiencing the wonder of our enchanting and extraordinary products and services.'
+            />
             <ProfileLayout>
                 <div className={styles.shipping__wrapper}>
                     <div className={styles.shipping__head}>
