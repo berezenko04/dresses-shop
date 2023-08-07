@@ -14,6 +14,7 @@ import Filters from '@/components/Filters';
 import EmptyState from '@/components/EmptyState';
 import DropdownSort from '@/components/DropdownSort';
 import MetaHead from '@/components/MetaHead';
+import MetaHead from '@/components/MetaHead';
 
 //icons
 import { ReactComponent as FilterIcon } from '@/assets/icons/filter.svg'
@@ -21,6 +22,7 @@ import { ReactComponent as FilterIcon } from '@/assets/icons/filter.svg'
 //redux
 import { productsLengthSelector, productsSelector, productsStatusSelector } from '@/redux/products/selectors'
 import { fetchProducts } from '@/redux/products/asyncActions'
+
 
 
 const Products: React.FC = () => {
