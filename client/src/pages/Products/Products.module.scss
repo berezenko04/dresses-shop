@@ -1,4 +1,5 @@
 @import "@/scss/variables.scss";
+@import '@/scss/mixins.scss';
 
 .page {
     display: flex;
@@ -15,7 +16,7 @@
             font-family: "Placid Armor", serif;
         }
 
-        &__sort {
+        &__filters {
             display: flex;
             align-items: center;
             gap: 8px;
@@ -37,6 +38,10 @@
     &__sort {
         max-width: 232px;
         width: 100%;
+
+        @include Laptop {
+            display: none !important;
+        }
     }
 
     &__main {
@@ -46,7 +51,7 @@
 
         &__content {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 32px;
             width: 100%;
         }

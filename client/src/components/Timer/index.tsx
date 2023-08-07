@@ -1,4 +1,4 @@
-import Countdown from 'react-countdown-now';
+import Countdown from 'react-countdown';
 
 //styles
 import styles from './Timer.module.scss'

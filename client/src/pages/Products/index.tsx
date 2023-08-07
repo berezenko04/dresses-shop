@@ -22,9 +22,6 @@ import { productsLengthSelector, productsSelector, productsStatusSelector } from
 import { fetchProducts } from '@/redux/products/asyncActions'
 
 
-
-
-
 const Products: React.FC = () => {
     const [showFilters, setShowFilters] = useState(true);
     const limit = isMobile ? 8 : 12;
@@ -47,7 +44,7 @@ const Products: React.FC = () => {
             <div className={styles.page}>
                 <div className={styles.page__head}>
                     <h3>Dresses ({productsLength ? productsLength : 0})</h3>
-                    <div className={styles.page__head__sort}>
+                    <div className={styles.page__head__filters}>
                         <button onClick={() => setShowFilters(!showFilters)}>
                             {showFilters ? 'Hide filters' : 'Show filters'}
                             <FilterIcon />
