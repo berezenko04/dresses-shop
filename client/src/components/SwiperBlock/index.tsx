@@ -53,7 +53,7 @@ const SwiperBlock: React.FC<ISwiperBlockProps> = ({ products, title }) => {
             <div>
                 <Swiper
                     spaceBetween={32}
-                    slidesPerView={3.2}
+                    slidesPerView={3}
                     modules={[Navigation]}
                     onBeforeInit={(swiper) => {
                         swiperRef.current = swiper;

@@ -27,7 +27,7 @@ const Error404: React.FC = () => {
                 <div className={styles.page__wrapper}>
                     <div className={styles.page__left}>
                         <img src={ErrorImage} alt="404" />
-                        <div className={styles.circle} />
+                        <div className={styles.circle} /> 
                     </div>
                     <div className={styles.page__right}>
                         <h3>404 Error</h3>

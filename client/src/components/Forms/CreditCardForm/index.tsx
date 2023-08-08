@@ -5,6 +5,7 @@ import { number } from 'card-validator'
 import { useSelector } from 'react-redux'
 import { useAppDispatch } from '@/redux/store'
 import { toast } from 'react-toastify'
+import { useNavigate } from 'react-router-dom'
 
 //styles
 import styles from './CreditCardForm.module.scss'
@@ -22,6 +23,7 @@ import { userDataSelector } from '@/redux/user/selectors'
 
 //utils
 import { formatDate } from '@/utils/formatDate'
+
 
 interface IPaymentForm {
     fullName: string,
@@ -46,6 +48,8 @@ const CreditCardForm: React.FC = () => {
         const { name } = e.currentTarget;
         setFormValues({ ...formValues, focus: name as Focused });
     }
+
+    const navigate = useNavigate();
 
     const dispatch = useAppDispatch();
     const { totalPrice, cartItems } = useSelector(cartSelector);
@@ -101,6 +105,7 @@ const CreditCardForm: React.FC = () => {
                 products: cartItems,
             }));
             dispatch(clearCart());
+            navigate('/order-success');
             window.scrollTo(0, 0);
             toast.success('Your order has been accepted');
         } else {

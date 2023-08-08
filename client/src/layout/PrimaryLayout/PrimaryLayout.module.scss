@@ -1,0 +1,13 @@
+@import '@/scss/mixins.scss';
+
+.main {
+    padding: 60px 0;
+
+    @include SmallTablet {
+        padding: 40px 0;
+    }
+
+    @include Mobile {
+        padding: 24px 0;
+    }
+}

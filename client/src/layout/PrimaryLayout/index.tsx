@@ -2,6 +2,7 @@ import { Outlet, useLocation } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify';
 
 //styles
+import styles from './PrimaryLayout.module.scss'
 import 'react-toastify/dist/ReactToastify.css';
 
 //components
@@ -18,7 +19,7 @@ const PrimaryLayout: React.FC = () => {
             <SupportUkraine />
             <Navbar />
             {location.pathname !== '/' && <BreadCrumbs />}
-            <main style={{ paddingTop: '60px', paddingBottom: '60px' }}>
+            <main className={styles.main}>
                 <Outlet />
                 <ToastContainer
                     position="bottom-center"

@@ -9,7 +9,15 @@
     &__head {
         display: flex;
         align-items: center;
+        gap: 32px;
         justify-content: space-between;
+
+        @include AnySize(560px) {
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+            gap: 16px;
+        }
 
         h4 {
             color: $grey-700;
@@ -31,16 +39,11 @@
                 gap: 5px;
                 color: $grey-700;
                 padding: 8px;
+
+                @include Laptop {
+                    display: none !important;
+                }
             }
-        }
-    }
-
-    &__sort {
-        max-width: 232px;
-        width: 100%;
-
-        @include Laptop {
-            display: none !important;
         }
     }
 
@@ -49,9 +52,18 @@
         flex: 1;
         gap: 32px;
 
+        &__sort {
+            max-width: 232px;
+            width: 100%;
+
+            @include Laptop {
+                display: none !important;
+            }
+        }
+
         &__content {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 32px;
             width: 100%;
         }

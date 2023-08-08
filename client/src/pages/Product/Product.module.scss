@@ -1,10 +1,19 @@
 @import "@/scss/variables.scss";
+@import '@/scss/mixins.scss';
 
 .page {
     &__wrapper {
         display: flex;
         flex-direction: column;
         gap: 120px;
+
+        @include Tablet {
+            gap: 80px;
+        }
+
+        @include SmallTablet {
+            gap: 64px;
+        }
     }
 
     &__product {
@@ -12,33 +21,58 @@
         grid-template-columns: 6fr 6fr;
         gap: 32px;
 
+        @include SmallTablet {
+            display: flex;
+            flex-direction: column;
+        }
+
         &__left {
             display: flex;
             width: 100%;
             gap: 32px;
 
+            @include AnySize(1150px) {
+                flex-direction: column-reverse;
+                gap: 0;
+            }
+
             &__images {
                 display: flex;
                 flex-direction: column;
                 gap: 8px;
-                max-width: 128px;
-                width: 100%;
-                min-width: 80px;
+                width: 128px;
+                min-width: 90px;
+
+                @include AnySize(1150px) {
+                    flex-direction: row;
+                }
 
                 &__item {
                     width: 100%;
                     aspect-ratio: 1/1;
+                    min-width: 78px;
                     cursor: pointer;
+
+                    @include SmallTablet {
+                        min-width: 128px;
+                    }
+
+                    @include AnySize(600px) {
+                        min-width: 96px;
+                    }
+
+                    @include Mobile {
+                        min-width: 80px;
+                    }
 
                     &__active {
                         border: 2px solid $grey-500;
                     }
 
                     span {
-                        aspect-ratio: 1/1;
                         width: 100%;
+                        aspect-ratio: 1/1;
                         display: block !important;
-                        position: relative;
                     }
 
                     img {
@@ -57,6 +91,10 @@
                 width: 100%;
                 aspect-ratio: 1/1.33;
 
+                @include AnySize(1150px) {
+                    flex-direction: column-reverse;
+                }
+
                 span {
                     display: block !important;
                     aspect-ratio: 1/1.33;
@@ -74,6 +112,18 @@
         &__right {
             width: 100%;
             padding: 0 64px;
+
+            @include Laptop {
+                padding: 0 32px;
+            }
+
+            @include Tablet {
+                padding: 0 16px;
+            }
+
+            @include SmallTablet {
+                padding: 0;
+            }
 
             &__wrapper {
                 display: flex;
@@ -139,7 +189,7 @@
 
                 &__list {
                     display: grid;
-                    grid-template-columns: repeat(5, 1fr);
+                    grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
                     gap: 8px;
 
                     li {
@@ -189,9 +239,18 @@
         flex-direction: column;
         gap: 64px;
 
+        @include SmallTablet {
+            gap: 40px;
+        }
+
         &__rating {
             display: flex;
             gap: 64px;
+
+            @include SmallTablet {
+                gap: 32px;
+                flex-direction: column;
+            }
 
             &__left {
                 span {
@@ -229,11 +288,13 @@
                 display: flex;
                 flex-direction: column;
                 gap: 12px;
+                width: 100%;
 
                 &__item {
                     display: flex;
                     align-items: center;
                     gap: 16px;
+                    width: 100%;
 
                     &__stars {
                         display: flex;
@@ -251,8 +312,14 @@
                         }
                     }
 
+                    p {
+                        font-weight: 500;
+                        color: $grey-300;
+                    }
+
                     &__fill {
-                        width: 500px;
+                        max-width: 500px;
+                        width: 100%;
                         height: 8px;
                         background-color: $grey-100;
 

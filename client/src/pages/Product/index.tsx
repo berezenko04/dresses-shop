@@ -35,6 +35,7 @@ import { ReactComponent as StarActiveIcon } from '@/assets/icons/star.svg'
 
 //service
 import { getProduct } from '@/API/dressesService';
+import { Swiper, SwiperSlide } from 'swiper/react';
 
 
 const Product: React.FC = () => {
@@ -92,7 +93,9 @@ const Product: React.FC = () => {
                         />
                         <div className={styles.page__product}>
                             <div className={styles.page__product__left}>
-                                <div className={styles.page__product__left__images}>
+                                <div
+                                    className={styles.page__product__left__images}
+                                >
                                     {product.images.map((image, index) => (
                                         <div
                                             className={
@@ -199,6 +202,7 @@ const Product: React.FC = () => {
                                             <div className={styles.page__reviews__rating__right__item__fill}>
                                                 <div style={{ width: `${ratingsCount !== 0 ? (findRating(5 - index) * 100) / ratingsCount : 0}%` }} />
                                             </div>
+                                            <p>{findRating(5 - index)}</p>
                                         </div>
                                     ))}
                                 </div>
