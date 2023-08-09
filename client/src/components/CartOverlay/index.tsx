@@ -20,7 +20,6 @@ import { cartSelector } from "@/redux/cart/selectors";
 import { fetchCart } from "@/redux/cart/asyncActions";
 
 
-
 interface ICartOverlayProps {
   handleOverlayClick: () => void;
   isOpened: boolean;

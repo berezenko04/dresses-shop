@@ -34,12 +34,21 @@ const CartItem: React.FC<TCartItemProps> = ({ cart, readable = false }) => {
     return (
         <article className={styles.item}>
             <div className={styles.item__image}>
-                    <img src={imageUrl} alt={title} />
+                <img src={imageUrl} alt={title} />
             </div>
             <div className={styles.item__content}>
                 <div className={styles.item__content__main}>
                     <h4>{title}</h4>
-                    <CardPrice price={price * quantity} discount={discount} />
+                    <div className={styles.item__content__main__prices}>
+                        <p>
+                            {price} UAH
+                        </p>
+                        {discount !== 0 &&
+                            <span>
+                                {price * (1 - discount)} UAH
+                            </span>
+                        }
+                    </div>
                     {discount !== 0 && <span>{discount * 100}% off</span>}
                 </div>
                 <div className={styles.item__content__info}>

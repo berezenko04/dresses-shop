@@ -60,9 +60,12 @@
         &__item {
             button {
                 transition: all 0.15s ease-in;
-                text-transform: none;
                 padding: 8px 16px;
                 width: 100%;
+                display: flex;
+                justify-content: flex-start;
+                font-size: 16px;
+                line-height: 150%;
 
                 &:hover {
                     background-color: $grey-75;

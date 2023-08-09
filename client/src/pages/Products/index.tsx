@@ -33,7 +33,10 @@ const Products: React.FC = () => {
     const pageCount = Math.ceil(productsLength / limit);
 
     const handlePageChange = (newPage: number) => {
-        dispatch(fetchProducts({ page: newPage, limit }));
+        console.log(newPage);
+        if (newPage > 1) {
+            dispatch(fetchProducts({ page: newPage, limit }));
+        }
     }
 
     useEffect(() => {
@@ -50,7 +53,10 @@ const Products: React.FC = () => {
                 <div className={styles.page__head}>
                     <h3>Dresses ({productsLength ? productsLength : 0})</h3>
                     <div className={styles.page__head__filters}>
-                        <button onClick={() => setShowFilters(!showFilters)}>
+                        <button
+                            className={styles.page__head__filters__switch}
+                            onClick={() => setShowFilters(!showFilters)}
+                        >
                             {showFilters ? 'Hide filters' : 'Show filters'}
                             <FilterIcon />
                         </button>

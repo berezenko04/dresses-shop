@@ -1,4 +1,5 @@
 @import "@/scss/variables.scss";
+@import '@/scss/mixins.scss';
 
 .total {
     display: flex;
@@ -19,6 +20,7 @@
         }
 
         &:last-child {
+
             p,
             span {
                 font-weight: 500;
@@ -26,6 +28,10 @@
                 line-height: 36px;
                 text-transform: uppercase;
                 color: $grey-700;
+
+                @include Mobile {
+                    font-size: 20px;
+                }
             }
         }
     }

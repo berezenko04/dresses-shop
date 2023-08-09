@@ -1,4 +1,5 @@
 @import "@/scss/variables.scss";
+@import "@/scss/mixins.scss";
 
 .item {
     display: grid;
@@ -7,6 +8,10 @@
     position: relative;
     padding-bottom: 24px;
     border-bottom: 1px solid $grey-200;
+
+    @include Mobile {
+        grid-template-columns: 160px 1fr;
+    }
 
     &:last-child {
         border: none;
@@ -27,7 +32,7 @@
     &__content {
         display: flex;
         flex-direction: column;
-        gap: 22px;
+        gap: 24px;
         flex: 1;
 
         &__main {
@@ -50,6 +55,33 @@
             span {
                 color: $green-500;
             }
+
+            &__prices {
+                display: flex;
+                align-items: center;
+                gap: 16px;
+
+                @include SmallTablet {
+                    flex-direction: column;
+                    align-items: flex-start;
+                    gap: 8px;
+                }
+
+                p,
+                span {
+                    font-size: 20px;
+                    font-weight: 500;
+                    text-decoration-line: strikethrough;
+                }
+
+                p {
+                    color: $primary-500;
+                }
+
+                span {
+                    color: $grey-300;
+                }
+            }
         }
 
         &__info {
@@ -69,6 +101,11 @@
                 display: flex;
                 align-items: center;
                 gap: 12px;
+
+                @include Mobile {
+                    flex-direction: column;
+                    align-items: flex-start;
+                }
 
                 &__field {
                     padding: 4px;
