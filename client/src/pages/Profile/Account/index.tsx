@@ -22,7 +22,6 @@ import { userDataSelector } from '@/redux/user/selectors'
 import { updateUserAsync } from '@/redux/user/asyncActions'
 
 
-
 interface IEditFormValues {
     name: string,
     lastName: string,
@@ -81,7 +80,7 @@ const Account: React.FC = () => {
                         <div className={styles.account__edit}>
                             <div className={styles.account__edit__head}>
                                 <div className={styles.account__edit__head__avatar}>
-                                    <img src={data?.avatarUrl} alt="" />
+                                    <img src={data?.avatarUrl} alt="avatar" />
                                 </div>
                                 <div className={styles.account__edit__head__info}>
                                     <button onClick={handleVisible}>Change photo profile</button>
@@ -149,8 +148,10 @@ const Account: React.FC = () => {
                                 <div className={styles.account__default__head__avatar}>
                                     <img src={data?.avatarUrl} alt="" />
                                 </div>
-                                <h3>{`${data?.name} ${data?.lastName}`}</h3>
-                                <button onClick={() => setEditable(true)}><EditIcon /></button>
+                                <div className={styles.account__default__head__info}>
+                                    <h3>{`${data?.name} ${data?.lastName}`}</h3>
+                                    <button onClick={() => setEditable(true)}><EditIcon /></button>
+                                </div>
                             </div>
                             <div className={styles.account__default__info}>
                                 <h3>Profile information</h3>

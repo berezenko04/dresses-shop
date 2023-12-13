@@ -14,7 +14,7 @@ export type TOrderItem = {
     status?: string,
     subTotal: number,
     shippingMethod?: string,
-    shipmentCost?: number,
+    shipmentCost: number,
     shippingAddress?: string,
     paymentMethod: string,
     trackingNumber?: string,

@@ -1,10 +1,10 @@
 @import "@/scss/variables.scss";
+@import '@/scss/mixins.scss';
 
 .account {
     &__upload {
-        position: absolute;
-        display: flex;
-        top: 40%;
+        position: fixed;
+        top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
         z-index: 9999;
@@ -25,6 +25,7 @@
                 height: 64px;
                 border-radius: 50%;
                 overflow: hidden;
+                flex-shrink: 0;
 
                 img {
                     width: 100%;
@@ -67,6 +68,10 @@
                 gap: 16px;
                 width: 50%;
 
+                @include Tablet {
+                    width: 100%;
+                }
+
                 &__sex {
                     display: flex;
                     flex-direction: column;
@@ -96,12 +101,18 @@
             align-items: center;
             gap: 16px;
 
+            @include Mobile {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
             &__avatar {
                 width: 100px;
                 height: 100px;
                 border-radius: 50%;
                 overflow: hidden;
                 border: 1px solid $grey-100;
+                flex-shrink: 0;
 
                 img {
                     width: 100%;
@@ -109,6 +120,12 @@
                     object-fit: cover;
                     object-position: center;
                 }
+            }
+
+            &__info {
+                display: flex;
+                align-items: center;
+                gap: 16px;
             }
 
             button {
@@ -124,6 +141,10 @@
             text-transform: uppercase;
             color: $grey-500;
             font-family: "Poppins", sans-serif;
+
+            @include Mobile {
+                font-size: 20px;
+            }
         }
 
         &__info {

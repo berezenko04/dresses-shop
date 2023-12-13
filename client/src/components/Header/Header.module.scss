@@ -1,4 +1,5 @@
 @import "@/scss/variables.scss";
+@import '@/scss/mixins.scss';
 
 .header {
     margin-top: -60px;
@@ -11,6 +12,14 @@
         background-position: center;
         background-size: cover;
         padding-top: 70px;
+
+        @include Tablet {
+            height: 400px;
+        }
+
+        @include Mobile {
+            height: 340px;
+        }
     }
 
     h1 {
@@ -22,5 +31,17 @@
         text-transform: uppercase;
         color: $grey-50;
         text-align: center;
+
+        @include Tablet {
+            font-size: 48px;
+        }
+
+        @include SmallTablet {
+            font-size: 36px;
+        }
+
+        @include Mobile {
+            font-size: 32px;
+        }
     }
 }

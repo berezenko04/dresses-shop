@@ -1,4 +1,5 @@
 @import "@/scss/variables.scss";
+@import '@/scss/mixins.scss';
 
 .card {
     display: flex;
@@ -7,6 +8,10 @@
 
     &__image {
         height: 535px;
+
+        @include Tablet {
+            height: 400px;
+        }
     }
 
     a span {

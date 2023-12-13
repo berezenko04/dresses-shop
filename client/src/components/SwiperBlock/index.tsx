@@ -62,6 +62,17 @@ const SwiperBlock: React.FC<ISwiperBlockProps> = ({ products, title }) => {
                         setPrevButtonDisabled(swiperRef.current?.isBeginning!);
                         setNextButtonDisabled(swiperRef.current?.isEnd!);
                     }}
+                    breakpoints={{
+                        0: {
+                            slidesPerView: 1
+                        },
+                        480: {
+                            slidesPerView: 2
+                        },
+                        768: {
+                            slidesPerView: 3
+                        }
+                    }}
                 >
                     {products.map((product) => (
                         <SwiperSlide key={product.id}>

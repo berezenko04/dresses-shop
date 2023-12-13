@@ -78,7 +78,7 @@ function App() {
 
   useEffect(() => {
     dispatch(fetchAuthMe());
-  }, [])
+  }, []);
 
   const token = localStorage.getItem('token');
 

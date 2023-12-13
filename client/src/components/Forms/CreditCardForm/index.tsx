@@ -103,11 +103,11 @@ const CreditCardForm: React.FC = () => {
                 subTotal: totalPrice,
                 discount: 0,
                 products: cartItems,
+                shipmentCost: 1200
             }));
             dispatch(clearCart());
-            navigate('/order-success');
+            navigate(`/order-success`);
             window.scrollTo(0, 0);
-            toast.success('Your order has been accepted');
         } else {
             toast.error('Please set your shipping address');
         }
@@ -201,7 +201,11 @@ const CreditCardForm: React.FC = () => {
                             {...register('cvc', {
                                 required: true,
                                 onChange: handleChange,
-                                min: 3
+                                min: 3,
+                                pattern: {
+                                    value: /^[0-9]+$/,
+                                    message: "Invalid CVV"
+                                }
                             })}
                         />
                     </div>

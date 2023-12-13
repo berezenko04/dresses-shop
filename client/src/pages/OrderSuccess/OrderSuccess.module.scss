@@ -1,4 +1,5 @@
 @import "@/scss/variables.scss";
+@import "@/scss/mixins.scss";
 
 .page {
     &__wrapper {
@@ -6,42 +7,34 @@
         grid-template-columns: 1fr 1fr;
         gap: 32px;
         align-items: center;
+
+        @include Tablet {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 16px;
+        }
     }
+
 
     &__left {
         width: 100%;
-        height: 600px;
         display: flex;
-        justify-content: center;
-        position: relative;
-        overflow: hidden;
 
-        &::after {
-            content: "";
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(180deg, rgba(255, 255, 255, 0) 63.33%, #ffffff 100%);
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
+        @include Tablet {
+            width: auto;
+            height: 300px;
+        }
+
+        @include Mobile {
+            height: 200px;
         }
 
         img {
+            width: 100%;
             height: 100%;
             object-position: center;
             object-fit: cover;
-        }
-
-        .circle {
-            position: absolute;
-            width: 100%;
-            aspect-ratio: 1/1;
-            background-color: $grey-50;
-            border-radius: 50%;
-            top: 25%;
-            z-index: -1;
         }
     }
 
@@ -50,6 +43,11 @@
         flex-direction: column;
         gap: 30px;
 
+        @include Tablet {
+            gap: 16px;
+            align-items: center;
+        }
+
         h1 {
             font-weight: 500;
             font-size: 60px;
@@ -57,16 +55,34 @@
             text-transform: uppercase;
             color: $primary-500;
             font-family: "Placid Armor", serif;
+
+            @include AnySize(1200px) {
+                font-size: 40px;
+                line-height: normal;
+            }
+
+            @include SmallTablet {
+                text-align: center;
+            }
         }
 
         p {
             color: $grey-500;
+
+            @include SmallTablet {
+                text-align: center;
+            }
         }
 
         &__buttons {
             display: flex;
             align-items: center;
             gap: 32px;
+
+            @include Mobile {
+                flex-direction: column;
+                gap: 16px;
+            }
 
             button {
                 width: max-content;

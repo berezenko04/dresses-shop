@@ -19,20 +19,58 @@
     }
 
     &__main {
-        border: 1px solid $grey-50;
+        border: 2px solid $grey-50;
+        width: 100%;
+        overflow-x: auto;
 
         &__head {
-            width: 100%;
             background-color: $grey-50;
             display: grid;
-            padding: 16px 0;
-            grid-template-columns: 104px 1fr 2fr 1fr 2fr 3fr 1fr;
+            grid-template-columns: 1fr 2fr 2fr 1fr 2fr 2fr 2fr;
+            gap: 0;
+            padding: 0 8px;
 
             p {
                 font-weight: 500;
                 text-transform: uppercase;
                 color: $grey-700;
+                padding: 16px;
+                white-space: nowrap;
             }
         }
+
+        // td {
+        //     padding: 16px;
+        // }
+
+        // thead {
+        //     background-color: $grey-50;
+
+        //     td {
+        //         font-weight: 500;
+        //         text-transform: uppercase;
+        //         color: $grey-700;
+        //     }
+        // }
+
+        // tbody {
+        //     tr {
+        //         td:last-child {
+        //             display: flex;
+        //             align-items: center;
+        //             gap: 4px;
+
+        //             button {
+        //                 width: 40px;
+        //                 height: 40px;
+        //                 display: flex;
+        //                 align-items: center;
+        //                 justify-content: center;
+        //             }
+        //         }
+        //     }
+        // }
+
+
     }
 }

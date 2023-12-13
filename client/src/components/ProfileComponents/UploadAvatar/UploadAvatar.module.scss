@@ -1,15 +1,29 @@
 @import "@/scss/variables.scss";
+@import '@/scss/mixins.scss';
 
 .upload {
     background-color: $white;
     padding: 24px;
     width: 580px;
 
+    @include SmallTablet {
+        width: 400px;
+    }
+
+    @include Mobile {
+        width: 340px;
+        padding: 12px;
+    }
+
     &__form {
         display: flex;
         flex-direction: column;
         align-items: center;
         gap: 24px;
+
+        @include Mobile {
+            gap: 16px;
+        }
 
         &__heading {
             font-weight: 500;
@@ -40,19 +54,22 @@
             background-color: $primary-50;
             padding: 28px 16px;
             background-image: linear-gradient(to right, $primary-500 50%, transparent 50%),
-                linear-gradient(to right, $primary-500 50%, transparent 50%),
+                linear-gradient(to right, $primary-500 50%, transparent 50%), 
                 linear-gradient(to bottom, $primary-500 50%, transparent 50%),
                 linear-gradient(to bottom, $primary-500 50%, transparent 50%);
             background-position: left top, left bottom, left top, right top;
             background-repeat: repeat-x, repeat-x, repeat-y, repeat-y;
             background-size: 20px 3px, 20px 3px, 3px 20px, 3px 20px;
-
             display: flex;
             width: 100%;
             flex-direction: column;
             align-items: center;
             gap: 4px;
             cursor: pointer;
+
+            @include Mobile {
+                padding: 20px 12px;
+            }
 
             input {
                 display: none;

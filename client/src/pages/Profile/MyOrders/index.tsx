@@ -1,7 +1,9 @@
 import { useSelector } from 'react-redux'
 import { useAppDispatch } from '@/redux/store'
-import { useEffect } from 'react'
+import { useEffect, useState, Fragment } from 'react'
 import { toast } from 'react-toastify'
+import creditCardType from 'credit-card-type';
+import cn from 'classnames'
 
 //styles
 import styles from './MyOrders.module.scss'
@@ -16,6 +18,9 @@ import MetaHead from '@/components/MetaHead'
 
 //icons
 import { ReactComponent as UploadIcon } from '@/assets/icons/upload.svg'
+import { ReactComponent as ArrowDownIcon } from '@/assets/icons/arrow-down.svg'
+import { ReactComponent as PrintIcon } from '@/assets/icons/print.svg'
+import { ReactComponent as DownloadIcon } from '@/assets/icons/upload.svg'
 
 //redux
 import { fetchOrders } from '@/redux/orders/asyncActions'
@@ -23,11 +28,23 @@ import { ordersSelector } from '@/redux/orders/selectors'
 
 //service
 import { exportCSV } from '@/API/ordersService'
+import { TOrderItem } from '@/redux/orders/types'
 
 
 const MyOrders: React.FC = () => {
     const dispatch = useAppDispatch();
     const { orders, status, length } = useSelector(ordersSelector);
+    const [isVisible, setIsVisible] = useState<number[]>([]);
+
+    const toggleVisibility = (orderId: number) => {
+        setIsVisible((prevVisibleRows) => {
+            if (prevVisibleRows.includes(orderId)) {
+                return prevVisibleRows.filter((id) => id !== orderId);
+            } else {
+                return [...prevVisibleRows, orderId];
+            }
+        });
+    };
 
     useEffect(() => {
         dispatch(fetchOrders());
@@ -47,6 +64,8 @@ const MyOrders: React.FC = () => {
             toast.error('An error occured');
         });
     }
+
+    console.log(isVisible.includes(orders[0]?.orderId || -1));
 
     return (
         <div className={styles.orders}>
@@ -71,6 +90,73 @@ const MyOrders: React.FC = () => {
                             />
                         </div>
                         :
+                        // <table className={styles.orders__main}>
+                        //     <thead>
+                        //         <tr>
+                        //             <td></td>
+                        //             <td>Order ID</td>
+                        //             <td>Date</td>
+                        //             <td>Items</td>
+                        //             <td>Total Amount</td>
+                        //             <td>Status</td>
+                        //             <td>Action</td>
+                        //         </tr>
+                        //     </thead>
+                        //     <tbody>
+                        //         {orders.map((order) => (
+                        //             <Fragment key={order.orderId}>
+                        //                 <tr>
+                        //                     <td>
+                        //                         <button onClick={() => toggleVisibility(order.orderId || 0)}>
+                        //                             <ArrowDownIcon className={
+                        //                                 cn(isVisible.includes(order.orderId || 0) ?
+                        //                                     styles.open : styles.closed)
+                        //                             } />
+                        //                         </button>
+                        //                     </td>
+                        //                     <td>{order.orderId}</td>
+                        //                     <td>{order.date}</td>
+                        //                     <td>{order.products.length}</td>
+                        //                     <td>{order.subTotal + order.shipmentCost}</td>
+                        //                     <td><span>{order.status}</span></td>
+                        //                     <td>
+                        //                         <button>
+                        //                             <PrintIcon />
+                        //                         </button>
+                        //                         <button>
+                        //                             <DownloadIcon />
+                        //                         </button>
+                        //                     </td>
+                        //                 </tr>
+                        //                 {order.orderId && isVisible.includes(order.orderId) && (
+                        //                     <Fragment>
+                        //                         <tr>
+                        //                             <td>Shipping Address</td>
+                        //                             <td>Shipping method</td>
+                        //                             <td>Payment Method</td>
+                        //                             <td>Tracking Number</td>
+                        //                         </tr>
+                        //                         <tr>
+                        //                             <td>
+                        //                                 {order.shippingAddress}
+                        //                             </td>
+                        //                             <td>
+                        //                                 {order.shippingMethod}
+                        //                             </td>
+                        //                             <td>
+                        //                                 {`${creditCardType(order.paymentMethod)[0].niceType} **** 
+                        //                                 ${order.paymentMethod.slice(15, 19)}`}
+                        //                             </td>
+                        //                             <td>
+                        //                                 {order.trackingNumber}
+                        //                             </td>
+                        //                         </tr>
+                        //                     </Fragment>
+                        //                 )}
+                        //             </Fragment>
+                        //         ))}
+                        //     </tbody>
+                        // </table>
                         <div className={styles.orders__main}>
                             <div className={styles.orders__main__head}>
                                 <div />

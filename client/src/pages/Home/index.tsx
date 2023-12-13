@@ -71,7 +71,7 @@ const Home: React.FC = () => {
                             <img src={category.imageUrl} alt={category.title} />
                             <Link to={'/dresses'}>
                                 {category.title}
-                                <ArrowDiagonalIcon />
+                                <ArrowDiagonalIcon /> 
                             </Link>
                         </div>
                     ))}

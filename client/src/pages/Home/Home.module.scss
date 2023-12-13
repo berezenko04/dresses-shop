@@ -1,4 +1,5 @@
 @import "@/scss/variables.scss";
+@import '@/scss/mixins.scss';
 
 .page {
     display: flex;
@@ -22,6 +23,13 @@
             z-index: 1;
             transition: all 0.2s ease-in-out;
 
+            @include Tablet {
+                padding: 6px 12px;
+                font-size: 20px;
+                bottom: 16px;
+                left: 16px;
+            }
+
             &:hover {
                 background-color: $white;
                 color: $grey-500;
@@ -39,8 +47,21 @@
         grid-template-rows: 1fr 1fr;
         gap: 32px;
 
+        @include SmallTablet {
+            display: flex;
+            flex-direction: column;
+        }
+
         &__item {
             position: relative;
+
+            @include SmallTablet {
+                height: 400px;
+            }
+
+            @include Mobile {
+                height: 240px;
+            }
 
             &:nth-child(1) {
                 grid-column: 1/2;
@@ -81,6 +102,11 @@
         grid-template-columns: 1fr 1fr;
         gap: 32px;
 
+        @include SmallTablet {
+            display: flex;
+            flex-direction: column;
+        }
+
         &__item {
             position: relative;
 
@@ -109,11 +135,43 @@
         gap: 64px;
         background-color: $grey-50;
 
+        @include Tablet {
+            display: flex;
+            gap: 48px;
+        }
+
         &__left {
             display: flex;
             flex-direction: column;
             gap: 24px;
             padding: 64px;
+
+            @include Laptop {
+                h2 {
+                    font-size: 40px;
+                    line-height: 46px;
+                }
+            }
+
+            @include Tablet {
+                padding: 32px;
+            }
+
+            @include SmallTablet {
+                h2 {
+                    font-size: 32px;
+                    line-height: normal;
+                }
+            }
+
+            @include Mobile {
+                padding: 24px;
+
+                h2 {
+                    font-size: 24px;
+                }
+            }
+
 
             button {
                 width: max-content;
@@ -121,6 +179,10 @@
         }
 
         &__right {
+            @include Tablet {
+                display: none;
+            }
+
             img {
                 object-fit: cover;
                 object-position: center;
@@ -134,6 +196,10 @@
         background-color: $grey-50;
         padding: 70px 0;
         margin-bottom: -60px;
+
+        @include AnySize(1160px) {
+            display: none;
+        }
 
         &__wrapper {
             display: flex;

@@ -65,7 +65,7 @@ const Settings: React.FC = () => {
                                 <DeviceInfo />
                                 <button onClick={() => setIsModalOpen(true)}>
                                     <TrashIcon />
-                                </button>
+                                </button> 
                             </div>
                         </div>
                     </div>

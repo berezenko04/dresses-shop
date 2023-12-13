@@ -16,7 +16,7 @@ import MetaHead from '@/components/MetaHead'
 import { updateUserAsync } from '@/redux/user/asyncActions'
 
 
-type TShippingFormValues = {
+type TShippingFormValues = { 
     country: string,
     city: string,
     address: string

@@ -129,8 +129,6 @@ const NavbarOpened: React.FC<TNavbarOpenedProps> = ({ setIsMenuOpened, handleOve
             <div className={styles.navbar__divider} />
             <a
                 href="tel:+380662284162"
-                target='_blank'
-                rel='noopener noreferrer'
                 className={styles.navbar__phone}
             >
                 <PhoneIcon />

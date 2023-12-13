@@ -1,14 +1,24 @@
 @import "@/scss/variables.scss";
+@import '@/scss/mixins.scss';
 
 .modal {
-    position: absolute;
+    position: fixed;
     background-color: $white;
     padding: 24px;
     width: 580px;
-    top: 40%;
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 9999;
+
+    @include SmallTablet {
+        width: 400px;
+    }
+
+    @include Mobile {
+        padding: 16px;
+        width: 90%;
+    }
 
     &__heading {
         font-weight: 500;

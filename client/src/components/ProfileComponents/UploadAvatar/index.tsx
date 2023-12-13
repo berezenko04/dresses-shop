@@ -12,7 +12,7 @@ import { updateUserAsync } from '@/redux/user/asyncActions';
 
 type TUploadAvatarProps = {
     handleVisible: () => void,
-    ref?: React.ForwardedRef<HTMLDivElement>;
+    ref?: React.ForwardedRef<HTMLDivElement>; 
 }
 
 const UploadAvatar = forwardRef<HTMLDivElement, TUploadAvatarProps>(({ handleVisible }, ref) => {

@@ -1,5 +1,12 @@
+@import '@/scss/mixins.scss';
+
 .layout {
     display: grid;
     grid-template-columns: 2fr 10fr;
     gap: 32px;
+
+    @include Tablet {
+        display: flex;
+        flex-direction: column;
+    }
 }

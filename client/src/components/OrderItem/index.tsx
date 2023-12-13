@@ -20,7 +20,7 @@ const OrderItem: React.FC<TOrderItem> = ({
     subTotal,
     status,
     discount,
-    shippingMethod,
+    shippingMethod, 
     shippingAddress,
     paymentMethod,
     trackingNumber,

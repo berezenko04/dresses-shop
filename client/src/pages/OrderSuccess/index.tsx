@@ -8,10 +8,7 @@ import Button from '@/components/Button'
 import MetaHead from '@/components/MetaHead'
 
 //images
-import ErrorImage from '@/assets/img/404.webp'
-
-//icons
-import { ReactComponent as ArrowLeftIcon } from '@/assets/icons/arrow-left.svg'
+import RingsImage from '@/assets/img/rings.png'
 
 
 const OrderSuccess: React.FC = () => {
@@ -26,22 +23,26 @@ const OrderSuccess: React.FC = () => {
             <div className='container'>
                 <div className={styles.page__wrapper}>
                     <div className={styles.page__left}>
-                        <img src={ErrorImage} alt="404" />
-                        <div className={styles.circle} />
+                        <img src={RingsImage} alt="Order Success" />
                     </div>
                     <div className={styles.page__right}>
-                        <h3>Thank you for order!</h3>
                         <h1>
                             Thank you for order!
                         </h1>
-                        <p> Your order will be sent to the delivery service as soon as possible</p>
+                        <p>The transaction was successful! Your order has been added to your order list.</p>
                         <div className={styles.page__right__buttons}>
-                            <Button onClick={() => navigate(-1)} theme='secondary' size='lg'>
-                                <ArrowLeftIcon />
-                                Go back
+                            <Button
+                                onClick={() => navigate('/profile/orders')}
+                                theme='secondary'
+                                size={window.innerWidth > 768 ? 'lg' : 'sm'}
+                            >
+                                Go to the order list
                             </Button>
                             <Link to={'/'}>
-                                <Button theme='primary' size='lg'>
+                                <Button
+                                    theme='primary'
+                                    size={window.innerWidth > 768 ? 'lg' : 'sm'}
+                                >
                                     Go to the main page
                                 </Button>
                             </Link>

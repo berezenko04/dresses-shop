@@ -12,7 +12,7 @@ import ProductCardSkeleton from '@/components/Skeletons/ProductCardSkeleton';
 import ProfileLayout from '@/layout/ProfileLayout';
 import Pagination from '@/components/Pagination';
 import EmptyState from '@/components/EmptyState';
-import MetaHead from '@/components/MetaHead';
+import MetaHead from '@/components/MetaHead'; 
 
 //redux
 import { wishListLengthSelector, wishListSelector, wishListStatusSelector } from '@/redux/wishList/selectors';

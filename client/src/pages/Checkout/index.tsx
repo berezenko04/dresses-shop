@@ -70,7 +70,7 @@ const Checkout: React.FC = () => {
                                 :
                                 <div className={styles.page__main__cart__empty}>
                                     <CartEmptyState />
-                                </div>
+                                </div> 
                             }
 
                             {!cartEmpty &&

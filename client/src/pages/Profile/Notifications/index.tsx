@@ -47,7 +47,9 @@ const Notifications: React.FC = () => {
                                     <h5>{item.title}</h5>
                                     <p>{item.subtitle}</p>
                                 </div>
-                                <Switch />
+                                <div className={styles.notifications__main__item__switch}>
+                                    <Switch />
+                                </div>
                             </div>
                         ))}
                     </div>
