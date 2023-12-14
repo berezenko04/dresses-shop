@@ -206,7 +206,7 @@ export const uploadAvatar = async (req, res) => {
       });
 
     res.json({
-      url: `https://dresses-shop-server.onrender.com/uploads/${destinationPath}`,
+      url: `https://dresses-shop-server.onrender.com/${destinationPath}`,
     });
   } catch (error) {
     console.error(error);
