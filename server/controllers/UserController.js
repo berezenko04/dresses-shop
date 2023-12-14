@@ -251,7 +251,7 @@ export const forgotPassword = async (req, res) => {
     }
     const secret = "secret123" + oldUser.passwordHash;
     const token = jwt.sign({ email: oldUser.email, id: oldUser._id }, secret, { expiresIn: "5m" });
-    const link = `http://localhost:5173/reset-password/${oldUser._id}/${token}/`;
+    const link = `https://dresses-shop.onrender.com/reset-password/${oldUser._id}/${token}/`;
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
